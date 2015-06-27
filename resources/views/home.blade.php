@@ -1,17 +1,14 @@
 @extends('app')
 
 @section('content')
-<div class="container">
-	<div class="row">
-		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
-				<div class="panel-heading">Home</div>
 
-				<div class="panel-body">
-					You are logged in!
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+
+<div class="row" style="text-align: center  ">
+                    <h1 class="cover-heading">PARKING ROUTE</h1>
+                    <p class="lead">Encuentra un parqueadero!!!</p>
+                    <p class="lead">{!! Html::image("img/parking.jpg","foto", array("class" => "img-rounded")) !!}</p>
+                    {!! link_to('https://www.google.com.ec/',"Probar", array("class" => "btn btn-primary")) !!}
+                </div>
+            
+        
 @endsection
