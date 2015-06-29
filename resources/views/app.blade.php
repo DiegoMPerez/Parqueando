@@ -19,55 +19,49 @@
         <![endif]-->
     </head>
     <body>
-
-        <div class="site-wrapper">
-            <div class="site-wrapper-inner">
-                <nav class="navbar navbar-default">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                                <span class="sr-only">Toggle Navigation</span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
-                            <a class="navbar-brand" href="#">PARKING ROUTE</a>
-                        </div>
-
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav">
-                                <li><a href="{{ url('/') }}">Inicio</a></li>
-                            </ul>
-
-                            <ul class="nav navbar-nav navbar-right">
-                                @if (Auth::guest())
-                                <li><a href="{{ url('/auth/login') }}">Iniciar sesión</a></li>
-                                <li><a href="{{ url('/auth/register') }}">Registrarse</a></li>
-                                @else
-                                <li class="dropdown">
-                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-                                    <ul class="dropdown-menu" role="menu">
-                                        <li><a href="{{ url('/auth/logout') }}">Salir</a></li>
-                                    </ul>
-                                </li>
-                                @endif
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-
-                <div class="container">
-                    @yield('content')
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">PARKING ROUTE</a>
                 </div>
-                <!-- Scripts -->
-                <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-                <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-                <div class="footer">
-                    <div class="container">
-                        <p class="text-muted credit"> v. 0.0.1 </p>
-                    </div>
+
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ url('/') }}">Inicio</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        @if (Auth::guest())
+                        <li><a href="{{ url('/auth/login') }}">Iniciar sesión</a></li>
+                        <li><a href="{{ url('/auth/register') }}">Registrarse</a></li>
+                        @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/auth/logout') }}">Salir</a></li>
+                            </ul>
+                        </li>
+                        @endif
+                    </ul>
                 </div>
             </div>
+        </nav>
+
+        <div class="container-fluid">
+            @yield('content')
+        </div>
+        <!-- Scripts -->
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+        <div class="footer">
+            <p style="margin-left: 25px; margin-top: 5px; font-family: monospace"> v. 0.0.1</p>
         </div>
     </body>
 </html>
