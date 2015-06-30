@@ -61,7 +61,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
         <div class="footer">
-            <p style="margin-left: 25px; margin-top: 5px; font-family: monospace"> Beta</p>
+            <p style="margin-left: 25px; margin-top: 5px; font-family: monospace"> Beta 0.0.1</p>
         </div>
     </body>
 </html>
