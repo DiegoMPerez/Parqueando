@@ -18,7 +18,8 @@
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body >
+        
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -52,16 +53,18 @@
                 </div>
             </div>
         </nav>
-
-        <div class="container-fluid">
+            
+        <div class="content">
+        
             @yield('content')
-        </div>
+            </div>
+        
         <!-- Scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 
         <div class="footer">
-            <p style="margin-left: 25px; margin-top: 5px; font-family: monospace"> Beta 0.0.1</p>
+            <p style="margin-left: 25px; margin-top: 5px; font-family: monospace"> v. 0.0.2</p>
         </div>
     </body>
 </html>

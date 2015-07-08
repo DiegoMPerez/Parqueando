@@ -23,3 +23,6 @@ Route::get('test', function()
 {
     dd(Config::get('mail'));
 });
+
+//
+Route::resource('parqueaderos', 'ParqueaderoController');
