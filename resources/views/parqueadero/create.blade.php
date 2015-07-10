@@ -1,6 +1,7 @@
 @extends('app')
 @section('linktop')
-<script src="https://maps.googleapis.com/maps/api/js?v=3.exp" type="text/javascript"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 @endsection
 
 @section('content')
@@ -51,21 +52,26 @@
                         {!! Form::label('ubicacion', 'Ubicación Geográfica:', ['class' => 'col-md-4 control-label']) !!}
                     </div>
                     <div class="form-group">
+                        {!! Form::label('buscar', 'Buscar:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-6">
+                            {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
                         {!! Form::label('latitud', 'Latitud:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-2">
-                            {!! Form::text('latitud', '', ['class' => 'form-control']) !!}
+                            {!! Form::text('lat', '', ['class' => 'form-control', 'id' => 'lat']) !!}
                         </div>
                     </div>
                     <div class="form-group">
                         {!! Form::label('longitud', 'Longitud:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-2">
-                            {!! Form::text('longitud', '', ['class' => 'form-control']) !!}
+                            {!! Form::text('lng', '', ['class' => 'form-control', 'id' => 'lng']) !!}
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <input type="text" id="buscar">
                             <div id="map-canvas" style="height: 200px "></div>
                         </div>
                     </div>
@@ -113,6 +119,25 @@
     });
     
     var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
+    
+    google.maps.event.addListener(searchBox, 'places_changed', function(){
+        var places = searchBox.getPlaces();
+        var bounds = new google.maps.LatLngBounds();
+        var i, place;
+        for(i=0; place=places[i];i++){
+            bounds.extend(place.geometry.location);
+            marker.setPosition(place.geometry.location);
+        }
+        map.fitBounds(bounds);
+        map.setZoom(15);
+    });
+    
+    google.maps.event.addListener(marker, 'position_changed', function(){
+        var lat = marker.getPosition().lat();
+        var lng = marker.getPosition().lng();
+        $('#lat').val(lat);
+        $('#lng').val(lng);
+    });
 
 </script>
 
