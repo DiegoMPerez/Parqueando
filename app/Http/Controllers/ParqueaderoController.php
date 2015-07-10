@@ -13,7 +13,7 @@ class ParqueaderoController extends Controller {
 	 */
 	public function index()
 	{
-		//
+            return view('parqueadero.mapa');
 	}
 
 	/**

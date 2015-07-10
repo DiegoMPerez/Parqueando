@@ -1,4 +1,8 @@
 @extends('app')
+@section('linktop')
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp" type="text/javascript"></script>
+@endsection
+
 @section('content')
 <div class="container-fluid">
     <div class="row">
@@ -7,42 +11,42 @@
                 <div class="panel-heading">Crear un parqueadero</div>
                 <div class="panel-body">
 
-<!--                    @if (count($errors) > 0)
-                    <div class="alert alert-danger text-center" >
-                        <strong>Error</strong> :P <br><br>
-                    </div>
-                    @endif-->
-                @if($errors->has())
+                    <!--                    @if (count($errors) > 0)
+                                        <div class="alert alert-danger text-center" >
+                                            <strong>Error</strong> :P <br><br>
+                                        </div>
+                                        @endif-->
+                    @if($errors->has())
                     <div class='alert alert-danger'>
                         @foreach ($errors->all('<p>:message</p>') as $message)
-                            {!! $message !!}
+                        {!! $message !!}
                         @endforeach
                     </div>
-                @endif
+                    @endif
 
                     {!! Form::open(['route' => 'parqueaderos.store', 'role' => 'form', 'class' => 'form-horizontal' ]) !!}
-<!-- Nombre -->
+                    <!-- Nombre -->
                     <div class="form-group">
                         {!! Form::label('nombre', 'Nombre:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::text('nombre', '', ['class' => 'form-control']) !!}
+                            {!! Form::text('nombre', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
                         </div>
                     </div>   
-<!--Número de plazas-->
+                    <!--Número de plazas-->
                     <div class="form-group">
                         {!! Form::label('numero', 'Número de plazas:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::number('numero', '', ['class' => 'form-control']) !!}
+                            {!! Form::number('numero', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
                         </div>
                     </div>  
-<!--Teléfono                    -->
+                    <!--Teléfono                    -->
                     <div class="form-group">
                         {!! Form::label('telefono', 'Teléfono:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::text('telefono', '', ['class' => 'form-control']) !!}
+                            {!! Form::text('telefono', '', ['class' => 'form-control', 'maxlength' => '10']) !!}
                         </div>
                     </div>
-<!--Ubicación geográfica-->
+                    <!--Ubicación geográfica-->
                     <div class="form-group">
                         {!! Form::label('ubicacion', 'Ubicación Geográfica:', ['class' => 'col-md-4 control-label']) !!}
                     </div>
@@ -58,8 +62,15 @@
                             {!! Form::text('longitud', '', ['class' => 'form-control']) !!}
                         </div>
                     </div>
-<!--Estado-->
-                   <div class="form-group">
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <input type="text" id="buscar">
+                            <div id="map-canvas" style="height: 200px "></div>
+                        </div>
+                    </div>
+                    <!--Estado-->
+                    <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <div class="checkbox">
                                 <label>
@@ -69,7 +80,7 @@
                         </div>
                     </div>
 
-<!--botón enviar-->
+                    <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary">Crear</button>
@@ -81,4 +92,28 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('linkbot')
+<script type="text/javascript">
+
+
+    var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        center: {lat: -34.397, lng: 150.644},
+        zoom : 15
+    });
+    
+    var marker = new google.maps.Marker({
+        position: {
+            lat: -34.397,
+            lng: 150.644
+        },
+        map: map,
+        draggable: true
+    });
+    
+    var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
+
+</script>
+
 @endsection

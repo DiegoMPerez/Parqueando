@@ -21,16 +21,28 @@ class ParqueaderoForm extends Request {
 	 */
 	public function rules()
 	{
-		return [
-                    "numero" => "required",
-		];
+            return [
+                "nombre" => "required|max:100",
+                "numero" => "required|numeric|min:0|max:999",
+        //        "email" => "required|email|unique:users",
+                "telefono" => "required|numeric|max:9999999999|min:7",
+                
+            ];
 	}
         public function messages()
 	{
 	    return [
-	        'numero.required' => 'El campo title es requerido!',
-                'numero.min' => 'Mínimo 0!',
+	        "nombre.required" => "El Nombre del parqueadero es requerido",
+                "nombre.max" => "El número de caracteres máximo del Nombre es 100",
+                "numero.numeric" => "El número de plazas es entero",
+                "numero.required" => "El Número de plazas es requerido",
+                "numero.min" => "El mínimo de plazas es cero",
+                "numero.max" => "El máximo de plazas es 999",
+                "telefono.required" => "El número de telefono es requerido",
+                "telefono.numeric" => "Solo números en el campo teléfono",
+                "telefono.max" => "Máximo 10 números en el campo teléfono",
+                "telefono.min" => "Mínimo 7 números en el campo teléfono",
 	    ];
 	}
-
 }
+

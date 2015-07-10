@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>@section('title')PARKING ROUTE @show</title>
-
+        @section('linktop')@show
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
         <!-- Fonts -->
@@ -62,7 +62,7 @@
         <!-- Scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
+@section('linkbot')@show
         <div class="footer">
             <p style="margin-left: 25px; margin-top: 5px; font-family: monospace"> v. 0.0.2</p>
         </div>
