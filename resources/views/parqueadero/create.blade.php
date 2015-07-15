@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid">
+<div class="container-fluid" style="margin-bottom: 30px">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -24,8 +24,8 @@
                         @endforeach
                     </div>
                     @endif
-
-                    {!! Form::open(['route' => 'parqueaderos.store', 'role' => 'form', 'class' => 'form-horizontal' ]) !!}
+                    <div id="form-errors" ></div>
+                    {!! Form::open(['route' => 'parqueaderos.store', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'form' ]) !!}
                     <!-- Nombre -->
                     <div class="form-group">
                         {!! Form::label('nombre', 'Nombre:', ['class' => 'col-md-4 control-label']) !!}
@@ -59,14 +59,14 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('latitud', 'Latitud:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-2">
-                            {!! Form::text('lat', '', ['class' => 'form-control', 'id' => 'lat']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('lat', '', ['class' => 'form-control', 'id' => 'lat', 'readonly']) !!}
                         </div>
                     </div>
                     <div class="form-group">
                         {!! Form::label('longitud', 'Longitud:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-2">
-                            {!! Form::text('lng', '', ['class' => 'form-control', 'id' => 'lng']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('lng', '', ['class' => 'form-control', 'id' => 'lng', 'readonly']) !!}
                         </div>
                     </div>
 
@@ -75,6 +75,7 @@
                             <div id="map-canvas" style="height: 200px "></div>
                         </div>
                     </div>
+
                     <!--Estado-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -85,11 +86,10 @@
                             </div>
                         </div>
                     </div>
-
                     <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary">Crear</button>
+                            <button type="submit" class="btn btn-primary" id="enviar">Crear</button>
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -101,43 +101,119 @@
 @endsection
 
 @section('linkbot')
-<script type="text/javascript">
+<script>
 
+    $(document).ready(function () {
 
-    var map = new google.maps.Map(document.getElementById('map-canvas'), {
-        center: {lat: -34.397, lng: 150.644},
-        zoom : 15
-    });
-    
-    var marker = new google.maps.Marker({
-        position: {
-            lat: -34.397,
-            lng: 150.644
-        },
-        map: map,
-        draggable: true
-    });
-    
-    var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
-    
-    google.maps.event.addListener(searchBox, 'places_changed', function(){
-        var places = searchBox.getPlaces();
-        var bounds = new google.maps.LatLngBounds();
-        var i, place;
-        for(i=0; place=places[i];i++){
-            bounds.extend(place.geometry.location);
-            marker.setPosition(place.geometry.location);
+        // GEOLOCALIZACIÓN
+        geolocalizacion();
+
+        function geolocalizacion() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition);
+            } else {
+                showPosition(0);
+            }
         }
-        map.fitBounds(bounds);
-        map.setZoom(15);
+        var _lat = 0;
+        var _lng = 0;
+
+        function showPosition(position) {
+            alert(position);
+            _lat = position.coords.latitude;
+            _lng = position.coords.longitude;
+            $('#lat').val(_lat);
+            $('#lng').val(_lng);
+
+
+            var geocoder = new google.maps.Geocoder();
+            var map = new google.maps.Map(document.getElementById('map-canvas'), {
+                center: {lat: _lat, lng: _lng},
+                zoom: 15
+            });
+
+            var marker = new google.maps.Marker({
+                position: {
+                    lat: _lat,
+                    lng: _lng
+                },
+                map: map,
+                draggable: true
+            });
+
+            var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
+
+            google.maps.event.addListener(searchBox, 'places_changed', function () {
+                var places = searchBox.getPlaces();
+                var bounds = new google.maps.LatLngBounds();
+                var i, place;
+                for (i = 0; place = places[i]; i++) {
+                    bounds.extend(place.geometry.location);
+                    marker.setPosition(place.geometry.location);
+                }
+                map.fitBounds(bounds);
+                alert(map.getBounds());
+                map.setZoom(15);
+            });
+
+            google.maps.event.addListener(marker, 'position_changed', function () {
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                $('#lat').val(lat);
+                $('#lng').val(lng);
+            });
+
+        }
+
+//
+
+
+        $('#enviar').click(function (event) {
+
+            event.preventDefault();
+
+            var url = "{{URL::route('parqueaderos.store')}}";
+            var form = $('#form');
+            var data = form.serialize();
+
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: $(this).closest('form').serialize(),
+                success: function (data) {
+                    // Success...
+                    console.log(data);
+                    alert("ok");
+                    location.href = "{{URL::route('parqueaderos.create')}}";
+
+
+                },
+                error: function (jqXhr) {
+                    if (jqXhr.status === 401) //redirect if not authenticated user.
+                        $(location).prop('pathname', 'auth/login');
+                    if (jqXhr.status === 422) {
+                        //process validation errors here.
+                        var errors = jqXhr.responseJSON; //this will get the errors response data.
+                        //show them somewhere in the markup
+                        //e.g
+                        errorsHtml = '<div class="alert alert-danger"><ul>';
+
+                        $.each(errors, function (key, value) {
+                            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+                        });
+                        errorsHtml += '</ul></di>';
+
+                        $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
+                        $('html, body').animate({scrollTop: 0}, 'fast');
+                    } else {
+                        /// do some thing else
+                    }
+                }
+            });
+        });
     });
-    
-    google.maps.event.addListener(marker, 'position_changed', function(){
-        var lat = marker.getPosition().lat();
-        var lng = marker.getPosition().lng();
-        $('#lat').val(lat);
-        $('#lng').val(lng);
-    });
+
 
 </script>
 

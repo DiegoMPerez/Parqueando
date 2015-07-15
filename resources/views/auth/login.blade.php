@@ -42,7 +42,7 @@
 
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary">Entrar</button>
+                            <button type="submit" class="btn btn-primary" id="enviar">Entrar</button>
 
                             <a class="btn btn-link" href="{{ url('/password/email') }}">¿Olvidaste tu contraseña?</a>
                         </div>
@@ -53,4 +53,20 @@
         </div>
     </div>
 </div>
+@endsection
+@section('linkbot')
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#enviar').click(function(){            
+    $.ajax({
+      url: 'login',
+      type: "post",
+      data: {'email':$('input[name=email]').val(), '_token': $('input[name=_token]').val()},
+      success: function(data){
+        alert(data);
+      }
+    });      
+  }); 
+});
+</script>
 @endsection

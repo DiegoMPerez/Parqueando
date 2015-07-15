@@ -34,7 +34,6 @@ class ParqueaderoController extends Controller {
 	public function store(ParqueaderoForm $parqueaderoForm)
 	{
             $ciudad = new \App\Ciudad;
-            
             $ciudad->nombre_ciudad = \Request::input('numero');
             $ciudad->save();
             return redirect('parqueaderos/create')->with('message', 'Parqueadero guardado');
