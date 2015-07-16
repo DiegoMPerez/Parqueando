@@ -184,9 +184,12 @@
                 });
             });
 
-
-
-
+            google.maps.event.addListener(marker, 'position_changed', function () {
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                $('#lat').val(lat);
+                $('#lng').val(lng);
+            });
         }
 //
         $('#enviar').click(function (event) {
