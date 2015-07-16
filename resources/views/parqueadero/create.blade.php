@@ -76,6 +76,25 @@
                         </div>
                     </div>
 
+                    <!-- DIRECCIÓN --> 
+                    <div class="form-group">
+                        {!! Form::label('pais', 'País:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('pais', '', ['class' => 'form-control', 'id' => 'pais', 'readonly']) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('ciudad', 'Ciudad:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('ciudad', '', ['class' => 'form-control', 'id' => 'ciudad', 'readonly']) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('direccion', 'Dirección:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('direccion', '', ['class' => 'form-control', 'id' => 'direccion', 'readonly']) !!}
+                        </div>
+                    </div>
                     <!--Estado-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -86,6 +105,7 @@
                             </div>
                         </div>
                     </div>
+
                     <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -144,39 +164,33 @@
                 map: map,
                 draggable: true
             });
-//            var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
-//            google.maps.event.addListener(searchBox, 'places_changed', function () {
-//                var places = searchBox.getPlaces();
-//                var bounds = new google.maps.LatLngBounds();
-//                var i, place;
-//                for (i = 0; place = places[i]; i++) {
-//                    bounds.extend(place.geometry.location);
-//                    marker.setPosition(place.geometry.location);
-//                }
-//                map.fitBounds(bounds);
-//                map.setZoom(15);
-//            });
-//
 
+            var direccion = "";
+
+            geocodePosition(marker.getPosition());
+
+
+            function maker_changed(marker) {
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                $('#lat').val(lat);
+                $('#lng').val(lng);
+                geocodePosition(marker.getPosition());
+            }
 
             $('#buscar').keypress(function (event) {
                 var address = document.getElementById('buscar').value;
                 geocoder.geocode({'address': address}, function (results, status) {
                     if (status === google.maps.GeocoderStatus.OK) {
                         map.setCenter(results[0].geometry.location);
-                        var marker = new google.maps.Marker({
-                            map: map,
-                            draggable: true,
-                            position: results[0].geometry.location
-                        });
+                        marker.setPosition(results[0].geometry.location);
+                        maker_changed(marker);
                         $('#lat').val(marker.getPosition().lat());
                         $('#lng').val(marker.getPosition().lng());
+
                         map.setZoom(16);
                         google.maps.event.addListener(marker, 'position_changed', function () {
-                            var lat = marker.getPosition().lat();
-                            var lng = marker.getPosition().lng();
-                            $('#lat').val(lat);
-                            $('#lng').val(lng);
+                            maker_changed(marker);
                         });
                     } else {
                         //alert('Geocode was not successful for the following reason: ' + status);
@@ -185,13 +199,52 @@
             });
 
             google.maps.event.addListener(marker, 'position_changed', function () {
-                var lat = marker.getPosition().lat();
-                var lng = marker.getPosition().lng();
-                $('#lat').val(lat);
-                $('#lng').val(lng);
+                maker_changed(marker);
             });
+
+
+
+
+//            geocoding reverse
+
+            function geocodePosition(pos) {
+                geocoder.geocode({
+                    latLng: pos
+                }, function (responses) {
+//                    try {
+//                        $('#k').val(responses[0].formatted_address+"  "+responses.length);
+//                    }catch(e){
+//                        
+//                    }
+                    
+                    if (responses && responses.length > 0) {
+                        direccion = responses[0].formatted_address.split(',');
+                        if (direccion.length === 1) {
+                            $('#pais').val(direccion[1]);
+                        }
+                        if (direccion.length === 2) {
+                            $('#pais').val(direccion[1]);
+                            $('#direccion').val(direccion[0]);
+                        }
+                        if (direccion.length === 3) {
+                            $('#pais').val(direccion[2]);
+                            $('#ciudad').val(direccion[1]);
+                            $('#direccion').val(direccion[0]);
+                        }
+                        if (direccion.length === 4) {
+                            $('#pais').val(direccion[3]);
+                            $('#ciudad').val(direccion[2]);
+                            $('#direccion').val(direccion[1]);
+                        }
+                    } else {
+                            $('#pais').val("No se puede determinar");
+                            $('#ciudad').val("No se puede determinar");
+                            $('#direccion').val("No se puede determinar");
+                    }
+                });
+            }
         }
-//
+//AJAX
         $('#enviar').click(function (event) {
 
             event.preventDefault();
