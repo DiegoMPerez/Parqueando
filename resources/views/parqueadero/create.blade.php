@@ -89,7 +89,7 @@
                     <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary" id="enviar">Crear</button>
+                            <button type="button" class="btn btn-primary" id="enviar">Crear</button>
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -109,19 +109,23 @@
         geolocalizacion();
 
         function geolocalizacion() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(showPosition);
+            if (navigator.geolocation.getCurrentPosition(showPosition)) {
             } else {
-                showPosition(0);
+                showPosition(null);
             }
         }
         var _lat = 0;
         var _lng = 0;
 
         function showPosition(position) {
-            alert(position);
-            _lat = position.coords.latitude;
-            _lng = position.coords.longitude;
+            if (position === null) {
+                _lat = 0;
+                _lng = 0;
+            } else {
+                _lat = position.coords.latitude;
+                _lng = position.coords.longitude;
+            }
+
             $('#lat').val(_lat);
             $('#lng').val(_lng);
 
@@ -140,34 +144,51 @@
                 map: map,
                 draggable: true
             });
-
-            var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
-
-            google.maps.event.addListener(searchBox, 'places_changed', function () {
-                var places = searchBox.getPlaces();
-                var bounds = new google.maps.LatLngBounds();
-                var i, place;
-                for (i = 0; place = places[i]; i++) {
-                    bounds.extend(place.geometry.location);
-                    marker.setPosition(place.geometry.location);
-                }
-                map.fitBounds(bounds);
-                alert(map.getBounds());
-                map.setZoom(15);
-            });
-
-            google.maps.event.addListener(marker, 'position_changed', function () {
-                var lat = marker.getPosition().lat();
-                var lng = marker.getPosition().lng();
-                $('#lat').val(lat);
-                $('#lng').val(lng);
-            });
-
-        }
-
+//            var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
+//            google.maps.event.addListener(searchBox, 'places_changed', function () {
+//                var places = searchBox.getPlaces();
+//                var bounds = new google.maps.LatLngBounds();
+//                var i, place;
+//                for (i = 0; place = places[i]; i++) {
+//                    bounds.extend(place.geometry.location);
+//                    marker.setPosition(place.geometry.location);
+//                }
+//                map.fitBounds(bounds);
+//                map.setZoom(15);
+//            });
 //
 
 
+            $('#buscar').keypress(function (event) {
+                var address = document.getElementById('buscar').value;
+                geocoder.geocode({'address': address}, function (results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        map.setCenter(results[0].geometry.location);
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            draggable: true,
+                            position: results[0].geometry.location
+                        });
+                        $('#lat').val(marker.getPosition().lat());
+                        $('#lng').val(marker.getPosition().lng());
+                        map.setZoom(16);
+                        google.maps.event.addListener(marker, 'position_changed', function () {
+                            var lat = marker.getPosition().lat();
+                            var lng = marker.getPosition().lng();
+                            $('#lat').val(lat);
+                            $('#lng').val(lng);
+                        });
+                    } else {
+                        //alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            });
+
+
+
+
+        }
+//
         $('#enviar').click(function (event) {
 
             event.preventDefault();
