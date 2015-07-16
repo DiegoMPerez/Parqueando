@@ -119,8 +119,8 @@
 
         function showPosition(position) {
             if (position === null) {
-                _lat = 0;
-                _lng = 0;
+                _lat = 0.3212001155157536;
+                _lng = -78.10052093275755;
             } else {
                 _lat = position.coords.latitude;
                 _lng = position.coords.longitude;
