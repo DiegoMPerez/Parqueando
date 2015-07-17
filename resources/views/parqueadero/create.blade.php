@@ -127,7 +127,6 @@
 
         // GEOLOCALIZACIÓN
         geolocalizacion();
-
         function geolocalizacion() {
             if (navigator.geolocation.getCurrentPosition(showPosition)) {
             } else {
@@ -136,7 +135,6 @@
         }
         var _lat = 0;
         var _lng = 0;
-
         function showPosition(position) {
             if (position === null) {
                 _lat = 0.3212001155157536;
@@ -148,13 +146,12 @@
 
             $('#lat').val(_lat);
             $('#lng').val(_lng);
-
-
             var geocoder = new google.maps.Geocoder();
             var map = new google.maps.Map(document.getElementById('map-canvas'), {
                 center: {lat: _lat, lng: _lng},
                 zoom: 15
             });
+            var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
 
             var marker = new google.maps.Marker({
                 position: {
@@ -164,63 +161,73 @@
                 map: map,
                 draggable: true
             });
-
             var direccion = "";
-
             geocodePosition(marker.getPosition());
-
 
             function maker_changed(marker) {
                 var lat = marker.getPosition().lat();
                 var lng = marker.getPosition().lng();
+                var latlng = new google.maps.LatLng(lat, lng);
                 $('#lat').val(lat);
                 $('#lng').val(lng);
-                geocodePosition(marker.getPosition());
             }
 
-            $('#buscar').keypress(function (event) {
-                var address = document.getElementById('buscar').value;
-                geocoder.geocode({'address': address}, function (results, status) {
-                    if (status === google.maps.GeocoderStatus.OK) {
-                        map.setCenter(results[0].geometry.location);
-                        marker.setPosition(results[0].geometry.location);
-                        maker_changed(marker);
-                        $('#lat').val(marker.getPosition().lat());
-                        $('#lng').val(marker.getPosition().lng());
-
-                        map.setZoom(16);
-                        google.maps.event.addListener(marker, 'position_changed', function () {
-                            maker_changed(marker);
-                        });
-                    } else {
-                        //alert('Geocode was not successful for the following reason: ' + status);
-                    }
-                });
+            $('#buscar').keydown(function (event) {
+                if (event.keyCode === 13) {
+                    $('#buscar').mouseenter();
+                }
             });
 
+            google.maps.event.addListener(searchBox, 'places_changed', function () {
+                try {
+                    var address = document.getElementById('buscar').value;
+
+                    geocoder.geocode({'address': address}, function (results, status) {
+                        if (status === google.maps.GeocoderStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+                            marker.setPosition(results[0].geometry.location);
+                            var lat = marker.getPosition().lat();
+                            var lng = marker.getPosition().lng();
+                            var latlng = new google.maps.LatLng(lat, lng);
+                            $('#lat').val(lat);
+                            $('#lng').val(lng);
+                            map.setZoom(16);
+                            geocodePosition(latlng);
+                        } else {
+                            console.log(status);
+                            if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
+                                return;
+                            }
+                            if (status === google.maps.GeocoderStatus.ZERO_RESULTS) {
+
+                            }
+                        }
+                    });
+                } catch (e) {
+                    console.log(e.message);
+                }
+            });
+            google.maps.event.addListener(marker, 'mouseup', function () {
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                var latlng = new google.maps.LatLng(lat, lng);
+                geocodePosition(latlng);
+            });
             google.maps.event.addListener(marker, 'position_changed', function () {
                 maker_changed(marker);
             });
-
-
-
-
 //            geocoding reverse
 
             function geocodePosition(pos) {
                 geocoder.geocode({
                     latLng: pos
                 }, function (responses) {
-//                    try {
-//                        $('#k').val(responses[0].formatted_address+"  "+responses.length);
-//                    }catch(e){
-//                        
-//                    }
-                    
-                    if (responses && responses.length > 0) {
+                    try {
+
                         direccion = responses[0].formatted_address.split(',');
+                        console.log(direccion);
                         if (direccion.length === 1) {
-                            $('#pais').val(direccion[1]);
+                            $('#pais').val(direccion[0]);
                         }
                         if (direccion.length === 2) {
                             $('#pais').val(direccion[1]);
@@ -236,10 +243,7 @@
                             $('#ciudad').val(direccion[2]);
                             $('#direccion').val(direccion[1]);
                         }
-                    } else {
-                            $('#pais').val("No se puede determinar");
-                            $('#ciudad').val("No se puede determinar");
-                            $('#direccion').val("No se puede determinar");
+                    } catch (e) {
                     }
                 });
             }
@@ -248,12 +252,9 @@
         $('#enviar').click(function (event) {
 
             event.preventDefault();
-
             var url = "{{URL::route('parqueaderos.store')}}";
             var form = $('#form');
             var data = form.serialize();
-
-
             $.ajax({
                 url: url,
                 type: 'POST',
@@ -263,8 +264,6 @@
                     console.log(data);
                     alert("ok");
                     location.href = "{{URL::route('parqueaderos.create')}}";
-
-
                 },
                 error: function (jqXhr) {
                     if (jqXhr.status === 401) //redirect if not authenticated user.
@@ -275,12 +274,10 @@
                         //show them somewhere in the markup
                         //e.g
                         errorsHtml = '<div class="alert alert-danger"><ul>';
-
                         $.each(errors, function (key, value) {
                             errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
                         });
                         errorsHtml += '</ul></di>';
-
                         $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
                         $('html, body').animate({scrollTop: 0}, 'fast');
                     } else {
