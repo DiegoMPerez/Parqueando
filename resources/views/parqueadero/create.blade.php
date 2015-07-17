@@ -92,7 +92,7 @@
                     <div class="form-group">
                         {!! Form::label('direccion', 'Dirección:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-4">
-                            {!! Form::text('direccion', '', ['class' => 'form-control', 'id' => 'direccion', 'readonly']) !!}
+                            {!! Form::text('direccion', '', ['class' => 'form-control', 'id' => 'direccion']) !!}
                         </div>
                     </div>
                     <!--Estado-->
