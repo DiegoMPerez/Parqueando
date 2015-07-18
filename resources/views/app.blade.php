@@ -6,10 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>@section('title')PARKING ROUTE @show</title>
         @section('linktop')@show
-        <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('/css/app.css') }}" rel="stylesheet"/>
 
         <!-- Fonts -->
-        <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'/>
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -18,8 +18,8 @@
                 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body >
-        
+    <body>
+
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -53,16 +53,16 @@
                 </div>
             </div>
         </nav>
-            
+
         <div class="content">
-        
+
             @yield('content')
-            </div>
-        
+        </div>
+
         <!-- Scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-@section('linkbot')@show
+        @section('linkbot')@show
         <div class="footer">
             <p style="margin-left: 25px; margin-top: 5px; font-family: monospace"> v. 0.1.0 </p>
         </div>

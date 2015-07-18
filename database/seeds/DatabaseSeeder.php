@@ -1,8 +1,7 @@
 <?php
-
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class DatabaseSeeder extends Seeder {
 
 	/**
@@ -12,9 +11,12 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		Model::unguard();
+		Eloquent::unguard();
 
-		// $this->call('UserTableSeeder');
+        $this->call('PermisionsSeeder');
+        $this->call('RolesSeeder');
+		$this->call('UserSeeder');
+        $this->command->info('Datos insertados!');
 	}
 
 }
