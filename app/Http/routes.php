@@ -19,10 +19,10 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-Route::get('test', function()
-{
-    dd(Config::get('mail'));
-});
 
 //
 Route::resource('parqueaderos', 'ParqueaderoController');
+
+//USUARIOS
+
+Route::resource('/usuarios','UserController');

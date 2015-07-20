@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>@section('title')PARKING ROUTE @show</title>
+        <title>@section('title')PARQUEANDO @show</title>
         @section('linktop')@show
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet"/>
 
@@ -29,7 +29,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">PARKING ROUTE</a>
+                    <a class="navbar-brand" href="#">PARQUEANDO</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,7 +64,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
         @section('linkbot')@show
         <div class="footer">
-            <p style="margin-left: 25px; margin-top: 5px; font-family: monospace"> v. 0.1.1 </p>
+            <p style="margin-right: 25px; margin-top: 5px; font-family: monospace; text-align: right"> v. 0.1.1 </p>
         </div>
     </body>
 </html>
