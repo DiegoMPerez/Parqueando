@@ -94,9 +94,9 @@ class UserController extends Controller {
         $user->nombres = $nombre;
         $user->apellidos = $apellido;
         $user->email = $email;
-        if (!empty(\Request::input('password'))) {
+        
             $user->password = $password;
-        }
+        
         $user->save();
 
         $user->roles()->detach(); //no es necesario eliminar la relacion con el antiguo rol ya que la libreria permite tener multiples roles
