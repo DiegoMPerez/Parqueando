@@ -3,38 +3,38 @@
 users
 @stop
 @section('content')
-<div class="container">
-    <div class="user">
-        <table class="table table-hover">
-            <thead>
-                <tr><th>Nombre de Usuario</th><th>Rol</th><th>Email</th><th>Nombres</th><th>Apellidos</th></tr>
-            </thead>
-            @if(isset($users))
-            <tbody>
-                @foreach($users as $user)
-                <tr><td>{!! $user->name !!}</td>
-                    <td>{!! $user->rol->name !!}</td>
-                    <td>{!! $user->email !!}</td>
-                    <td>{!! $user->nombres !!}</td>
-                    <td>{!! $user->apellidos  !!}</td>
 
-                    <td>{!! Form::open(array('method' => 'GET', 'route' => array('usuarios.edit', $user->id))) !!}
-                        {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
-                        {!! Form::close() !!}</td>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr><th>Nombre de Usuario</th><th>Rol</th><th>Email</th><th>Nombres</th><th>Apellidos</th></tr>
+        </thead>
+        @if(isset($users))
+        <tbody>
+            @foreach($users as $user)
+            <tr><td>{!! $user->name !!}</td>
+                <td>{!! $user->rol->name !!}</td>
+                <td>{!! $user->email !!}</td>
+                <td>{!! $user->nombres !!}</td>
+                <td>{!! $user->apellidos  !!}</td>
 
-                    <td>
-                        {!! Form::open(array('id' => 'form-eliminar','method' => 'DELETE', 'route' => array('usuarios.destroy', $user->id))) !!}
-                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos)) !!}
-                        {!! Form::close() !!}
-                    </td>
+                <td>{!! Form::open(array('method' => 'GET', 'route' => array('usuarios.edit', $user->id))) !!}
+                    {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
+                    {!! Form::close() !!}</td>
 
-                </tr>
-                @endforeach
-            </tbody>
-            @endif
-        </table>
-    </div>
+                <td>
+                    {!! Form::open(array('id' => 'form-eliminar','method' => 'DELETE', 'route' => array('usuarios.destroy', $user->id))) !!}
+                    {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos)) !!}
+                    {!! Form::close() !!}
+                </td>
+
+            </tr>
+            @endforeach
+        </tbody>
+        @endif
+    </table>
 </div>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -56,10 +56,10 @@ users
 @endsection
 @section('linkbot')
 <script>
-    $(document).on('click','.open',function () {
+    $(document).on('click', '.open', function () {
         var $nombres = $(this).data('username');
         var $apellidos = $(this).data('apellidos');
-        $('#usuario').html("¿Está seguro de eliminar el usuario <strong>"+$nombres+" "+$apellidos+"</strong>?");
+        $('#usuario').html("¿Está seguro de eliminar el usuario <strong>" + $nombres + " " + $apellidos + "</strong>?");
     });
 
 
