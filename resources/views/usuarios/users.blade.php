@@ -17,14 +17,14 @@ users
                     <td>{!! $user->email !!}</td>
                     <td>{!! $user->nombres !!}</td>
                     <td>{!! $user->apellidos  !!}</td>
-                    
+
                     <td>{!! Form::open(array('method' => 'GET', 'route' => array('usuarios.edit', $user->id))) !!}
                         {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
                         {!! Form::close() !!}</td>
-                    
+
                     <td>
                         {!! Form::open(array('id' => 'form-eliminar','method' => 'DELETE', 'route' => array('usuarios.destroy', $user->id))) !!}
-                        {!! Form::button('Eliminar', array('class' => 'btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal')) !!}
+                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos)) !!}
                         {!! Form::close() !!}
                     </td>
 
@@ -44,7 +44,7 @@ users
                 <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
             </div>
             <div class="modal-body">
-                ¿Está seguro de eliminar el usuario {!! $user->nombres !!} {!! $user->apellidos !!} ?
+                <p id="usuario"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-cancel">Cancelar</button>
@@ -56,6 +56,13 @@ users
 @endsection
 @section('linkbot')
 <script>
+    $(document).on('click','.open',function () {
+        var $nombres = $(this).data('username');
+        var $apellidos = $(this).data('apellidos');
+        $('#usuario').html("¿Está seguro de eliminar el usuario <strong>"+$nombres+" "+$apellidos+"</strong>?");
+    });
+
+
     $('#btn-ok').click(function () {
         $('#form-eliminar').submit();
     });
