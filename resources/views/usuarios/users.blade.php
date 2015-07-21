@@ -11,6 +11,9 @@ users
         </thead>
         @if(isset($users))
         <tbody>
+            
+            
+<!--//este es un comentario-->
             @foreach($users as $user)
             <tr><td>{!! $user->name !!}</td>
                 <td>{!! $user->rol->name !!}</td>
@@ -67,4 +70,8 @@ users
         $('#form-eliminar').submit();
     });
 </script>
+
+
+
+<!--alsdljsaljfalsfjsalfjsaljfsaldjf-->
 @endsection
