@@ -1,5 +1,5 @@
 <?php
-
+use App\Horario;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+//Route::get('/', 'HomeController@index');
+
+Route::resource('/', 'ParqueaderoController');
 
 Route::get('home', 'HomeController@index');
 
@@ -21,7 +23,7 @@ Route::controllers([
 ]);
 
 //
-Route::resource('parqueaderos', 'ParqueaderoController');
+Route::resource('/parqueaderos', 'ParqueaderoController');
 
 //USUARIOS
 
