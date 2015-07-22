@@ -94,7 +94,8 @@ class UserController extends Controller {
         $user->nombres = $nombre;
         $user->apellidos = $apellido;
         $user->email = $email;
-        if (!empty(\Request::input('password'))) {
+
+        if (\Request::input('password')!=="") {
             $user->password = $password;
         }
 
