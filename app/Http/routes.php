@@ -13,7 +13,14 @@ use App\Horario;
 
 //Route::get('/', 'HomeController@index');
 
-Route::resource('/', 'ParqueaderoController');
+Route::get('/', [
+     'middleware' => ['auth', 'roles'],
+     'uses' => 'UserController',
+     'roles' => ['administrator','Root']
+]);
+
+
+//Route::resource('/', 'ParqueaderoController');
 
 Route::get('home', 'HomeController@index');
 

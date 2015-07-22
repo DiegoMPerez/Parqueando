@@ -69,10 +69,14 @@ class UserController extends Controller {
      */
     public function edit($id) {
         //
-        $user = User::find($id);
-        $userRole = $user->roles()->first();
-        $user['rol'] = $userRole;
-        return View('usuarios.edit', ['user' => $user, 'roles' => Role::all()->lists('name', 'id')]);
+        if (Entrust::can('editar_usuarios')) {
+            $user = User::find($id);
+            $userRole = $user->roles()->first();
+            $user['rol'] = $userRole;
+            return View('usuarios.edit', ['user' => $user, 'roles' => Role::all()->lists('name', 'id')]);
+        }
+
+        return "no tiene acceso";
     }
 
     /**
@@ -95,7 +99,8 @@ class UserController extends Controller {
         $user->apellidos = $apellido;
         $user->email = $email;
 
-        if (\Request::input('password')!=="") {
+        //Si el password no es cambiado, se usa el original
+        if (\Request::input('password') !== "") {
             $user->password = $password;
         }
 

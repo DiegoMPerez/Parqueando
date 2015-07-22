@@ -4,6 +4,11 @@ users
 @stop
 @section('content')
 <div class="panel-default">
+
+    @if(Entrust::can('crear_usuarios'))
+    <h1>Acceso ADMIN</h1>
+    @endif
+
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -11,8 +16,6 @@ users
             </thead>
             @if(isset($users))
             <tbody>
-
-
                 <!--//este es un comentario-->
                 @foreach($users as $user)
                 <tr><td>{!! $user->name !!}</td>
@@ -20,7 +23,7 @@ users
                     <td>{!! $user->email !!}</td>
                     <td>{!! $user->nombres !!}</td>
                     <td>{!! $user->apellidos  !!}</td>
-
+                    @if(Entrust::can('editar_usuarios'))
                     <td>{!! Form::open(array('method' => 'GET', 'route' => array('usuarios.edit', $user->id))) !!}
                         {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
                         {!! Form::close() !!}</td>
@@ -30,7 +33,7 @@ users
                         {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos)) !!}
                         {!! Form::close() !!}
                     </td>
-
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

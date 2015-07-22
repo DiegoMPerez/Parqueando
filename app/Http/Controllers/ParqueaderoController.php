@@ -1,14 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ParqueaderoForm;
 use App\Parqueadero;
 use App\Ciudad;
 use App\Horario;
+use App\Pais;
+use App\Direccion;
+use App\Role;
+use App\Http\Controllers\Auth;
 
 class ParqueaderoController extends Controller {
+    public function __construct() {
+        $this->middleware('roles');
+    }
 
     /**
      * Display a listing of the resource.
@@ -17,7 +25,6 @@ class ParqueaderoController extends Controller {
      */
     public function index() {
         
-        dd(Parqueadero::find(1)->precios()->first());
         return null;
     }
 
