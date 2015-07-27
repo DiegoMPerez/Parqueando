@@ -34,7 +34,7 @@
 	<body>
 		<div class="container">
 			<div class="content">
-                            <div class="title">Error 404 <strong>Página no encontrada</strong></div>
+                            <div class="title">Error 403 <strong>Acceso Denegado</strong></div>
 			</div>
 		</div>
 	</body>

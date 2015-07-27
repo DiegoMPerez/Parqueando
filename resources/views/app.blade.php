@@ -64,7 +64,7 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
         @section('linkbot')@show
         <div class="footer">
-            <p style="margin-right: 25px; margin-top: 5px; font-family: monospace; text-align: right"> v. 0.1.5 </p>
+            <p style="margin-right: 25px; margin-top: 5px; font-family: monospace; text-align: right"> v. 0.2.0 </p>
         </div>
     </body>
 </html>

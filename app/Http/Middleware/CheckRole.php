@@ -1,16 +1,35 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+namespace App\Http\Middleware;
 
-/**
- * Description of CheckRole
- *
- * @author DiegoManuel
- */
+// First copy this file into your middleware directoy
+use Closure;
+
 class CheckRole {
-    //put your code here
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next) {
+
+        // Get the required roles from the route
+        $roles = $this->getRequiredRoleForRoute($request->route());
+        // Check if a role is required for the route, and
+        // if so, ensure that the user has that role.
+
+        if ($request->user()->hasRole($roles) || !$roles) {
+            return $next($request);
+        }
+        return view('errors/403');
+    }
+
+    private function getRequiredRoleForRoute($route) {
+        $actions = $route->getAction();
+        return isset($actions['roles']) ? $actions['roles'] : null;
+    }
+
 }

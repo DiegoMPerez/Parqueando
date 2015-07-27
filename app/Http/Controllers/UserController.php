@@ -9,8 +9,11 @@ use App\User;
 use App\Role;
 use Hash;
 use Illuminate\Support\Facades\Redirect;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
 class UserController extends Controller {
+
+    use EntrustUserTrait;
 
     /**
      * Display a listing of the resource.
@@ -69,14 +72,11 @@ class UserController extends Controller {
      */
     public function edit($id) {
         //
-        if (Entrust::can('editar_usuarios')) {
-            $user = User::find($id);
-            $userRole = $user->roles()->first();
-            $user['rol'] = $userRole;
-            return View('usuarios.edit', ['user' => $user, 'roles' => Role::all()->lists('name', 'id')]);
-        }
 
-        return "no tiene acceso";
+        $user = User::find($id);
+        $userRole = $user->roles()->first();
+        $user['rol'] = $userRole;
+        return View('usuarios.edit', ['user' => $user, 'roles' => Role::all()->lists('name', 'id')]);
     }
 
     /**

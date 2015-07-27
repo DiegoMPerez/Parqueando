@@ -1,34 +1,65 @@
 <?php
 
-use Illuminate\Auth\UserTrait;
-use Illuminate\Auth\UserInterface;
-use Illuminate\Auth\Reminders\RemindableTrait;
-use Illuminate\Auth\Reminders\RemindableInterface;
-use Zizaco\Entrust\HasRole;
+namespace App;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Zizaco\Entrust\Traits\EntrustUserTrait;
 
-    use HasRole;
-	use UserTrait, RemindableTrait;
+class User extends Model implements AuthenticatableContract, CanResetPasswordContract {
 
-	/**
-	 * The database table used by the model.
-	 *
-	 * @var string
-	 */
-	protected $table = 'users';
-    protected $fillable = array('first_name', 'last_name', 'email', 'username', 'password');
+    use Authenticatable,
+        CanResetPassword,
+        EntrustUserTrait;
 
-	/**
-	 * The attributes excluded from the model's JSON form.
-	 *
-	 * @var array
-	 */
-	protected $hidden = array('password', 'remember_token');
-    
-    public function roles()
-    {
-        return $this->belongsToMany('Role','assigned_roles');
+    /**
+     * The database table used by the model.
+     *
+     * @var string
+     */
+    protected $table = 'users';
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'nombres', 'apellidos', 'email', 'password'];
+
+    /**
+     * The attributes excluded from the model's JSON form.
+     *
+     * @var array
+     */
+    protected $hidden = ['password', 'remember_token'];
+
+    public function roles() {
+        return $this->belongsToMany('App\Role', 'role_user');
+    }
+
+    public function hasRole($roles) {
+        
+        // Check if the user is a root account
+        if ($this->roles()->first()->name == 'Root') {
+            return true;
+        }
+        if (is_array($roles)) {
+            foreach ($roles as $need_role) {
+                if ($this->checkIfUserHasRole($need_role)) {
+                    return true;
+                }
+            }
+        } else {
+            return $this->checkIfUserHasRole($roles);
+        }
+        return false;
+    }
+
+    private function checkIfUserHasRole($need_role) {
+        return (strtolower($need_role) == strtolower($this->roles()->first()->name)) ? true : false;
     }
 
 }
