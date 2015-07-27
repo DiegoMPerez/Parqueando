@@ -13,8 +13,13 @@ class ErrorController extends Controller {
      *
      * @return Response
      */
-    public function index() {
-        return view('errors.404');
+    public function index($id) {
+        
+        if($id === '403'){
+            return view('errors.403');
+        }else{
+            return view('errors.404');
+        }
     }
 
     /**

@@ -7,7 +7,7 @@
     <h1 class="cover-heading">PARQUEANDO</h1>
     <p class="lead">Encuentra un parqueadero!!!</p>
     <p class="lead">{!! Html::image("img/parking.jpg","foto", array("class" => "img-rounded")) !!}</p>
-    {!! link_to_route('error.show',"INSTALAR APP", array('id'=>'403')) !!}
+    {!! link_to('error403',"INSTALAR APP", array('id'=>'403')) !!}
 </div>
 
 
