@@ -39,4 +39,4 @@ Route::resource('/usuarios', 'UserController');
 
 
 
-Route::get('/error/{id}',['uses' => 'ErrorController@index'] );
+Route::resource('/error','ErrorController');
