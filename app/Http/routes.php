@@ -39,4 +39,4 @@ Route::controllers([
 
 
 
-Route::resource('error','ErrorController');
+Route::resource('/error','ErrorController');
