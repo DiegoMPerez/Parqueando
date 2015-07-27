@@ -40,12 +40,6 @@ Route::resource('/parqueaderos', 'ParqueaderoController');
 Route::resource('/usuarios', 'UserController');
 
 
-
-Route::get('/error/{id}', function($id) {
-    return 'hola' . $id;
-});
+Route::resource('/error', 'ErrorController');
 
 
-Route::get('error/{id}', function($id) {
-    return 'hola' . $id;
-});

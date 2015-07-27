@@ -61,7 +61,7 @@ class UserController extends Controller {
      * @return Response
      */
     public function show($id) {
-        //
+        return 'hola'.$id;
     }
 
     /**
