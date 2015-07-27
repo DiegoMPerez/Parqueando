@@ -37,4 +37,4 @@ Route::resource('/parqueaderos', 'ParqueaderoController');
 
 Route::resource('/usuarios', 'UserController');
 
-Route::get('error/403', 'ErrorController@e403');
+Route::get('/error/403', 'ErrorController@e403');
