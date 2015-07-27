@@ -36,3 +36,7 @@ Route::resource('/parqueaderos', 'ParqueaderoController');
 //USUARIOS
 
 Route::resource('/usuarios', 'UserController');
+
+Route::get('/error/403', function(){
+    return view('errors.403');
+});
