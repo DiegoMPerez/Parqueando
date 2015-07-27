@@ -11,7 +11,14 @@ use App\Horario;
   | It's a breeze. Simply tell Laravel the URIs it should respond to
   | and give it the controller to call when that URI is requested.
   |
+
+ * 
+ * 
  */
+
+Route::get('{any}', function($url) {
+    return Redirect::to(mb_substr($url, 0, -1), 301);
+})->where('any', '(.*)\/$');
 
 Route::get('/', 'HomeController@index');
 //Route::get('/', [
@@ -39,4 +46,9 @@ Route::resource('/usuarios', 'UserController');
 
 
 
-Route::get('/error{id}','ErrorController@index');
+Route::get('/error{id}', 'ErrorController@index');
+
+
+Route::get('{any}', function($url) {
+    return view('errors.404');
+})->where('any', '(.*)\/$');

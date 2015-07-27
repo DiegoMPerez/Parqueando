@@ -39,7 +39,7 @@
             <div class="content">
                 <div class="title">Error 403 <strong>Acceso Denegado</strong>
                 </div>
-                <button type="button" class="btn btn-success" onclick="javascript:history.go(-1)">VOLVER</button>
+                <button type="button" class="btn btn-success" onclick="javascript:history.go(-1)"><strong> V O L V E R </strong></button>
             </div>
 
         </div>
