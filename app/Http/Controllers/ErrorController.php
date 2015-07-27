@@ -14,7 +14,7 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function index() {
-        return null;
+        return view('errors.404');
     }
 
     /**
@@ -23,7 +23,7 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function create() {
-        //
+        return view('errors.404');
     }
 
     /**
@@ -32,7 +32,7 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function store() {
-        //
+        return view('errors.404');
     }
 
     /**
@@ -57,7 +57,7 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+        return view('errors.404');
     }
 
     /**
@@ -67,7 +67,7 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function update($id) {
-        //
+        return view('errors.404');
     }
 
     /**
@@ -77,7 +77,7 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        return view('errors.404');
     }
 
 }
