@@ -32,11 +32,15 @@ Route::controllers([
 
 //
 //Route::resource('/parqueaderos', 'ParqueaderoController');
-
 //USUARIOS
-
 //Route::resource('/usuarios', 'UserController');
 
 
 
-Route::resource('/error','ErrorController');
+Route::get('/error/{id}/', function ($id) {
+    if($id === "403"){
+        return view('errors.403');
+    }else{
+        return view('errors.404');
+    }
+});
