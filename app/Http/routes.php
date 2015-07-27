@@ -13,6 +13,8 @@ use App\Horario;
   |
  */
 
+
+
 Route::get('/', 'HomeController@index');
 //Route::get('/', [
 //    'middleware' => ['auth','roles'],
@@ -39,4 +41,11 @@ Route::resource('/usuarios', 'UserController');
 
 
 
-Route::resource('/error{id}', 'ErrorController');
+Route::get('/error/{id}', function($id) {
+    return 'hola' . $id;
+});
+
+
+Route::get('error/{id}', function($id) {
+    return 'hola' . $id;
+});
