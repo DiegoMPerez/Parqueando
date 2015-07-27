@@ -13,8 +13,6 @@ use App\Horario;
   |
  */
 
-
-
 Route::get('/', 'HomeController@index');
 //Route::get('/', [
 //    'middleware' => ['auth','roles'],
@@ -40,6 +38,5 @@ Route::resource('/parqueaderos', 'ParqueaderoController');
 Route::resource('/usuarios', 'UserController');
 
 
-Route::resource('/error', 'ErrorController');
 
-
+Route::get('/error{id}','ErrorController@index');

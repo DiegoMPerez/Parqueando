@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 
-
 class ErrorController extends Controller {
 
     /**
@@ -14,11 +13,13 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function index($id) {
-        
-        if($id === '403'){
+
+        if ($id === '403') {
             return view('errors.403');
-        }else{
+        } elseif ($id === '404') {
             return view('errors.404');
+        } else {
+            return view('errors.503');
         }
     }
 
