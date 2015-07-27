@@ -16,10 +16,6 @@ use App\Horario;
  * 
  */
 
-Route::get('{any}', function($url) {
-    return Redirect::to(mb_substr($url, 0, -1), 301);
-})->where('any', '(.*)\/$');
-
 Route::get('/', 'HomeController@index');
 //Route::get('/', [
 //    'middleware' => ['auth','roles'],
@@ -48,7 +44,3 @@ Route::resource('/usuarios', 'UserController');
 
 Route::get('/error{id}', 'ErrorController@index');
 
-
-Route::get('{any}', function($url) {
-    return view('errors.404');
-})->where('any', '(.*)\/$');
