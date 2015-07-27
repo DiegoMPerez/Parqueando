@@ -31,12 +31,12 @@ Route::controllers([
 ]);
 
 //
-Route::resource('/parqueaderos', 'ParqueaderoController');
+//Route::resource('/parqueaderos', 'ParqueaderoController');
 
 //USUARIOS
 
-Route::resource('/usuarios', 'UserController');
+//Route::resource('/usuarios', 'UserController');
 
 
 
-Route::resource('/error','ErrorController');
+Route::resource('error','ErrorController');

@@ -14,7 +14,7 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function index() {
-        
+        return null;
     }
 
     /**
@@ -42,8 +42,8 @@ class ErrorController extends Controller {
      * @return Response
      */
     public function show($id) {
-        
-        
+
+
         if ($id === "403") {
             return view('errors.403');
         }
