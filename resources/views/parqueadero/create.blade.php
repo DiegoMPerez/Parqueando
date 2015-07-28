@@ -176,7 +176,7 @@
                 if (event.keyCode === 13) {
                     $('#buscar').mouseenter();
                     $('html,body').animate({
-                        scrollTop: $('#map-canvas').offset().top},
+                        scrollTop: $('#buscar').offset().top},
                     'slow');
                 }
             });
