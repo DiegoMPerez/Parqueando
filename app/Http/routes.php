@@ -44,3 +44,6 @@ Route::resource('/usuarios', 'UserController');
 
 Route::get('/error{id}', 'ErrorController@index');
 
+Route::get('{any}', function($url) {
+    return view('errors.404');
+})->where('any', '(.*)\/$');

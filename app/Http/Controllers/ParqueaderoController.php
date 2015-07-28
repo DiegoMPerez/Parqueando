@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth;
 
 class ParqueaderoController extends Controller {
     public function __construct() {
+        // $this->middleware('roles');
         return true;
     }
 
