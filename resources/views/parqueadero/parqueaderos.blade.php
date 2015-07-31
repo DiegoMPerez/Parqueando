@@ -1,6 +1,6 @@
 @extends('app')
 @section('title')
-users
+parqueaderos
 @stop
 @section('content')
 <div class="panel-default">

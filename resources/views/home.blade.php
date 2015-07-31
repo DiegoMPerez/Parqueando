@@ -1,5 +1,7 @@
 @extends('app')
-
+@section('title')
+PARQUEANDO
+@stop
 @section('content')
 
 

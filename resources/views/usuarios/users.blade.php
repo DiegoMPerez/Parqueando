@@ -1,13 +1,11 @@
 @extends('app')
 @section('title')
-users
+usuarios
 @stop
 @section('content')
-<div class="panel-default">
-
-    @if(Entrust::can('crear_usuarios'))
-    <h1>Acceso ADMIN</h1>
-    @endif
+<div class="panel-info">
+    
+    <div class="panel-heading">USUARIOS</div>
 
     <div class="table-responsive">
         <table class="table table-striped">

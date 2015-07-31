@@ -40,7 +40,9 @@ Route::resource('/parqueaderos', 'ParqueaderoController');
 
 Route::resource('/usuarios', 'UserController');
 
+//TIPO VEHÍCULOS
 
+Route::resource('/tipovehiculos', 'TipoVehiculosController');
 
 Route::get('/error{id}', 'ErrorController@index');
 
