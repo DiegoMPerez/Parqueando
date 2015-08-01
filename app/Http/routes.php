@@ -16,6 +16,8 @@ use App\Horario;
  * 
  */
 
+
+
 Route::get('/', 'HomeController@index');
 //Route::get('/', [
 //    'middleware' => ['auth','roles'],
@@ -42,7 +44,7 @@ Route::resource('/usuarios', 'UserController');
 
 //TIPO VEHÍCULOS
 
-Route::resource('/tipovehiculos', 'TipoVehiculosController');
+Route::resource('/tipovehiculos', 'TipoVehiculosController',['only' => ['index','create','store']]);
 
 Route::get('/error{id}', 'ErrorController@index');
 

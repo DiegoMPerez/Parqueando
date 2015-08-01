@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\RequestTipoVehiculos;
 use App\TipoVehiculos;
 
 class TipoVehiculosController extends Controller {
@@ -48,8 +47,8 @@ class TipoVehiculosController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store(RequestTipoVehiculos $request) {
+        return redirect('tipovehiculos/create');
     }
 
     /**
