@@ -60,7 +60,7 @@ Nuevo Tipo Vehículos
                     <div class="form-group">
                         {!! Form::label('imagen', 'Imagen:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::file('file') !!}
+                            {!! Form::file('file', ['class' => 'file', 'id' => 'files', ]) !!}
                         </div>
                     </div>
                     <!--botón enviar-->
@@ -80,14 +80,16 @@ Nuevo Tipo Vehículos
 
 <script>
 $("#files").fileinput({
+    fileTypeSettings: ["image"],
+    allowedFileTypes: ["image"],
+    allowedFileExtensions: ["jpg", "gif", "png"],
     browseIcon: '<i class="glyphicon glyphicon-picture"></i>', previewFileType: "image",
     browseClass: "btn btn-success",
     browseLabel: " Selecciona una imagen",
     showCaption: false,
     showPreview: true,
     showRemove: false,
-    showUpload: false,
-    fileTypeSettings: ["image"]
+    showUpload: false, 
 });
 
 </script>
