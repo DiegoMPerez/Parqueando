@@ -48,6 +48,7 @@ class TipoVehiculosController extends Controller {
      * @return Response
      */
     public function store(RequestTipoVehiculos $request) {
+      
         return redirect('tipovehiculos/create');
     }
 

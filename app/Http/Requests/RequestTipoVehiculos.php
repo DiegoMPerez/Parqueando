@@ -21,11 +21,13 @@ class RequestTipoVehiculos extends Request {
      * @return array
      */
     public function rules() {
-        return [
-            'nombre' => 'required|min:2|max:50',
-            'largo' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
-            'file' => 'required'
-        ];
+
+        
+        $rules = array(
+            'file' => 'required|min:1|integerOrArray'
+        );
+
+        return $rules;
     }
 
     public function messages() {

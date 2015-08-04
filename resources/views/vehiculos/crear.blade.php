@@ -7,7 +7,9 @@ Nuevo Tipo Vehículos
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
 <link href="{{ asset('/bootstrapfileinput/css/fileinput.css') }}" media="all" rel="stylesheet" type="text/css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="{{ asset('bootstrapfileinput/js/fileinput.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/bootstrapfileinput/js/fileinput.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/bootstrapfileinput/js/fileinput_locale_es.js') }}"></script>
+
 @endsection
 
 @section('content')
@@ -19,7 +21,7 @@ Nuevo Tipo Vehículos
                 <div class="panel-heading">Nuevo Tipo de Vehículo</div>
                 <div class="panel-body">
                     <div id="form-errors" ></div>
-                    {!! Form::open(['route' => 'tipovehiculos.store', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'form', 'files' => true ]) !!}
+                    {!! Form::open(['route' => 'tipovehiculos.store', 'role' => 'form', 'method' => 'POST', 'class' => 'form-horizontal', 'id' => 'form', 'files' => true ]) !!}
                     <!-- Nombre -->
                     <div class="form-group">
                         {!! Form::label('nombre', 'Nombre:', ['class' => 'col-md-4 control-label']) !!}
@@ -60,7 +62,7 @@ Nuevo Tipo Vehículos
                     <div class="form-group">
                         {!! Form::label('imagen', 'Imagen:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::file('file', ['class' => 'file', 'id' => 'files', ]) !!}
+                            <input id="file" name="file[]" type="file" multiple="false">
                         </div>
                     </div>
                     <!--botón enviar-->
@@ -79,17 +81,15 @@ Nuevo Tipo Vehículos
 
 
 <script>
-$("#files").fileinput({
-    fileTypeSettings: ["image"],
+$("#file").fileinput({
+    language: "es",
     allowedFileTypes: ["image"],
     allowedFileExtensions: ["jpg", "gif", "png"],
     browseIcon: '<i class="glyphicon glyphicon-picture"></i>', previewFileType: "image",
     browseClass: "btn btn-success",
     browseLabel: " Selecciona una imagen",
-    showCaption: false,
-    showPreview: true,
     showRemove: false,
-    showUpload: false, 
+    showUpload: false
 });
 
 </script>
@@ -123,7 +123,6 @@ $("#files").fileinput({
                     //e.g
                     errorsHtml = '<div class="alert alert-danger"><ul>';
                     $.each(errors, function (key, value) {
-                        console.log();
                         errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
                     });
                     errorsHtml += '</ul></di>';
