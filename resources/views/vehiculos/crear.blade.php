@@ -62,7 +62,7 @@ Nuevo Tipo Vehículos
                     <div class="form-group">
                         {!! Form::label('imagen', 'Imagen:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            <input id="file" name="file[]" type="file" multiple="false">
+                            <input id="imagen" type="file" name="imagen" class="form-control">
                         </div>
                     </div>
                     <!--botón enviar-->
@@ -81,7 +81,7 @@ Nuevo Tipo Vehículos
 
 
 <script>
-$("#file").fileinput({
+$("#imagen").fileinput({
     language: "es",
     allowedFileTypes: ["image"],
     allowedFileExtensions: ["jpg", "gif", "png"],
@@ -99,15 +99,19 @@ $("#file").fileinput({
 @section('linkbot')
 <script>
     $('#enviar').click(function (event) {
+        
+        var url = "{{URL::route('tipovehiculos.store')}}";
+        var dataFrom = new FormData($('form')[0]);
+        console.log(dataFrom);
 
         event.preventDefault();
-        var url = "{{URL::route('tipovehiculos.store')}}";
-        var form = $('#form');
-        var data = form.serialize();
+        
         $.ajax({
             url: url,
             type: 'POST',
-            data: $(this).closest('form').serialize(),
+            data: dataFrom,
+            processData: false,
+            contentType: false,
             success: function (data) {
                 // Success...
                 console.log(data);

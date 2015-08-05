@@ -22,17 +22,15 @@ class RequestTipoVehiculos extends Request {
      */
     public function rules() {
 
-        
-        $rules = array(
-            'file' => 'required|min:1|integerOrArray'
-        );
-
-        return $rules;
+        return [
+            'imagen' => 'required'
+        ];
     }
 
     public function messages() {
         return [
             'largo.regex' => "El formato del campo Largo es 0,00",
+            'file'       => 'Una imagen que represente el tipo de vehículo es requerida'
         ];
     }
 

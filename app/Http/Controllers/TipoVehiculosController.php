@@ -48,7 +48,8 @@ class TipoVehiculosController extends Controller {
      * @return Response
      */
     public function store(RequestTipoVehiculos $request) {
-      
+        
+        print_r(\Request::all());
         return redirect('tipovehiculos/create');
     }
 
