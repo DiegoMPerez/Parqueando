@@ -26,28 +26,28 @@ Nuevo Tipo Vehículos
                     <div class="form-group">
                         {!! Form::label('nombre', 'Nombre:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::text('nombre', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                            {!! Form::text('nombre', '', ['class' => 'form-control', 'maxlength' => '50']) !!}
                         </div>
                     </div> 
                     <!-- Largo -->
                     <div class="form-group">
                         {!! Form::label('largo', 'Largo:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-2">
-                            {!! Form::number('largo', '', ['class' => 'form-control', 'step' => '0.5']) !!}
+                            {!! Form::number('largo', '', ['class' => 'form-control', 'step' => '0.10']) !!}
                         </div>
                     </div> 
                     <!-- Altura -->
                     <div class="form-group">
                         {!! Form::label('altura', 'Altura:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-2">
-                            {!! Form::text('altura', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                            {!! Form::text('altura', '', ['class' => 'form-control', 'step' => '0.10']) !!}
                         </div>
                     </div> 
                     <!-- Peso -->
                     <div class="form-group">
                         {!! Form::label('peso', 'Peso:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-2">
-                            {!! Form::text('peso', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                            {!! Form::text('peso', '', ['class' => 'form-control', 'step' => '0.10']) !!}
                         </div>
                     </div> 
 
@@ -55,7 +55,7 @@ Nuevo Tipo Vehículos
                     <div class="form-group">
                         {!! Form::label('descripcion', 'Descripción:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
-                            {!! Form::text('descripcion', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                            {!! Form::text('descripcion', '', ['class' => 'form-control', 'maxlength' => '255']) !!}
                         </div>
                     </div> 
                     <!-- Imagen -->
@@ -81,6 +81,7 @@ Nuevo Tipo Vehículos
 
 
 <script>
+//    Delimitaciones del fileinput de bootstrap
 $("#imagen").fileinput({
     language: "es",
     allowedFileTypes: ["image"],
@@ -98,21 +99,25 @@ $("#imagen").fileinput({
 
 @section('linkbot')
 <script>
+
+    //Envío Ajax
     $('#enviar').click(function (event) {
-        
+
         var url = "{{URL::route('tipovehiculos.store')}}";
-        var dataFrom = new FormData($('form')[0]);
-        console.log(dataFrom);
+        //Para enviar tipo files
+        var dataForm = new FormData($('form')[0]);
+        console.log(dataForm);
 
         event.preventDefault();
-        
+
         $.ajax({
             url: url,
             type: 'POST',
-            data: dataFrom,
+            data: dataForm,
             processData: false,
             contentType: false,
             success: function (data) {
+                $('#imagen').val(null);
                 // Success...
                 console.log(data);
                 location.href = "{{URL::route('tipovehiculos.create')}}";

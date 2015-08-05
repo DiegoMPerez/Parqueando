@@ -3,6 +3,8 @@
 Tipo Vehiculos
 @stop
 @section('content')
+<meta http-equiv="Expires" content="0" /> 
+<meta http-equiv="Pragma" content="no-cache" />
 
 <div class="panel panel-info">
     <div class="panel-heading">Tipos de vehículos admitidos por los parqueaderos</div>

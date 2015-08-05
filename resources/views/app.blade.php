@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -19,7 +20,15 @@
         <![endif]-->
     </head>
     <body>
-
+        <!--Prevenir el botón atras después de cerrar la sesión-->
+        <?php
+        echo
+        header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+        header("Cache-Control: post-check=0, pre-check=0", false);
+        header("Pragma: no-cache");
+        header('Content-Type: text/html');
+        ?>
+        
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -57,7 +66,7 @@
         <div class="content">
 
             @yield('content')
-            
+
         </div>
         <!-- Scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
