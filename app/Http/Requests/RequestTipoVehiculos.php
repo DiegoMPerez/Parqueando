@@ -28,7 +28,7 @@ class RequestTipoVehiculos extends Request {
             'altura' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'peso' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'nombre' => 'required|max:255',
-            'imagen' => 'required|mimes:png|max:50',
+            'imagen' => 'required|mimes:png|max:5',
         ];
     }
 
@@ -44,7 +44,7 @@ class RequestTipoVehiculos extends Request {
             'imagen.required' => "La imagen es requerida",
             'file'       => 'Una imagen que represente el tipo de vehículo es requerida',
             'imagen.mimes' => 'La imagen debe ser tipo png',
-            'imagen.size' => 'La imagen no debe sobrepasar los 100 kb'
+            'imagen.size' => 'La imagen no debe sobrepasar los 5 kb'
         ];
     }
 

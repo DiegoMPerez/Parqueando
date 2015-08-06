@@ -19,18 +19,19 @@ Tipo Vehiculos
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
-                    <tr><th>Imagen</th><th>Nombre</th><th>Altura</th><th>Peso</th><th>Descripción</th></tr>
+                    <tr><th>Imagen</th><th>Nombre</th><th>Altura</th><th>Largo</th><th>Peso</th><th>Descripción</th></tr>
                 </thead>
                 @if(isset($tvehiculos))
                 <tbody>
                     <!--//este es un comentario-->
                     @foreach($tvehiculos as $tipo)
-                    <tr>
-                        <td>{!! Html::image('d',$tipo->imagen) !!}</td>
-                        <td>{!! $tipo->nombre !!}</td>
-                        <td>{!! $tipo->altura !!}</td>
-                        <td>{!! $tipo->peso !!}</td>
-                        <td>{!! $tipo->descripcion !!}</td>
+                    <tr >
+                        <td>{!! Html::image("imagenes/".$tipo->imagen,"foto", array("class" => "img-rounded")) !!} </td>
+                        <td> <br/> {!! $tipo->nombre !!}</td>
+                        <td> <br/> {!! $tipo->altura !!}</td>
+                        <td> <br/> {!! $tipo->largo !!}</td>
+                        <td> <br/> {!! $tipo->peso !!}</td>
+                        <td> <br/> {!! $tipo->descripcion !!}</td>
                     </tr>
                     @endforeach
                 </tbody>

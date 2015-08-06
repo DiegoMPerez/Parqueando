@@ -25,20 +25,20 @@ class TipoVehiculosController extends Controller {
                 $tipo->altura = $tipo->altura . " m.";
             }
 
+            if ($tipo->largo == 0) {
+                $tipo->largo = 'ilimitado';
+            } else {
+                $tipo->largo = $tipo->largo . " m.";
+            }
+            
             if ($tipo->peso == 0) {
                 $tipo->peso = 'ilimitado';
             } else {
                 $tipo->peso = $tipo->peso . ' tn.';
             }
-            try{
-            $img = Image::make(storage_path('imagenes/tv_12.png'));
-            $img->fit(20, 20);
-            $tipo->imagen = $img->response('png');
-            }  catch (Exception $r){
-                
-            }
         }
 
+        
         
         
         return View('vehiculos.tipo_vehiculos')->with('tvehiculos', $tvehiculos);
@@ -60,7 +60,7 @@ class TipoVehiculosController extends Controller {
      */
     public function store(RequestTipoVehiculos $request) {
         try {
-            $destinationPath = base_path('storage/imagenes');
+            $destinationPath = public_path('imagenes');
             //Extensión del file
             $extension = \Request::file('imagen')->getClientOriginalExtension();
             //id para el nombre de la imagen
@@ -70,7 +70,7 @@ class TipoVehiculosController extends Controller {
         } catch (Exception $ex) {
             dd($ex);
         }
-
+        
         return redirect('tipovehiculos/create');
     }
 
