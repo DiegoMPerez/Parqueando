@@ -3,8 +3,6 @@
 Tipo Vehiculos
 @stop
 @section('content')
-<meta http-equiv="Expires" content="0" /> 
-<meta http-equiv="Pragma" content="no-cache" />
 
 <div class="panel panel-info">
     <div class="panel-heading">Tipos de vehículos admitidos por los parqueaderos</div>
@@ -21,13 +19,15 @@ Tipo Vehiculos
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
-                    <tr><th>Nombre</th><th>Altura</th><th>Peso</th><th>Descripción</th></tr>
+                    <tr><th>Imagen</th><th>Nombre</th><th>Altura</th><th>Peso</th><th>Descripción</th></tr>
                 </thead>
                 @if(isset($tvehiculos))
                 <tbody>
                     <!--//este es un comentario-->
                     @foreach($tvehiculos as $tipo)
-                    <tr><td>{!! $tipo->nombre !!}</td>
+                    <tr>
+                        <td>{!! Html::image('d',$tipo->imagen) !!}</td>
+                        <td>{!! $tipo->nombre !!}</td>
                         <td>{!! $tipo->altura !!}</td>
                         <td>{!! $tipo->peso !!}</td>
                         <td>{!! $tipo->descripcion !!}</td>
@@ -62,6 +62,7 @@ Tipo Vehiculos
 @endsection
 @section('linkbot')
 <script>
+    
     $(document).on('click', '.open', function () {
         var $nombres = $(this).data('username');
         var $apellidos = $(this).data('apellidos');

@@ -79,7 +79,6 @@ Nuevo Tipo Vehículos
     </div>
 </div>
 
-
 <script>
 //    Delimitaciones del fileinput de bootstrap
 $("#imagen").fileinput({
@@ -100,49 +99,50 @@ $("#imagen").fileinput({
 @section('linkbot')
 <script>
 
-    //Envío Ajax
-    $('#enviar').click(function (event) {
-
-        var url = "{{URL::route('tipovehiculos.store')}}";
-        //Para enviar tipo files
-        var dataForm = new FormData($('form')[0]);
-        console.log(dataForm);
-
-        event.preventDefault();
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function (data) {
-                $('#imagen').val(null);
-                // Success...
-                console.log(data);
-                location.href = "{{URL::route('tipovehiculos.create')}}";
-            },
-            error: function (jqXhr) {
-                if (jqXhr.status === 401) //redirect if not authenticated user.
-                    $(location).prop('pathname', 'auth/login');
-                if (jqXhr.status === 422) {
-                    //process validation errors here.
-                    var errors = jqXhr.responseJSON; //this will get the errors response data.
-                    //show them somewhere in the markup
-                    //e.g
-                    errorsHtml = '<div class="alert alert-danger"><ul>';
-                    $.each(errors, function (key, value) {
-                        errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
-                    });
-                    errorsHtml += '</ul></di>';
-                    $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
-                    $('html, body').animate({scrollTop: 0}, 'fast');
-                } else {
-                    /// do some thing else
-                }
-            }
-        });
-    });
+//
+//    //Envío Ajax
+//    $('#enviar').click(function (event) {
+//
+//        var url = "{{URL::route('tipovehiculos.store')}}";
+//        //Para enviar tipo files XHR2"
+//        var dataForm = new FormData($('form')[0]);
+//        console.log(dataForm);
+//
+//        event.preventDefault();
+//
+//        $.ajax({
+//            url: url,
+//            type: 'POST',
+//            data: dataForm,
+//            processData: false,
+//            contentType: false,
+//            success: function (data) {
+//                $('#imagen').val(null);
+//                // Success...
+//                console.log(data);
+//                location.href = "{{URL::route('tipovehiculos.create')}}";
+//            },
+//            error: function (jqXhr) {
+//                if (jqXhr.status === 401) //redirect if not authenticated user.
+//                    $(location).prop('pathname', 'auth/login');
+//                if (jqXhr.status === 422) {
+//                    //process validation errors here.
+//                    var errors = jqXhr.responseJSON; //this will get the errors response data.
+//                    //show them somewhere in the markup
+//                    //e.g
+//                    errorsHtml = '<div class="alert alert-danger"><ul>';
+//                    $.each(errors, function (key, value) {
+//                        errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+//                    });
+//                    errorsHtml += '</ul></di>';
+//                    $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
+//                    $('html, body').animate({scrollTop: 0}, 'fast');
+//                } else {
+//                    /// do some thing else
+//                }
+//            }
+//        });
+//    });
 </script>
 @endsection
 

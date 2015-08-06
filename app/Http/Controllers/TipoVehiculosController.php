@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestTipoVehiculos;
 use App\TipoVehiculos;
+use DB;
+use Intervention\Image\Facades\Image;
 
 class TipoVehiculosController extends Controller {
 
@@ -15,20 +17,29 @@ class TipoVehiculosController extends Controller {
      */
     public function index() {
         $tvehiculos = TipoVehiculos::all();
-        
+
         foreach ($tvehiculos as $tipo) {
-            if($tipo->altura == 0){
-                $tipo->altura='ilimitado';
-            }else{
-                $tipo->altura=$tipo->altura." m.";
+            if ($tipo->altura == 0) {
+                $tipo->altura = 'ilimitado';
+            } else {
+                $tipo->altura = $tipo->altura . " m.";
             }
-            
-            if($tipo->peso == 0){
-                $tipo->peso='ilimitado';
-            }else{
-                $tipo->peso=$tipo->peso.' tn.';
+
+            if ($tipo->peso == 0) {
+                $tipo->peso = 'ilimitado';
+            } else {
+                $tipo->peso = $tipo->peso . ' tn.';
+            }
+            try{
+            $img = Image::make(storage_path('imagenes/tv_12.png'));
+            $img->fit(20, 20);
+            $tipo->imagen = $img->response('png');
+            }  catch (Exception $r){
+                
             }
         }
+
+        
         
         return View('vehiculos.tipo_vehiculos')->with('tvehiculos', $tvehiculos);
     }
@@ -48,8 +59,18 @@ class TipoVehiculosController extends Controller {
      * @return Response
      */
     public function store(RequestTipoVehiculos $request) {
-        
-        
+        try {
+            $destinationPath = base_path('storage/imagenes');
+            //Extensión del file
+            $extension = \Request::file('imagen')->getClientOriginalExtension();
+            //id para el nombre de la imagen
+            $results = DB::table('tipo_vehiculos')->max('id_tipo');
+            //renombrando la imagen
+            \Request::file('imagen')->move($destinationPath, 'tv_' . $results . '.' . $extension);
+        } catch (Exception $ex) {
+            dd($ex);
+        }
+
         return redirect('tipovehiculos/create');
     }
 

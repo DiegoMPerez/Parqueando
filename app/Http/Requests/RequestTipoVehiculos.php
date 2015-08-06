@@ -28,7 +28,7 @@ class RequestTipoVehiculos extends Request {
             'altura' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'peso' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'nombre' => 'required|max:255',
-            'imagen' => 'required|mimes:jpeg,png',
+            'imagen' => 'required|mimes:png|max:50',
         ];
     }
 
@@ -42,7 +42,9 @@ class RequestTipoVehiculos extends Request {
             'peso.numeric' => "El peso debe ser un número, utiliza el punto para separar decimales",
             'altura.required' => "La altura es requerida",
             'imagen.required' => "La imagen es requerida",
-            'file'       => 'Una imagen que represente el tipo de vehículo es requerida'
+            'file'       => 'Una imagen que represente el tipo de vehículo es requerida',
+            'imagen.mimes' => 'La imagen debe ser tipo png',
+            'imagen.size' => 'La imagen no debe sobrepasar los 100 kb'
         ];
     }
 
