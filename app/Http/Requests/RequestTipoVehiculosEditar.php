@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class RequestTipoVehiculos extends Request {
+class RequestTipoVehiculosEditar extends Request {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -21,14 +21,13 @@ class RequestTipoVehiculos extends Request {
      * @return array
      */
     public function rules() {
-
         return [
             'nombre' => 'required|min:2|max:50',
             'largo' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'altura' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'peso' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'nombre' => 'required|max:255',
-            'imagen' => 'required|image|mimes:png|max:5|',
+            'imagen' => 'image|mimes:png|max:5|',
         ];
     }
 
@@ -42,7 +41,7 @@ class RequestTipoVehiculos extends Request {
             'peso.numeric' => "El peso debe ser un número, utiliza el punto para separar decimales",
             'altura.required' => "La altura es requerida",
             'imagen.required' => "La imagen es requerida",
-            'file'       => 'Una imagen que represente el tipo de vehículo es requerida',
+            'file' => 'Una imagen que represente el tipo de vehículo es requerida',
             'imagen.mimes' => 'La imagen debe ser tipo png',
             'imagen.max' => 'La imagen no debe sobrepasar los 5 kb'
         ];

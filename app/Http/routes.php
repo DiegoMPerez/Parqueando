@@ -44,7 +44,7 @@ Route::resource('/usuarios', 'UserController');
 
 //TIPO VEHÍCULOS
 
-Route::resource('/tipovehiculos', 'TipoVehiculosController',['only' => ['index','create','store']]);
+Route::resource('/tipovehiculos', 'TipoVehiculosController',['only' => ['index','create','store','edit','destroy','update']]);
 
 Route::get('/error{id}', 'ErrorController@index');
 

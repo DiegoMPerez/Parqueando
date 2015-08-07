@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RequestTipoVehiculosEditar;
 use App\Http\Requests\RequestTipoVehiculos;
 use App\TipoVehiculos;
 use DB;
-use Intervention\Image\Facades\Image;
 
 class TipoVehiculosController extends Controller {
 
@@ -91,7 +91,8 @@ class TipoVehiculosController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+        $tipovehiculo = TipoVehiculos::find($id);
+        return View('vehiculos.editar', ['tipovehiculo' => $tipovehiculo]);
     }
 
     /**
@@ -100,8 +101,8 @@ class TipoVehiculosController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
+    public function update($id, RequestTipoVehiculosEditar $request) {
+        return "d";
     }
 
     /**

@@ -32,6 +32,17 @@ Tipo Vehiculos
                         <td> <br/> {!! $tipo->largo !!}</td>
                         <td> <br/> {!! $tipo->peso !!}</td>
                         <td> <br/> {!! $tipo->descripcion !!}</td>
+                        <td> 
+                            {!! Form::open(array('method' => 'GET', 'route' => array('tipovehiculos.edit', $tipo->id_tipo))) !!}
+                            {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
+                            {!! Form::close() !!}</td>
+
+                        <td>
+                        <td>
+                            {!! Form::open(array('id' => 'form-eliminar','method' => 'DELETE', 'route' => array('tipovehiculos.destroy', $tipo->id_tipo))) !!}
+                            {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-nombre' => $tipo-> nombre)) !!}
+                            {!! Form::close() !!}
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -63,11 +74,10 @@ Tipo Vehiculos
 @endsection
 @section('linkbot')
 <script>
-    
+
     $(document).on('click', '.open', function () {
-        var $nombres = $(this).data('username');
-        var $apellidos = $(this).data('apellidos');
-        $('#usuario').html("¿Está seguro de eliminar el usuario <strong>" + $nombres + " " + $apellidos + "</strong>?");
+        var $nombre = $(this).data('nombre');
+        $('#usuario').html("¿Está seguro de eliminar el tipo  <strong>" + $nombre +"</strong>?");
     });
 
 
