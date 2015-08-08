@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\RequestTipoVehiculosEditar;
 use App\Http\Requests\RequestTipoVehiculos;
 use App\TipoVehiculos;
+use Illuminate\Support\Facades\Redirect;
 use DB;
 
 class TipoVehiculosController extends Controller {
@@ -30,7 +31,7 @@ class TipoVehiculosController extends Controller {
             } else {
                 $tipo->largo = $tipo->largo . " m.";
             }
-            
+
             if ($tipo->peso == 0) {
                 $tipo->peso = 'ilimitado';
             } else {
@@ -38,9 +39,9 @@ class TipoVehiculosController extends Controller {
             }
         }
 
-        
-        
-        
+
+
+
         return View('vehiculos.tipo_vehiculos')->with('tvehiculos', $tvehiculos);
     }
 
@@ -59,18 +60,15 @@ class TipoVehiculosController extends Controller {
      * @return Response
      */
     public function store(RequestTipoVehiculos $request) {
-        try {
-            $destinationPath = public_path('imagenes');
-            //Extensión del file
-            $extension = \Request::file('imagen')->getClientOriginalExtension();
-            //id para el nombre de la imagen
-            $results = DB::table('tipo_vehiculos')->max('id_tipo');
-            //renombrando la imagen
-            \Request::file('imagen')->move($destinationPath, 'tv_' . $results . '.' . $extension);
-        } catch (Exception $ex) {
-            dd($ex);
-        }
-        
+
+        $destinationPath = public_path('imagenes');
+        //Extensión del file
+        $extension = \Request::file('imagen')->getClientOriginalExtension();
+        //id para el nombre de la imagen
+        $results = DB::table('tipo_vehiculos')->max('id_tipo');
+        //renombrando la imagen
+        \Request::file('imagen')->move($destinationPath, 'tv_' . $results . '.' . $extension);
+
         return redirect('tipovehiculos/create');
     }
 
@@ -101,8 +99,40 @@ class TipoVehiculosController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, RequestTipoVehiculosEditar $request) {
-        return "d";
+    public function update(RequestTipoVehiculosEditar $request) {
+
+        $nombre = \Request::input('nombre');
+        $largo = \Request::input('largo');
+        $altura = \Request::input('altura');
+        $peso = \Request::input('peso');
+        $descripcion = \Request::input('descripcion');
+        $imagen = \Request::file('imagen');
+
+        $id = \Request::input('id');
+        $tipo = TipoVehiculos::find($id);
+
+
+
+        $tipo->nombre = $nombre;
+        $tipo->largo = $largo;
+        $tipo->altura = $altura;
+        $tipo->peso = $peso;
+        $tipo->descripcion = $descripcion;
+
+
+        if ($imagen !== null) {
+            $destinationPath = public_path('imagenes');
+            //Extensión del file
+            $extension = \Request::file('imagen')->getClientOriginalExtension();
+            //renombrando la imagen
+            $nombre_img = 'tv_' . $id . '.' . $extension;
+            \Request::file('imagen')->move($destinationPath, $nombre_img);
+            $tipo->imagen = $nombre_img;
+        }
+
+        $tipo->save();
+
+        return Redirect::route('tipovehiculos.index');
     }
 
     /**

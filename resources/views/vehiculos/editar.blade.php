@@ -22,7 +22,7 @@ Editar Tipo Vehículos
                 <div class="panel-body" style="text-align: center">
                     <div class="panel-info"> <p>El campo <strong>nombre</strong> representa el tipo de vehículos, el valor de <strong>altura</strong> esta representado en <em>metros</em> y el valor de <strong>peso</strong>  en <em>toneladas</em>. </p></div>
                     <div id="form-errors" ></div>
-                    {!! Form::Model($tipovehiculo, array('method' => 'PUT', 'route' => array('tipovehiculos.update', $tipovehiculo->id_tipo), 'class' => 'form-horizontal')) !!}
+                    {!! Form::Model($tipovehiculo, array('method' => 'PUT', 'route' => array('tipovehiculos.update', $tipovehiculo->id_tipo), 'class' => 'form-horizontal', 'files' => true)) !!}
                     <!-- Nombre -->
                     <div class="form-group">
                         {!! Form::label('nombre', 'Nombre:', ['class' => 'col-md-4 control-label']) !!}
@@ -62,7 +62,7 @@ Editar Tipo Vehículos
                     <!--Imagen-->
                     <div class="form-group">
                         {!! Form::label('imagen', 'Imagen Actual:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
+                        <div class="col-md-1">
                         {!! Html::image("imagenes/".$tipovehiculo->imagen,"foto", array("class" => "img-rounded")) !!} 
                         </div>
                     </div>
@@ -75,10 +75,12 @@ Editar Tipo Vehículos
                     </div>
                     <!--botón enviar-->
                     <div class="form-group">
-                        <div class="col-md-1 col-md-offset-4">
+                        <div class="col-md-4 col-md-offset-4">
                             <button type="submit" class="btn btn-primary" id="enviar">Editar Tipo</button>
+                            {!! link_to('tipovehiculos',"Cancelar", array("class" => "btn btn-danger")) !!}
                         </div>
                     </div>
+                    
                     {!! Form::close() !!}
                 </div>
 
@@ -114,8 +116,8 @@ $("#imagen").fileinput({
         var url = "{{URL::route('tipovehiculos.update')}}";
         //Para enviar tipo files XHR2"
         var dataForm = new FormData($('form')[0]);
+        dataForm.append('id', {!! $tipovehiculo->id_tipo !!});
         console.log(dataForm);
-
         event.preventDefault();
 
         $.ajax({
@@ -146,7 +148,7 @@ $("#imagen").fileinput({
                     $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
                     $('html, body').animate({scrollTop: 0}, 'fast');
                 } else {
-                    console.log(jqXhr.responseJSON);
+                    
                 }
             }
         });
