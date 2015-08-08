@@ -120,7 +120,7 @@ $("#imagen").fileinput({
                 $('#imagen').val(null);
                 // Success...
                 console.log(data);
-                location.href = "{{URL::route('tipovehiculos.create')}}";
+                location.href = "{{URL::route('tipovehiculos.index')}}";
             },
             error: function (jqXhr) {
                 if (jqXhr.status === 401) //redirect if not authenticated user.

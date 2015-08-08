@@ -9,6 +9,7 @@ use App\TipoVehiculos;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 
+
 class TipoVehiculosController extends Controller {
 
     /**
@@ -61,15 +62,39 @@ class TipoVehiculosController extends Controller {
      */
     public function store(RequestTipoVehiculos $request) {
 
+        $nombre = \Request::input('nombre');
+        $largo = \Request::input('largo');
+        $altura = \Request::input('altura');
+        $peso = \Request::input('peso');
+        $descripcion = \Request::input('descripcion');
+
+
+        $tipo = new TipoVehiculos();
+
+        //id para el nombre de la imagen
+        $results = DB::table('tipo_vehiculos')->max('id_tipo') + 1;
+
+        $tipo->nombre = $nombre;
+        $tipo->largo = $largo;
+        $tipo->altura = $altura;
+        $tipo->peso = $peso;
+        $tipo->descripcion = $descripcion;
+
         $destinationPath = public_path('imagenes');
         //Extensión del file
         $extension = \Request::file('imagen')->getClientOriginalExtension();
-        //id para el nombre de la imagen
-        $results = DB::table('tipo_vehiculos')->max('id_tipo');
-        //renombrando la imagen
-        \Request::file('imagen')->move($destinationPath, 'tv_' . $results . '.' . $extension);
+        $nombreImagen = 'tv_' . $results . '.' . $extension;
 
-        return redirect('tipovehiculos/create');
+        //renombrando la imagen
+        \Request::file('imagen')->move($destinationPath, $nombreImagen);
+
+        $tipo->id_tipo = $results;
+        $tipo->imagen = $nombreImagen;
+
+
+        $tipo->save();
+
+        return redirect('tipovehiculos');
     }
 
     /**
@@ -142,7 +167,11 @@ class TipoVehiculosController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        
+        //dd($id);
+        TipoVehiculos::destroy($id);
+        
+        return Redirect::route('tipovehiculos.index');
     }
 
 }

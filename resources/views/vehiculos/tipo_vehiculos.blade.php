@@ -22,6 +22,8 @@ Tipo Vehiculos
                     <tr><th>Imagen</th><th>Nombre</th><th>Altura</th><th>Largo</th><th>Peso</th><th>Descripción</th></tr>
                 </thead>
                 @if(isset($tvehiculos))
+
+
                 <tbody>
                     <!--//este es un comentario-->
                     @foreach($tvehiculos as $tipo)
@@ -39,8 +41,8 @@ Tipo Vehiculos
 
                         <td>
                         <td>
-                            {!! Form::open(array('id' => 'form-eliminar','method' => 'DELETE', 'route' => array('tipovehiculos.destroy', $tipo->id_tipo))) !!}
-                            {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-nombre' => $tipo-> nombre)) !!}
+                            {!! Form::open(array('id' => $tipo->id_tipo, 'method' => 'DELETE', 'route' => array('tipovehiculos.destroy', $tipo->id_tipo))) !!}
+                            {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-nombre' => $tipo-> nombre, 'data-id' => $tipo-> id_tipo)) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>
@@ -77,12 +79,15 @@ Tipo Vehiculos
 
     $(document).on('click', '.open', function () {
         var $nombre = $(this).data('nombre');
-        $('#usuario').html("¿Está seguro de eliminar el tipo  <strong>" + $nombre +"</strong>?");
+        var $id = $(this).data('id');
+        $('#usuario').html("¿Está seguro de eliminar el tipo  <strong>" + $nombre + "</strong>?");
+
+        $('#btn-ok').click(function (e) {
+            $('#'+$id).submit();
+        });
     });
 
 
-    $('#btn-ok').click(function () {
-        $('#form-eliminar').submit();
-    });
+
 </script>
 @endsection

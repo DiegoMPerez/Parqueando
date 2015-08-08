@@ -61,6 +61,7 @@ editar usuario
                             <button type="submit" class="btn btn-primary" id="enviar">Guardar Cambios</button>
                         </div>
                     </div>
+                    
                     {!! Form::close() !!}
 
                 </div>
