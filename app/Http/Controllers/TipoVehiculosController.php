@@ -8,6 +8,7 @@ use App\Http\Requests\RequestTipoVehiculos;
 use App\TipoVehiculos;
 use Illuminate\Support\Facades\Redirect;
 use DB;
+use Illuminate\Support\Facades\File;
 
 
 class TipoVehiculosController extends Controller {
@@ -167,8 +168,12 @@ class TipoVehiculosController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        
         //dd($id);
+        
+        $tipovehiculo = TipoVehiculos::find($id);
+        
+        File::delete(public_path('imagenes/'.$tipovehiculo->imagen));
+        
         TipoVehiculos::destroy($id);
         
         return Redirect::route('tipovehiculos.index');
