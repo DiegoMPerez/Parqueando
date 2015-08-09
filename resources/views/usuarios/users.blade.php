@@ -4,7 +4,7 @@ usuarios
 @stop
 @section('content')
 <div class="panel-info">
-    
+
     <div class="panel-heading">USUARIOS</div>
 
     <div class="table-responsive">
@@ -25,10 +25,9 @@ usuarios
                     <td>{!! Form::open(array('method' => 'GET', 'route' => array('usuarios.edit', $user->id))) !!}
                         {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
                         {!! Form::close() !!}</td>
-
                     <td>
-                        {!! Form::open(array('id' => 'form-eliminar','method' => 'DELETE', 'route' => array('usuarios.destroy', $user->id))) !!}
-                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos)) !!}
+                        {!! Form::open(array('id' => $user->id,'method' => 'DELETE', 'route' => array('usuarios.destroy', $user->id))) !!}
+                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos, 'data-id' => $user-> id)) !!}
                         {!! Form::close() !!}
                     </td>
                     @endif
@@ -63,13 +62,17 @@ usuarios
     $(document).on('click', '.open', function () {
         var $nombres = $(this).data('username');
         var $apellidos = $(this).data('apellidos');
+        var $id = $(this).data('id');
         $('#usuario').html("¿Está seguro de eliminar el usuario <strong>" + $nombres + " " + $apellidos + "</strong>?");
+
+
+        $('#btn-ok').click(function () {
+            $('#'+$id).submit();
+        });
     });
 
 
-    $('#btn-ok').click(function () {
-        $('#form-eliminar').submit();
-    });
+
 </script>
 
 @endsection
