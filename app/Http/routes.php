@@ -46,7 +46,19 @@ Route::resource('/usuarios', 'UserController');
 
 Route::resource('/tipovehiculos', 'TipoVehiculosController',['only' => ['index','create','store','edit','destroy','update']]);
 
+
+//PLAZAS DE ESTACIONAMIENTO
+
+Route::resource('/plazas', 'PlazaController');
+
+//ERORES
+
 Route::get('/error{id}', 'ErrorController@index');
+
+
+
+
+
 
 Route::get('{any}', function($url) {
     return view('errors.404');

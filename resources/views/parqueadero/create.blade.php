@@ -31,72 +31,123 @@ Nuevo Parqueadero
                     {!! Form::open(['route' => 'parqueaderos.store', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'form' ]) !!}
                     <!-- Nombre -->
                     <div class="form-group">
-                        {!! Form::label('nombre', 'Nombre:', ['class' => 'col-md-4 control-label']) !!}
+                        {!! Form::label('nombre', 'Nombre del Parqueadero:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-6">
                             {!! Form::text('nombre', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
                         </div>
-                    </div>   
-                    <!--Número de plazas-->
-                    <div class="form-group">
-                        {!! Form::label('numero', 'Número de plazas:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            {!! Form::number('numero', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
-                        </div>
-                    </div>  
+                    </div>    
                     <!--Teléfono                    -->
                     <div class="form-group">
-                        {!! Form::label('telefono', 'Teléfono:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
+                        {!! Form::label('telefono', 'Teléfono de contacto:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
                             {!! Form::text('telefono', '', ['class' => 'form-control', 'maxlength' => '10']) !!}
                         </div>
                     </div>
+                    <!--Número de plazas-->
+                    <div class="form-group">
+                        {!! Form::label('numero', 'Número de plazas:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-2">
+                            {!! Form::number('numero', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
+                        </div>
+                    </div> 
                     <!--Ubicación geográfica-->
-                    <div class="form-group">
-                        {!! Form::label('ubicacion', 'Ubicación Geográfica:', ['class' => 'col-md-4 control-label']) !!}
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('buscar', 'Buscar:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-6">
-                            {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
+                    <div class="panel panel-default">
+                        <div class="form-group">
+                            {!! Form::label('ubicacion', 'Ubicación del Parqueadero', ['class' => 'col-md-4 control-label']) !!}
                         </div>
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('latitud', 'Latitud:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-4">
-                            {!! Form::text('lat', '', ['class' => 'form-control', 'id' => 'lat', 'readonly']) !!}
+                        <div class="form-group">
+                            {!! Form::label('buscar', 'Buscar lugar:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('longitud', 'Longitud:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-4">
-                            {!! Form::text('lng', '', ['class' => 'form-control', 'id' => 'lng', 'readonly']) !!}
+                        <div class="form-group">
+                            {!! Form::label('latitud', 'Latitud:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-4">
+                                {!! Form::text('lat', '', ['class' => 'form-control', 'id' => 'lat', 'readonly']) !!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('longitud', 'Longitud:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-4">
+                                {!! Form::text('lng', '', ['class' => 'form-control', 'id' => 'lng', 'readonly']) !!}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <div id="map-canvas" style="height: 200px "></div>
+                            </div>
+                        </div>
+
+                        <!-- DIRECCIÓN --> 
+                        <div class="form-group">
+                            {!! Form::label('pais', 'País:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-4">
+                                {!! Form::text('pais', '', ['class' => 'form-control', 'id' => 'pais', 'readonly']) !!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('ciudad', 'Ciudad:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-4">
+                                {!! Form::text('ciudad', '', ['class' => 'form-control', 'id' => 'ciudad', 'readonly']) !!}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('direccion', 'Dirección:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-4">
+                                {!! Form::text('direccion', '', ['class' => 'form-control', 'id' => 'direccion']) !!}
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
-                            <div id="map-canvas" style="height: 200px "></div>
+                    <div class="panel panel-default">
+                        <!--Horario de atención-->
+                        <div class="form-group">
+                            {!! Form::label('horario', 'Horario de atención', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6 col-md-offset-4">
+                                <label>
+                                    {!! Form::checkbox('estado', 'estado',true) !!}
+                                    &nbsp; 24 horas
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {!! Form::label('personalizado', 'Horario Personalizado', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-6">
+                                <label>
+                                    Hora de apertura &nbsp; <input type="time" name="hinicio">
+                                    &nbsp; Hora de cierre &nbsp; <input type="time" name="hfin">
+                                </label>
+                            </div>
                         </div>
                     </div>
-
-                    <!-- DIRECCIÓN --> 
-                    <div class="form-group">
-                        {!! Form::label('pais', 'País:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-4">
-                            {!! Form::text('pais', '', ['class' => 'form-control', 'id' => 'pais', 'readonly']) !!}
+                    <div class="panel panel-default">
+                        <!--Tarifas-->
+                        <div class="form-group">
+                            {!! Form::label('tarifa', 'Tarifas', ['class' => 'col-md-4 control-label']) !!}
                         </div>
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('ciudad', 'Ciudad:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-4">
-                            {!! Form::text('ciudad', '', ['class' => 'form-control', 'id' => 'ciudad', 'readonly']) !!}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        {!! Form::label('direccion', 'Dirección:', ['class' => 'col-md-4 control-label']) !!}
-                        <div class="col-md-4">
-                            {!! Form::text('direccion', '', ['class' => 'form-control', 'id' => 'direccion']) !!}
-                        </div>
+                        <!--Precio hora-->
+                        <div class="form-group">
+                            {!! Form::label('precioh', 'Cada hora:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-2">
+                                {!! Form::number('tarifahora', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
+                            </div>
+                        </div> 
+                        <!--Precio semanal-->
+                        <div class="form-group">
+                            {!! Form::label('tarifasemana', 'Semanal:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-2">
+                                {!! Form::number('tarifasemana', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
+                            </div>
+                        </div> 
+                        <!--Precio anual-->
+                        <div class="form-group">
+                            {!! Form::label('tarifaanual', 'Anual:', ['class' => 'col-md-4 control-label']) !!}
+                            <div class="col-md-2">
+                                {!! Form::number('tarifaanual', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
+                            </div>
+                        </div> 
                     </div>
                     <!--Estado-->
                     <div class="form-group">
@@ -108,7 +159,6 @@ Nuevo Parqueadero
                             </div>
                         </div>
                     </div>
-
                     <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
