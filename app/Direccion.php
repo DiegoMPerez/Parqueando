@@ -8,6 +8,7 @@ class Direccion extends Model {
 
     protected $table = 'direcciones';
     protected $primaryKey = 'id_direccion';
+    protected $fillable = ['direccion', 'id_pais', 'id_ciudad'];
     public $timestamps = false;
 
     public function parqueaderos() {

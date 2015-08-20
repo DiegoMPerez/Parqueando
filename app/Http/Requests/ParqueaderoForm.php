@@ -26,7 +26,7 @@ class ParqueaderoForm extends Request {
                 "nombre" => "required|max:100",
                 "numero" => "required|numeric|min:0|max:999",
         //        "email" => "required|email|unique:users",
-                "telefono" => "required|numeric|max:9999999999|min:7",
+                "telefono" => "required|numeric|min:8|max:9999999999",
                 
             ];
 	}

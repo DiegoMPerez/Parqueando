@@ -47,6 +47,11 @@ class Handler extends ExceptionHandler {
                     \Log::error($exception);
                     return \Response::view('errors.500');
                     break;
+                
+                case '503':
+                    \Log::error($exception);
+                    return \Response::view('errors.503');
+                    break;
 
                 default:
                     return $this->renderHttpException($e);

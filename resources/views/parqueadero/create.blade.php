@@ -51,104 +51,106 @@ Nuevo Parqueadero
                         </div>
                     </div> 
                     <!--Ubicación geográfica-->
-                    <div class="panel panel-default">
-                        <div class="form-group">
-                            {!! Form::label('ubicacion', 'Ubicación del Parqueadero', ['class' => 'col-md-4 control-label']) !!}
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('buscar', 'Buscar lugar:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('latitud', 'Latitud:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-4">
-                                {!! Form::text('lat', '', ['class' => 'form-control', 'id' => 'lat', 'readonly']) !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('longitud', 'Longitud:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-4">
-                                {!! Form::text('lng', '', ['class' => 'form-control', 'id' => 'lng', 'readonly']) !!}
-                            </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div id="map-canvas" style="height: 200px "></div>
-                            </div>
+                    <div class="form-group">
+                        {!! Form::label('ubicacion', 'Ubicación del Parqueadero', ['class' => 'col-md-4 control-label']) !!}
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('buscar', 'Buscar lugar:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-6">
+                            {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
                         </div>
-
-                        <!-- DIRECCIÓN --> 
-                        <div class="form-group">
-                            {!! Form::label('pais', 'País:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-4">
-                                {!! Form::text('pais', '', ['class' => 'form-control', 'id' => 'pais', 'readonly']) !!}
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('latitud', 'Latitud:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('lat', '', ['class' => 'form-control', 'id' => 'lat', 'readonly']) !!}
                         </div>
-                        <div class="form-group">
-                            {!! Form::label('ciudad', 'Ciudad:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-4">
-                                {!! Form::text('ciudad', '', ['class' => 'form-control', 'id' => 'ciudad', 'readonly']) !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('direccion', 'Dirección:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-4">
-                                {!! Form::text('direccion', '', ['class' => 'form-control', 'id' => 'direccion']) !!}
-                            </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('longitud', 'Longitud:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('lng', '', ['class' => 'form-control', 'id' => 'lng', 'readonly']) !!}
                         </div>
                     </div>
 
-                    <div class="panel panel-default">
-                        <!--Horario de atención-->
-                        <div class="form-group">
-                            {!! Form::label('horario', 'Horario de atención', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6 col-md-offset-4">
-                                <label>
-                                    {!! Form::checkbox('estado', 'estado',true) !!}
-                                    &nbsp; 24 horas
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('personalizado', 'Horario Personalizado', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-6">
-                                <label>
-                                    Hora de apertura &nbsp; <input type="time" name="hinicio">
-                                    &nbsp; Hora de cierre &nbsp; <input type="time" name="hfin">
-                                </label>
-                            </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <div id="map-canvas" style="height: 200px "></div>
                         </div>
                     </div>
-                    <div class="panel panel-default">
-                        <!--Tarifas-->
-                        <div class="form-group">
-                            {!! Form::label('tarifa', 'Tarifas', ['class' => 'col-md-4 control-label']) !!}
+
+                    <!-- DIRECCIÓN --> 
+                    <div class="form-group">
+                        {!! Form::label('pais', 'País:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('pais', '', ['class' => 'form-control', 'id' => 'pais', 'readonly']) !!}
                         </div>
-                        <!--Precio hora-->
-                        <div class="form-group">
-                            {!! Form::label('precioh', 'Cada hora:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-2">
-                                {!! Form::number('tarifahora', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
-                            </div>
-                        </div> 
-                        <!--Precio semanal-->
-                        <div class="form-group">
-                            {!! Form::label('tarifasemana', 'Semanal:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-2">
-                                {!! Form::number('tarifasemana', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
-                            </div>
-                        </div> 
-                        <!--Precio anual-->
-                        <div class="form-group">
-                            {!! Form::label('tarifaanual', 'Anual:', ['class' => 'col-md-4 control-label']) !!}
-                            <div class="col-md-2">
-                                {!! Form::number('tarifaanual', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
-                            </div>
-                        </div> 
                     </div>
+                    <div class="form-group">
+                        {!! Form::label('ciudad', 'Ciudad:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('ciudad', '', ['class' => 'form-control', 'id' => 'ciudad', 'readonly']) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        {!! Form::label('direccion', 'Dirección:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('direccion', '', ['class' => 'form-control', 'id' => 'direccion']) !!}
+                        </div>
+                    </div>
+
+
+                    <!--                    <div class="panel panel-default">
+                                            Horario de atención
+                                            <div class="form-group">
+                                                {!! Form::label('horario', 'Horario de atención', ['class' => 'col-md-4 control-label']) !!}
+                                                <div class="col-md-6 col-md-offset-4">
+                                                    <label>
+                                                        {!! Form::checkbox('estado', 'estado',true) !!}
+                                                        &nbsp; 24 horas
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                {!! Form::label('personalizado', 'Horario Personalizado', ['class' => 'col-md-4 control-label']) !!}
+                                                <div class="col-md-6">
+                                                    <label>
+                                                        Hora de apertura &nbsp; <input type="time" name="hinicio">
+                                                        &nbsp; Hora de cierre &nbsp; <input type="time" name="hfin">
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            Tarifas
+                                            <div class="form-group">
+                                                {!! Form::label('tarifa', 'Tarifas', ['class' => 'col-md-4 control-label']) !!}
+                                            </div>
+                                            Precio hora
+                                            <div class="form-group">
+                                                {!! Form::label('precioh', 'Cada hora:', ['class' => 'col-md-4 control-label']) !!}
+                                                <div class="col-md-2">
+                                                    {!! Form::number('tarifahora', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
+                                                </div>
+                                            </div> 
+                                            Precio semanal
+                                            <div class="form-group">
+                                                {!! Form::label('tarifasemana', 'Semanal:', ['class' => 'col-md-4 control-label']) !!}
+                                                <div class="col-md-2">
+                                                    {!! Form::number('tarifasemana', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
+                                                </div>
+                                            </div> 
+                                            Precio anual
+                                            <div class="form-group">
+                                                {!! Form::label('tarifaanual', 'Anual:', ['class' => 'col-md-4 control-label']) !!}
+                                                <div class="col-md-2">
+                                                    {!! Form::number('tarifaanual', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
+                                                </div>
+                                            </div> 
+                                        </div>
+                    -->                    
+
                     <!--Estado-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -162,7 +164,7 @@ Nuevo Parqueadero
                     <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button type="button" class="btn btn-primary" id="enviar">Crear</button>
+                            <button type="submit" class="btn btn-primary" id="enviar">Crear</button>
                         </div>
                     </div>
                     {!! Form::close() !!}
@@ -306,43 +308,43 @@ Nuevo Parqueadero
             }
         }
 //AJAX
-        $('#enviar').click(function (event) {
-
-            event.preventDefault();
-            var url = "{{URL::route('parqueaderos.store')}}";
-            var form = $('#form');
-            var data = form.serialize();
-            $.ajax({
-                url: url,
-                type: 'POST',
-                data: $(this).closest('form').serialize(),
-                success: function (data) {
-                    // Success...
-                    console.log(data);
-                    alert("ok");
-                    location.href = "{{URL::route('parqueaderos.create')}}";
-                },
-                error: function (jqXhr) {
-                    if (jqXhr.status === 401) //redirect if not authenticated user.
-                        $(location).prop('pathname', 'auth/login');
-                    if (jqXhr.status === 422) {
-                        //process validation errors here.
-                        var errors = jqXhr.responseJSON; //this will get the errors response data.
-                        //show them somewhere in the markup
-                        //e.g
-                        errorsHtml = '<div class="alert alert-danger"><ul>';
-                        $.each(errors, function (key, value) {
-                            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
-                        });
-                        errorsHtml += '</ul></di>';
-                        $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
-                        $('html, body').animate({scrollTop: 0}, 'fast');
-                    } else {
-                        /// do some thing else
-                    }
-                }
-            });
-        });
+//        $('#enviar').click(function (event) {
+//
+//            event.preventDefault();
+//            var url = "{{URL::route('parqueaderos.store')}}";
+//            var form = $('#form');
+//            var data = form.serialize();
+//            $.ajax({
+//                url: url,
+//                type: 'POST',
+//                data: $(this).closest('form').serialize(),
+//                success: function (data) {
+//                    // Success...
+//                    console.log(data);
+//                    alert("ok");
+//                    location.href = "{{URL::route('parqueaderos.create')}}";
+//                },
+//                error: function (jqXhr) {
+//                    if (jqXhr.status === 401) //redirect if not authenticated user.
+//                        $(location).prop('pathname', 'auth/login');
+//                    if (jqXhr.status === 422) {
+//                        //process validation errors here.
+//                        var errors = jqXhr.responseJSON; //this will get the errors response data.
+//                        //show them somewhere in the markup
+//                        //e.g
+//                        errorsHtml = '<div class="alert alert-danger"><ul>';
+//                        $.each(errors, function (key, value) {
+//                            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+//                        });
+//                        errorsHtml += '</ul></di>';
+//                        $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
+//                        $('html, body').animate({scrollTop: 0}, 'fast');
+//                    } else {
+//                        /// do some thing else
+//                    }
+//                }
+//            });
+//        });
     });
 
 

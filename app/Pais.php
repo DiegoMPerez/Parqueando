@@ -8,6 +8,7 @@ class Pais extends Model {
 
     protected $table = 'paises';
     protected $primaryKey = 'id_pais';
+    protected $fillable = ['nombre_pais'];
     public $timestamps = false;
 
     public function direcciones() {

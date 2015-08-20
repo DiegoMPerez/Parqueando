@@ -12,8 +12,10 @@ use App\Pais;
 use App\Direccion;
 use App\Role;
 use App\Http\Controllers\Auth;
+use DB;
 
 class ParqueaderoController extends Controller {
+
     public function __construct() {
         // $this->middleware('roles');
         return true;
@@ -25,7 +27,7 @@ class ParqueaderoController extends Controller {
      * @return Response
      */
     public function index() {
-        
+
         return null;
     }
 
@@ -44,10 +46,36 @@ class ParqueaderoController extends Controller {
      * @return Response
      */
     public function store(ParqueaderoForm $parqueaderoForm) {
-        $ciudad = new \App\Ciudad;
-        $ciudad->nombre_ciudad = \Request::input('numero');
-        $ciudad->save();
-        return redirect('parqueaderos/create')->with('message', 'Parqueadero guardado');
+
+
+        try {
+
+            $ciudad = \App\Ciudad::firstOrCreate([
+                        'nombre_ciudad' => \Request::input('ciudad')
+            ]);
+
+            $pais = \App\Pais::firstOrCreate([
+                        'nombre_pais' => \Request::input('pais')
+            ]);
+
+            $direcciones = \App\Direccion::firstOrCreate([
+                        'direccion' => \Request::input('direccion'),
+                        'id_pais' => $pais->getKey('id_pais'),
+                        'id_ciudad' => $ciudad->getKey('id_ciudad')
+            ]);
+
+            $parqueadero = \App\Parqueadero::create([
+                        'nombre' => \Request::input('nombre'),
+                        'numero_plazas' => \Request::input('numero'),
+                        'telefono' => \Request::input('telefono'),
+                        'ubicacion_geografica' => DB::raw("POINT(" . \Request::input('lat') . "," . \Request::input('lng') . ")"),
+                        'id_direccion' => $direcciones->getKey('id_direccion')
+            ]);
+            return view('errors/202');
+        } catch (\PDOException $ex) {
+
+            return view('errors/500');
+        }
     }
 
     /**
