@@ -16,10 +16,14 @@ class ErrorController extends Controller {
 
         if ($id === '403') {
             return view('errors.403');
-        } elseif ($id === '404') {
-            return view('errors.404');
-        } else {
+        } elseif ($id === '202') {
+            return view('errors.202');
+        } elseif ($id === '500') {
+            return view('errors.500');
+        } elseif ($id === 'errors.503') {
             return view('errors.503');
+        } else {
+            return view('errors.404');
         }
     }
 

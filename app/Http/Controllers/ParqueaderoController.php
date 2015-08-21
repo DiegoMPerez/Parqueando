@@ -71,11 +71,14 @@ class ParqueaderoController extends Controller {
                         'ubicacion_geografica' => DB::raw("POINT(" . \Request::input('lat') . "," . \Request::input('lng') . ")"),
                         'id_direccion' => $direcciones->getKey('id_direccion')
             ]);
-            return view('errors/202');
+            $ruta = 'parqueaderos/create';
+            return view('errors/202')->with('ruta', $ruta);
         } catch (\PDOException $ex) {
-
-            return view('errors/500');
+            throwException($exception);
+            //return view('errors/500');
+            
         }
+        
     }
 
     /**
@@ -116,6 +119,11 @@ class ParqueaderoController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function success() {
+        $ruta = 'parqueaderos/create';
+        return view('errors/202')->with('ruta', $ruta);
     }
 
 }

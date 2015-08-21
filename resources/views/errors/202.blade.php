@@ -36,8 +36,12 @@
     <body>
         <div class="container">
             <div class="content">
+                @if(isset( $ruta ))
+                @else
+                {!! $ruta="error404"; !!}
+                @endif
                 <div class="title">Felicitaciones <strong>La petición ha sido procesada correctamente</strong></div>
-                 {!! link_to('parqueaderos/create',"CONTINUAR", array("class" => "btn btn-success")) !!}
+                {!! link_to($ruta ,"CONTINUAR", array("class" => "btn btn-success")) !!}
             </div>
         </div>
     </body>

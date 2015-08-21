@@ -35,14 +35,17 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
-//
-Route::resource('/parqueaderos', 'ParqueaderoController');
+//PARQUEADEROS
+
+Route::get('/parqueaderos/success', 'ParqueaderoController@success');
+Route::resource('/parqueaderos', 'ParqueaderoController', ['only' => ['index','create','store','edit','destroy','update']]);
 
 //USUARIOS
 
 Route::resource('/usuarios', 'UserController');
 
 //TIPO VEHÍCULOS
+
 
 Route::resource('/tipovehiculos', 'TipoVehiculosController',['only' => ['index','create','store','edit','destroy','update']]);
 

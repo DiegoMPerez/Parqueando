@@ -42,6 +42,11 @@ class Handler extends ExceptionHandler {
                     \Log::error($e);
                     return \Response::view('errors.404');
                     break;
+                
+                case '405':
+                    \Log::error($e);
+                    return \Response::view('errors.404');
+                    break;
 
                 case '500':
                     \Log::error($exception);
