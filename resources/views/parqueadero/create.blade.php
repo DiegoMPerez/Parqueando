@@ -152,15 +152,15 @@ Nuevo Parqueadero
                     -->                    
 
                     <!--Estado-->
-<!--                    <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="estado"> ¿El parqueadero esta activo?
-                                </label>
-                            </div>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="form-group">
+                                            <div class="col-md-6 col-md-offset-4">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox" name="estado"> ¿El parqueadero esta activo?
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>-->
                     <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -325,7 +325,7 @@ Nuevo Parqueadero
                 success: function (data) {
                     // Success...
                     console.log(data);
-                    
+
                     location.href = "{{URL('parqueaderos/success')}}";
                 },
                 error: function (jqXhr) {
@@ -343,8 +343,14 @@ Nuevo Parqueadero
                         errorsHtml += '</ul></di>';
                         $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
                         $('html, body').animate({scrollTop: 0}, 'fast');
-                    } else {
+                    }
+                    if (jqXhr.status === 403) {
+                        location.href = "{{URL('error403')}}";
+                    }
+                    if (jqXhr.status === 500) {
                         location.href = "{{URL('error500')}}";
+                    } else {
+
                     }
                 }
             });

@@ -28,6 +28,7 @@ class ParqueaderoController extends Controller {
      */
     public function index() {
 
+        dd(\Request::user());
         return null;
     }
 
@@ -46,7 +47,9 @@ class ParqueaderoController extends Controller {
      * @return Response
      */
     public function store(ParqueaderoForm $parqueaderoForm) {
-
+        if (!\Request::user()) {
+            abort(403);
+        }
 
         try {
 
@@ -65,6 +68,7 @@ class ParqueaderoController extends Controller {
             ]);
 
             $parqueadero = \App\Parqueadero::create([
+                        'id_usuario' => \Request::user()->id,
                         'nombre' => \Request::input('nombre'),
                         'numero_plazas' => \Request::input('numero'),
                         'telefono' => \Request::input('telefono'),
@@ -74,11 +78,8 @@ class ParqueaderoController extends Controller {
             $ruta = 'parqueaderos/create';
             return view('errors/202')->with('ruta', $ruta);
         } catch (\PDOException $ex) {
-            throwException($exception);
-            //return view('errors/500');
-            
+            abort(500, 'Unauthorized action.');
         }
-        
     }
 
     /**

@@ -7,12 +7,10 @@ parqueaderos
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
-                <tr><th>Nombre de Usuario</th><th>Rol</th><th>Email</th><th>Nombres</th><th>Apellidos</th></tr>
+                <tr><th>Nombre del Parqueadero</th><th>parámetros</th><th>editar</th><th>eliminar</th></tr>
             </thead>
             @if(isset($users))
             <tbody>
-
-
                 <!--//este es un comentario-->
                 @foreach($users as $user)
                 <tr><td>{!! $user->name !!}</td>

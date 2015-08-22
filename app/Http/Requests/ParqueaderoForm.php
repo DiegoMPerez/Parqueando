@@ -43,13 +43,13 @@ class ParqueaderoForm extends Request {
             "numero.required" => "El Número de plazas es requerido",
             "numero.min" => "El mínimo de plazas es cero",
             "numero.max" => "El máximo de plazas es 999",
+            "ciudad.required" => "La ciudad es requerida",
             "telefono.required" => "El número de telefono es requerido",
             "telefono.numeric" => "Solo números en el campo teléfono",
             "telefono.max" => "Máximo 10 números en el campo teléfono",
             "telefono.min" => "Mínimo 7 números en el campo teléfono",
             "lat.regex" => "Latitud no tiene el formato correcto",
             "lng.regex" => "Longitud no tiene el formato correcto",
-            "ciudad.required" => "La ciudad es requerida",
         ];
     }
 
