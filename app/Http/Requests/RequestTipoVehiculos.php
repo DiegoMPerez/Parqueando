@@ -28,7 +28,7 @@ class RequestTipoVehiculos extends Request {
             'altura' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'peso' => 'required|numeric|regex:/^\d*(\.\d{0,2})?$/',
             'nombre' => 'required|max:255',
-            'imagen' => 'required|image|mimes:png|max:5|',
+            'imagen' => 'required|image|mimes:png|max:5',
         ];
     }
 

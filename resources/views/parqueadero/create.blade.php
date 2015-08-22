@@ -45,7 +45,7 @@ Nuevo Parqueadero
                     </div>
                     <!--Número de plazas-->
                     <div class="form-group">
-                        {!! Form::label('numero', 'Número de plazas:', ['class' => 'col-md-4 control-label']) !!}
+                        {!! Form::label('numero', 'Número de plazas:', ['class' => 'col-md-4  control-label']) !!}
                         <div class="col-md-2">
                             {!! Form::number('numero', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
                         </div>
@@ -152,7 +152,7 @@ Nuevo Parqueadero
                     -->                    
 
                     <!--Estado-->
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <div class="checkbox">
                                 <label>
@@ -160,7 +160,7 @@ Nuevo Parqueadero
                                 </label>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                     <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
@@ -286,20 +286,24 @@ Nuevo Parqueadero
                         console.log(direccion);
                         if (direccion.length === 1) {
                             $('#pais').val(direccion[0]);
+                            $("#ciudad").attr("readonly", false);
                         }
                         if (direccion.length === 2) {
                             $('#pais').val(direccion[1]);
                             $('#direccion').val(direccion[0]);
+                            $("#ciudad").attr("readonly", false);
                         }
                         if (direccion.length === 3) {
                             $('#pais').val(direccion[2]);
                             $('#ciudad').val(direccion[1]);
                             $('#direccion').val(direccion[0]);
+                            $("#ciudad").attr("readonly", true);
                         }
                         if (direccion.length === 4) {
                             $('#pais').val(direccion[3]);
-                            $('#ciudad').val(direccion[2]);
-                            $('#direccion').val(direccion[1]);
+                            $('#ciudad').val(direccion[1]);
+                            $('#direccion').val(direccion[0]);
+                            $("#ciudad").attr("readonly", true);
                         }
                     } catch (e) {
                     }
