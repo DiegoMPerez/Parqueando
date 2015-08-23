@@ -52,7 +52,7 @@ Route::resource('/tipovehiculos', 'TipoVehiculosController',['only' => ['index',
 
 //PLAZAS DE ESTACIONAMIENTO
 
-Route::resource('/plazas', 'PlazaController');
+Route::resource('/parqueadero/{id}/plazas', 'PlazaController');
 
 //ERORES
 

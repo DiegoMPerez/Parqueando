@@ -7,27 +7,19 @@ parqueaderos
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
-                <tr><th>Nombre del Parqueadero</th><th>parámetros</th><th>editar</th><th>eliminar</th></tr>
+                <tr><th>Nombre del Parqueadero</th><th>plazas</th><th>parámetros</th><th>editar</th><th>eliminar</th></tr>
             </thead>
-            @if(isset($users))
+            @if(isset($parqueaderos))
             <tbody>
                 <!--//este es un comentario-->
-                @foreach($users as $user)
-                <tr><td>{!! $user->name !!}</td>
-                    <td>{!! $user->rol->name !!}</td>
-                    <td>{!! $user->email !!}</td>
-                    <td>{!! $user->nombres !!}</td>
-                    <td>{!! $user->apellidos  !!}</td>
+                @foreach($parqueaderos as $parqueadero)
+                <tr><td>{!! $parqueadero->nombre !!}</td>
 
-                    <td>{!! Form::open(array('method' => 'GET', 'route' => array('usuarios.edit', $user->id))) !!}
-                        {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
-                        {!! Form::close() !!}</td>
+                    <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/plazas',"INSTALAR APP", array("class" => "btn btn-primary")) !!} </td>
+                    <td>pa´rametros</td>
+                    <td>editar</td>
 
-                    <td>
-                        {!! Form::open(array('id' => 'form-eliminar','method' => 'DELETE', 'route' => array('usuarios.destroy', $user->id))) !!}
-                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos)) !!}
-                        {!! Form::close() !!}
-                    </td>
+                    <td>eliminar</td>
 
                 </tr>
                 @endforeach

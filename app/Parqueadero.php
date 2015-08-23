@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use App\User;
 
 class Parqueadero extends Model {
 
@@ -15,8 +16,13 @@ class Parqueadero extends Model {
     public function direcciones() {
         return $this->belongsTo('App\Direccion', 'id_direccion');
     }
+    
+    public function plazas() {
+        return $this->hasMany('App\Plaza', 'id_parqueadero');
+    }
+    
     public function usuarios() {
-        return $this->belongsTo('App\Usuario', 'id');
+        return $this->belongsTo('App\User', 'id');
     }
 
 

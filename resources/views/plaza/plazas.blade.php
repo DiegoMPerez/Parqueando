@@ -19,30 +19,18 @@ plazas de estacionamiento
 
     <div class="grid grid-pad" style="text-align: center">
 
-        @for ($i=1; $i<=30 ; $i++  )
+        @foreach($plazas as $plaza)
 
-        @if(($i%2)==1)
         <div id="d" class="col-1-5" >
-            <div id="{{ $i }}" class="btn-success" style="height: 100px;" data-id="{{ $i }}">
+            <div id="{{ $plaza->numero }}" class="btn-success" style="height: 100px" data-id="{{ $plaza->numero }}">
                 <h3></h3>
                 {!! Html::image("imagenes/general.png","foto", array("class" => "img-rounded", "style" => "pointer-events:none")) !!}
-                <h3 ><p><strong>PLAZA {{ $i }}</strong></p></h3>
-
+                <h3 ><p><strong>PLAZA {{ $plaza->numero }}</strong></p></h3>
             </div>
         </div>
 
-        @else
-        <div id="d" class="col-1-5" >
-            <div id="{{ $i }}" class="btn-success" style="height: 100px" data-id="{{ $i }}">
-                <h3></h3>
-                {!! Html::image("imagenes/general.png","foto", array("class" => "img-rounded", "style" => "pointer-events:none")) !!}
-                <h3 ><p><strong>PLAZA {{ $i }}</strong></p></h3>
-
-            </div>
-        </div>
-
-        @endif
-        @endfor
+        
+        @endforeach
     </div>
 </div>
 

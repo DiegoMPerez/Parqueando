@@ -13,6 +13,7 @@ use App\Direccion;
 use App\Role;
 use App\Http\Controllers\Auth;
 use DB;
+use App\Plaza;
 
 class ParqueaderoController extends Controller {
 
@@ -28,8 +29,15 @@ class ParqueaderoController extends Controller {
      */
     public function index() {
 
-        dd(\Request::user());
-        return null;
+        if (!\Request::user()) {
+            abort(403);
+        }
+        $idUser = \Request::user()->id;
+
+        $parqueaderos = User::find($idUser)->parqueaderos()->get();
+
+
+        return view("parqueadero.parqueaderos")->with("parqueaderos", $parqueaderos);
     }
 
     /**
@@ -67,14 +75,27 @@ class ParqueaderoController extends Controller {
                         'id_ciudad' => $ciudad->getKey('id_ciudad')
             ]);
 
+            $numero_plazas = \Request::input('numero');
+
             $parqueadero = \App\Parqueadero::create([
                         'id_usuario' => \Request::user()->id,
                         'nombre' => \Request::input('nombre'),
-                        'numero_plazas' => \Request::input('numero'),
+                        'numero_plazas' => $numero_plazas,
                         'telefono' => \Request::input('telefono'),
                         'ubicacion_geografica' => DB::raw("POINT(" . \Request::input('lat') . "," . \Request::input('lng') . ")"),
                         'id_direccion' => $direcciones->getKey('id_direccion')
             ]);
+
+            //Creación de las plazas
+            for ($i = 1; $i <= $numero_plazas; $i++) {
+                $plaza = new Plaza();
+                $plaza->id_parqueadero = $parqueadero->getKey("id_parqueadero");
+                $plaza->numero = $i;
+                $plaza->save();
+            }
+
+            \DB::commit();
+
             $ruta = 'parqueaderos/create';
             return view('errors/202')->with('ruta', $ruta);
         } catch (\PDOException $ex) {
@@ -123,7 +144,7 @@ class ParqueaderoController extends Controller {
     }
 
     public function success() {
-        $ruta = 'parqueaderos/create';
+        $ruta = 'parqueaderos';
         return view('errors/202')->with('ruta', $ruta);
     }
 

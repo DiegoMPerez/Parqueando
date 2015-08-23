@@ -23,7 +23,7 @@ class ParqueaderoForm extends Request {
      */
     public function rules() {
         return [
-            "nombre" => "required|max:250",
+            "nombre" => "required|max:250|unique:parqueaderos",
             "numero" => "required|numeric|min:0|max:999",
             //        "email" => "required|email|unique:users",
             "telefono" => "required|numeric|min:8|max:9999999999",
@@ -38,6 +38,7 @@ class ParqueaderoForm extends Request {
     public function messages() {
         return [
             "nombre.required" => "El Nombre del parqueadero es requerido",
+            "nombre.unique" => "Este nombre de parqueadero ya existe",
             "nombre.max" => "El número de caracteres máximo del Nombre es 100",
             "numero.numeric" => "El número de plazas es entero",
             "numero.required" => "El Número de plazas es requerido",
