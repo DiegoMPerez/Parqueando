@@ -20,16 +20,15 @@ plazas de estacionamiento
     <div class="grid grid-pad" style="text-align: center">
 
         @foreach($plazas as $plaza)
-
-        <div id="d" class="col-1-5" >
-            <div id="{{ $plaza->numero }}" class="btn-success" style="height: 100px" data-id="{{ $plaza->numero }}">
-                <h3></h3>
-                {!! Html::image("imagenes/general.png","foto", array("class" => "img-rounded", "style" => "pointer-events:none")) !!}
-                <h3 ><p><strong>PLAZA {{ $plaza->numero }}</strong></p></h3>
+        <form action="{!! '/parqueadero/'.$plazas->parqueadero.'/plaza/'.$plaza->numero !!} " method="PUT">
+            <div id="d" class="col-1-5" >
+                <div id="{{ $plaza->numero }}" class="btn-success" style="height: 100px" data-id="{{ $plaza->numero }}">
+                    <h3></h3>
+                    {!! Html::image("imagenes/general.png","foto", array("class" => "img-rounded", "style" => "pointer-events:none")) !!}
+                    <h3 ><p><strong>PLAZA {{ $plaza->numero }}</strong></p></h3>
+                </div>
             </div>
-        </div>
-
-        
+        </form>
         @endforeach
     </div>
 </div>
@@ -51,6 +50,7 @@ plazas de estacionamiento
 
         var id = $(this).children('div').attr("class");
         var div = $(this).children('div');
+        var form = $(this).parent('form');
 
         timeout = setInterval(function () {
             console.log(id);
@@ -78,6 +78,51 @@ plazas de estacionamiento
 
         console.log($(this).children('div').data('id'));
         return false;
+
+        $('#form').submit(function (event) {
+
+            event.preventDefault();
+            var url = "{{URL::route('parqueaderos.store')}}";
+            var form = $('#form');
+            var data = form.serialize();
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: $(this).closest('form').serialize(),
+                success: function (data) {
+                    // Success...
+                    console.log(data);
+
+                    location.href = "{{URL('parqueaderos/success')}}";
+                },
+                error: function (jqXhr) {
+                    if (jqXhr.status === 401) //redirect if not authenticated user.
+                        $(location).prop('pathname', 'auth/login');
+                    if (jqXhr.status === 422) {
+                        //process validation errors here.
+                        var errors = jqXhr.responseJSON; //this will get the errors response data.
+                        //show them somewhere in the markup
+                        //e.g
+                        errorsHtml = '<div class="alert alert-danger"><ul>';
+                        $.each(errors, function (key, value) {
+                            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+                        });
+                        errorsHtml += '</ul></di>';
+                        $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
+                        $('html, body').animate({scrollTop: 0}, 'fast');
+                    }
+                    if (jqXhr.status === 403) {
+                        location.href = "{{URL('error403')}}";
+                    }
+                    if (jqXhr.status === 500) {
+                        location.href = "{{URL('error500')}}";
+                    } else {
+
+                    }
+                }
+            });
+        });
+
     });
 
     $('.col-1-5').on('mouseup touchend', function () {

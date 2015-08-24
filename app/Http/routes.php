@@ -38,7 +38,7 @@ Route::controllers([
 //PARQUEADEROS
 
 Route::get('/parqueaderos/success', 'ParqueaderoController@success');
-Route::resource('/parqueaderos', 'ParqueaderoController', ['only' => ['index','create','store','edit','destroy','update']]);
+Route::resource('/parqueaderos', 'ParqueaderoController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
 
 //USUARIOS
 
@@ -46,15 +46,14 @@ Route::resource('/usuarios', 'UserController');
 
 //TIPO VEHÍCULOS
 
-
-Route::resource('/tipovehiculos', 'TipoVehiculosController',['only' => ['index','create','store','edit','destroy','update']]);
-
+Route::resource('/tipovehiculos', 'TipoVehiculosController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
 
 //PLAZAS DE ESTACIONAMIENTO
 
-Route::resource('/parqueadero/{id}/plazas', 'PlazaController');
+Route::get('/parqueadero/{id}/plaza/{id2}', 'PlazaController@update');
+Route::get('/parqueadero/{id}/plazas', 'PlazaController@index');
 
-//ERORES
+//ERRORES
 
 Route::get('/error{id}', 'ErrorController@index');
 

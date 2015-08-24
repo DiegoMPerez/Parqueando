@@ -23,6 +23,7 @@ class PlazaController extends Controller {
             if ($value->nombre === $nombreParqueadero) {
                 try {
                     $plazas = Parqueadero::find($value->id_parqueadero)->plazas()->get();
+                    $plazas->parqueadero = $nombreParqueadero;
                     if (count($plazas) > 0) {
                         return view('plaza.plazas')->with('plazas', $plazas);
                     } else {
@@ -80,8 +81,8 @@ class PlazaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
+    public function update($id, $id2) {
+        dd("d");
     }
 
     /**

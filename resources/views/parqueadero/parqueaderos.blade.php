@@ -15,8 +15,8 @@ parqueaderos
                 @foreach($parqueaderos as $parqueadero)
                 <tr><td>{!! $parqueadero->nombre !!}</td>
 
-                    <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/plazas',"INSTALAR APP", array("class" => "btn btn-primary")) !!} </td>
-                    <td>pa´rametros</td>
+                    <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/plazas',"PLAZAS", array("class" => "btn btn-primary")) !!} </td>
+                    <td>paRÁmetros</td>
                     <td>editar</td>
 
                     <td>eliminar</td>
