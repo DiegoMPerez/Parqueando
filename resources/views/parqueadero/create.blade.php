@@ -165,6 +165,7 @@ Nuevo Parqueadero
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
                             <button type="submit" class="btn btn-primary" id="enviar">Crear</button>
+                            {!! link_to('parqueaderos',"Cancelar", array("class" => "btn btn-danger")) !!}
                         </div>
                     </div>
                     {!! Form::close() !!}

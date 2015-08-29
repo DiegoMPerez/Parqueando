@@ -49,12 +49,12 @@ class Handler extends ExceptionHandler {
                     break;
 
                 case '500':
-                    \Log::error($exception);
+                    \Log::error($e);
                     return \Response::view('errors.500');
                     break;
                 
                 case '503':
-                    \Log::error($exception);
+                    \Log::error($e);
                     return \Response::view('errors.503');
                     break;
 

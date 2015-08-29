@@ -6,7 +6,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Parqueadero;
+use App\Plaza;
 use Illuminate\Http\Request;
+use DB;
 
 class PlazaController extends Controller {
 
@@ -25,6 +27,20 @@ class PlazaController extends Controller {
                     $plazas = Parqueadero::find($value->id_parqueadero)->plazas()->get();
                     $plazas->parqueadero = $nombreParqueadero;
                     if (count($plazas) > 0) {
+                        foreach ($plazas as $plaza) {
+                            if ($plaza->estado === 'D') {
+                                $plaza->clase = 'btn-success';
+                                $plaza->value = '0';
+                            }
+                            if ($plaza->estado === 'O') {
+                                $plaza->clase = 'btn-info';
+                                $plaza->value = '1';
+                            }
+                            if ($plaza->estado === 'M') {
+                                $plaza->clase = 'btn-warning';
+                                $plaza->value = '0';
+                            }
+                        }
                         return view('plaza.plazas')->with('plazas', $plazas);
                     } else {
                         abort(404);
@@ -82,7 +98,29 @@ class PlazaController extends Controller {
      * @return Response
      */
     public function update($id, $id2) {
-        dd("d");
+
+        $estado_plaza = \Request::input('estado_plaza');
+
+        try {
+            $plaza = DB::table('plazas')
+                            ->where('id_parqueadero', '=', $id)->
+                            where('numero', '=', $id2)->get();
+
+            if ($estado_plaza === "0") {
+                $estado_plaza = 'D';
+            } elseif ($estado_plaza === "1") {
+                $estado_plaza = 'O';
+            } elseif ($estado_plaza === "2") {
+                $estado_plaza = 'M';
+            } else {
+                \App::abort(500);
+            }
+            $plazaObj = Plaza::find($plaza[0]->id_plaza);
+            $plazaObj->estado = $estado_plaza;
+            $plazaObj->save();
+        } catch (\PDOException $exc) {
+            echo $exc->getTraceAsString();
+        }
     }
 
     /**

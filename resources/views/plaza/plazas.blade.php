@@ -19,109 +19,82 @@ plazas de estacionamiento
 
     <div class="grid grid-pad" style="text-align: center">
 
+        @if(isset($plazas))
         @foreach($plazas as $plaza)
-        <form action="{!! '/parqueadero/'.$plazas->parqueadero.'/plaza/'.$plaza->numero !!} " method="PUT">
-            <div id="d" class="col-1-5" >
-                <div id="{{ $plaza->numero }}" class="btn-success" style="height: 100px" data-id="{{ $plaza->numero }}">
-                    <h3></h3>
-                    {!! Html::image("imagenes/general.png","foto", array("class" => "img-rounded", "style" => "pointer-events:none")) !!}
-                    <h3 ><p><strong>PLAZA {{ $plaza->numero }}</strong></p></h3>
-                </div>
+        {!! Form::Model($plaza, array('method' => 'POST','id'=>'form', 'route' => array('plazas', $plaza->id_parqueadero, $plaza->numero),'class' => 'form-horizontal', 'files' => true)) !!}
+
+        <div id="d" class="col-1-5" >
+            <div id="{{ $plaza->numero }}" class="{{ $plaza->clase, 'form-group' }}" style="height: 100px" data-parqueadero='{{ $plaza->id_parqueadero }}'  data-numero="{{ $plaza->numero }}">
+                <input class="form-group" type="text" hidden="true" value="{{ $plaza->value }}" name="estado_plaza" >
+                <h3></h3>
+                {!! Html::image("imagenes/general.png","foto", array("class" => "img-rounded", "style" => "pointer-events:none")) !!}
+                <h3 ><p><strong>PLAZA {{ $plaza->numero }}</strong></p></h3>
             </div>
-        </form>
+        </div>
+
+        {!! Form::close() !!}
         @endforeach
+        @endif
     </div>
 </div>
 
 <script>
-    (function ($) {
-        $.fn.disableSelection = function () {
-            return this
-                    .attr('unselectable', 'on')
-                    .css('user-select', 'none')
-                    .on('selectstart', false);
-        };
-    })(jQuery);
-    var isTouchDevice = 'ontouchstart' in document.documentElement;
 
     var timeout, timeout2;
-    console.log(isTouchDevice);
-    $('.col-1-5').on("mousedown", function () {
 
-        var id = $(this).children('div').attr("class");
+    $('.col-1-5').on("mousedown", function (event) {
+        var divp = $(this);
+        var id = $(this).children('div').attr('class');
         var div = $(this).children('div');
-        var form = $(this).parent('form');
+        var estado_plaza = $(this).children('input');
+        console.log(estado_plaza);
+        var form;
+        var parqueadero = div.data('parqueadero');
+        var numero_plaza = div.data('numero');
 
-        timeout = setInterval(function () {
+        timeout = setInterval(function (e) {
             console.log(id);
 
             if (id === "btn-info" || id === "btn-warning") {
                 div.attr("class", "btn-success");
+                $('input[name=estado_plaza]').val("0");
+                form = divp.parent('form');
+
             } else {
                 div.attr("class", "btn-info");
+                $('input[name=estado_plaza]').val("1");
+                form = divp.parent('form');
+
             }
-            console.log(div.data('id'));
+            console.log(parqueadero, numero_plaza);
+            event.preventDefault();
+            $.ajax({
+                url: 'http://localhost/parqueaderosapp/public/parqueadero/' + parqueadero + '/plaza/' + numero_plaza,
+                data: form.serialize(),
+                method: 'PUT',
+                success: function (data) {
+                }
+            });
+
 
         }, 500);
-
-
         timeout2 = setInterval(function () {
             clearInterval(timeout);
-            console.log(id);
 
 
             div.attr("class", "btn-warning");
-
-            console.log(div.data('id'));
-
-        }, 2000);
-
-        console.log($(this).children('div').data('id'));
-        return false;
-
-        $('#form').submit(function (event) {
-
+            $('input[name=estado_plaza]').val("2");
+            form = divp.parent('form');
             event.preventDefault();
-            var url = "{{URL::route('parqueaderos.store')}}";
-            var form = $('#form');
-            var data = form.serialize();
             $.ajax({
-                url: url,
-                type: 'POST',
-                data: $(this).closest('form').serialize(),
+                url: 'http://localhost/parqueaderosapp/public/parqueadero/' + parqueadero + '/plaza/' + numero_plaza,
+                data: form.serialize(),
+                method: 'PUT',
                 success: function (data) {
-                    // Success...
-                    console.log(data);
-
-                    location.href = "{{URL('parqueaderos/success')}}";
-                },
-                error: function (jqXhr) {
-                    if (jqXhr.status === 401) //redirect if not authenticated user.
-                        $(location).prop('pathname', 'auth/login');
-                    if (jqXhr.status === 422) {
-                        //process validation errors here.
-                        var errors = jqXhr.responseJSON; //this will get the errors response data.
-                        //show them somewhere in the markup
-                        //e.g
-                        errorsHtml = '<div class="alert alert-danger"><ul>';
-                        $.each(errors, function (key, value) {
-                            errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
-                        });
-                        errorsHtml += '</ul></di>';
-                        $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
-                        $('html, body').animate({scrollTop: 0}, 'fast');
-                    }
-                    if (jqXhr.status === 403) {
-                        location.href = "{{URL('error403')}}";
-                    }
-                    if (jqXhr.status === 500) {
-                        location.href = "{{URL('error500')}}";
-                    } else {
-
-                    }
                 }
             });
-        });
+        }, 2000);
+
 
     });
 

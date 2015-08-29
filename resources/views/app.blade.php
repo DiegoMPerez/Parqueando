@@ -9,7 +9,6 @@
         @section('linktop')@show
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet"/>
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'/>
-
     </head>
     <body>
         <!--Prevenir el botón atras después de cerrar la sesión-->
@@ -20,7 +19,6 @@
         header("Pragma: no-cache");
         header('Content-Type: text/html');
         ?>
-        
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -37,8 +35,9 @@
                     <ul class="nav navbar-nav">
                         <li><a href="{{ url('/') }}">Inicio</a></li>
                     </ul>
-
+                    
                     <ul class="nav navbar-nav navbar-right">
+
                         @if (Auth::guest())
                         <li><a href="{{ url('/auth/login') }}">Iniciar sesión</a></li>
                         <li><a href="{{ url('/auth/register') }}">Registrarse</a></li>
@@ -49,16 +48,14 @@
                                 <li><a href="{{ url('/auth/logout') }}">Salir</a></li>
                             </ul>
                         </li>
+
                         @endif
                     </ul>
                 </div>
             </div>
         </nav>
-
         <div class="content">
-
             @yield('content')
-
         </div>
         <!-- Scripts -->
         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

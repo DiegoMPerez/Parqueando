@@ -50,8 +50,9 @@ Route::resource('/tipovehiculos', 'TipoVehiculosController', ['only' => ['index'
 
 //PLAZAS DE ESTACIONAMIENTO
 
-Route::get('/parqueadero/{id}/plaza/{id2}', 'PlazaController@update');
+Route::put('/parqueadero/{id}/plaza/{id2}', ['as' => 'plazas', 'uses' => 'PlazaController@update']);
 Route::get('/parqueadero/{id}/plazas', 'PlazaController@index');
+
 
 //ERRORES
 
