@@ -69,32 +69,29 @@ plazas de estacionamiento
             console.log(parqueadero, numero_plaza);
             event.preventDefault();
             $.ajax({
-                url: 'http://localhost/parqueaderosapp/public/parqueadero/' + parqueadero + '/plaza/' + numero_plaza,
+                url: form.attr('action'),
                 data: form.serialize(),
                 method: 'PUT',
                 success: function (data) {
                 }
             });
-
-
         }, 500);
+
         timeout2 = setInterval(function () {
             clearInterval(timeout);
-
 
             div.attr("class", "btn-warning");
             $('input[name=estado_plaza]').val("2");
             form = divp.parent('form');
             event.preventDefault();
             $.ajax({
-                url: 'http://localhost/parqueaderosapp/public/parqueadero/' + parqueadero + '/plaza/' + numero_plaza,
+                url: form.attr('action'),
                 data: form.serialize(),
                 method: 'PUT',
                 success: function (data) {
                 }
             });
         }, 2000);
-
 
     });
 
