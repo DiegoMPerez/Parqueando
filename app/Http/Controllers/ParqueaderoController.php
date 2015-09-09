@@ -18,8 +18,7 @@ use App\Plaza;
 class ParqueaderoController extends Controller {
 
     public function __construct() {
-        // $this->middleware('roles');
-        return true;
+        $this->middleware('auth');
     }
 
     /**
@@ -32,12 +31,16 @@ class ParqueaderoController extends Controller {
         if (!\Request::user()) {
             abort(403);
         }
+        
         $idUser = \Request::user()->id;
 
         $parqueaderos = User::find($idUser)->parqueaderos()->get();
 
+        $data = array(
+            'parqueaderos' => $parqueaderos
+        );
 
-        return view("parqueadero.parqueaderos")->with("parqueaderos", $parqueaderos);
+        return view("parqueadero.parqueaderos")->with($data);
     }
 
     /**

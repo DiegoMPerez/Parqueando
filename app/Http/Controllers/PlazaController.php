@@ -12,12 +12,21 @@ use DB;
 
 class PlazaController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index($nombreParqueadero) {
+        $parqueadero = false;
+        if (count(\Request::user()->parqueaderos()->get()) > 0) {
+            $parqueadero = true;
+        }
+
         $idUser = \Request::user()->id;
         $parqueaderos = User::find($idUser)->parqueaderos()->get();
 
@@ -41,7 +50,11 @@ class PlazaController extends Controller {
                                 $plaza->value = '0';
                             }
                         }
-                        return view('plaza.plazas')->with('plazas', $plazas);
+                        $data = array(
+                        'parqueadero' => $parqueadero,
+                        'plazas' => $plazas
+                        );
+                        return view('plaza.plazas')->with($data);
                     } else {
                         abort(404);
                     }

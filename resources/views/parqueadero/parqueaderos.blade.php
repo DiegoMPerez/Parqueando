@@ -27,6 +27,13 @@ parqueaderos
             @endif
         </table>
     </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            {!! Form::open(array('method' => 'GET', 'route' => array('parqueaderos.create'))) !!}
+            {!! Form::submit('Crear un nuevo Parqueadero', array('class' => 'btn btn-info')) !!}
+            {!! Form::close() !!}
+        </li>
+    </ul>
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

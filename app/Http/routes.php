@@ -42,11 +42,18 @@ Route::resource('/parqueaderos', 'ParqueaderoController', ['only' => ['index', '
 
 //USUARIOS
 
-Route::resource('/usuarios', 'UserController');
+Route::group(['middleware' => 'roles', 'roles' => ['admin']], function() {
+    Route::resource('/usuarios', 'UserController');
+});
 
 //TIPO VEHÍCULOS
+//Route::resource('/tipovehiculos', 'TipoVehiculosController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
 
-Route::resource('/tipovehiculos', 'TipoVehiculosController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
+Route::group(['middleware' => 'roles', 'roles' => ['admin']], function() {
+    Route::resource('/tipovehiculos', 'TipoVehiculosController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
+});
+
+
 
 //PLAZAS DE ESTACIONAMIENTO
 

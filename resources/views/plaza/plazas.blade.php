@@ -18,8 +18,8 @@ plazas de estacionamiento
      onmousedown="return false;">
 
     <div class="grid grid-pad" style="text-align: center">
-
         @if(isset($plazas))
+        <h1>{!! $plazas->parqueadero !!}</h1>
         @foreach($plazas as $plaza)
         {!! Form::Model($plaza, array('method' => 'POST','id'=>'form', 'route' => array('plazas', $plaza->id_parqueadero, $plaza->numero),'class' => 'form-horizontal', 'files' => true)) !!}
 

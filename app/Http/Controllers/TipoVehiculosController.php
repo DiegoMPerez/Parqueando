@@ -15,9 +15,6 @@ class TipoVehiculosController extends Controller {
 
     public function __construct() {
         $this->middleware('auth');
-        if (!\Request::user()->hasRole('admin')){
-            abort(403);
-        }
     }
     /**
      * Display a listing of the resource.
@@ -26,6 +23,7 @@ class TipoVehiculosController extends Controller {
      */
     public function index() {
         $usuario = \Request::user();
+        
         $tvehiculos = TipoVehiculos::all();
         
         $parqueadero = false;

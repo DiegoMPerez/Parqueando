@@ -36,8 +36,10 @@
                         @if(isset($parqueadero))
                         <li><a href="{{ url('parqueaderos') }}">Parqueaderos</a></li>
                         @endif
+                        @if(Entrust::hasRole('admin'))
                         <li><a href="{{ url('tipovehiculos') }}">Tipo de Vehículos</a></li>
-                        @if(Entrust::can('ver_usuarios'))
+                        @endif
+                        @if(Entrust::hasRole('admin'))
                         <li><a href="{{URL::to('usuarios')}}">Usuarios</a></li>
                         @endif
 
