@@ -21,6 +21,12 @@ class UserController extends Controller {
      * @return Response
      */
     public function index() {
+
+        $parqueadero = false;
+        if (count(\Request::user()->parqueaderos()->get()) > 0) {
+            $parqueadero = true;
+        }
+
         $users = User::all();
         foreach ($users as $user) {
             $rol = $user->roles()->first();
@@ -33,7 +39,12 @@ class UserController extends Controller {
                 $user['rol'] = $roltemp;
             }
         }
-        return View('usuarios.users')->with('users', $users);
+        $data = array(
+            'users' => $users,
+            'parqueadero' => $parqueadero
+        );
+
+        return View('usuarios.users')->with($data);
     }
 
     /**
@@ -61,7 +72,7 @@ class UserController extends Controller {
      * @return Response
      */
     public function show($id) {
-        return 'hola'.$id;
+        return 'hola' . $id;
     }
 
     /**

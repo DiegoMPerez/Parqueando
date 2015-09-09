@@ -13,13 +13,26 @@ use Illuminate\Support\Facades\File;
 
 class TipoVehiculosController extends Controller {
 
+    public function __construct() {
+        $this->middleware('auth');
+        if (!\Request::user()->hasRole('admin')){
+            abort(403);
+        }
+    }
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index() {
+        $usuario = \Request::user();
         $tvehiculos = TipoVehiculos::all();
+        
+        $parqueadero = false;
+        if (count(\Request::user()->parqueaderos()->get()) > 0) {
+            $parqueadero = true;
+        }
+        
 
         foreach ($tvehiculos as $tipo) {
             if ($tipo->altura == 0) {
@@ -42,9 +55,12 @@ class TipoVehiculosController extends Controller {
         }
 
 
+        $data = array(
+            'tvehiculos' => $tvehiculos,
+            'parqueadero' => $parqueadero
+        );
 
-
-        return View('vehiculos.tipo_vehiculos')->with('tvehiculos', $tvehiculos);
+        return View('vehiculos.tipo_vehiculos')->with($data);
     }
 
     /**

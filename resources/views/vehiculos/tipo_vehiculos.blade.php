@@ -22,8 +22,6 @@ Tipo Vehiculos
                     <tr><th>Imagen</th><th>Nombre</th><th>Altura</th><th>Largo</th><th>Peso</th><th>Descripción</th></tr>
                 </thead>
                 @if(isset($tvehiculos))
-
-
                 <tbody>
                     <!--//este es un comentario-->
                     @foreach($tvehiculos as $tipo)

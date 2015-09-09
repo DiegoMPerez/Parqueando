@@ -28,14 +28,20 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">PARQUEANDO</a>
+                    <a class="navbar-brand" href="{{ url('/') }}">PARQUEANDO</a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('/') }}">Inicio</a></li>
+                        @if(isset($parqueadero))
+                        <li><a href="{{ url('parqueaderos') }}">Parqueaderos</a></li>
+                        @endif
+                        <li><a href="{{ url('tipovehiculos') }}">Tipo de Vehículos</a></li>
+                        @if(Entrust::can('ver_usuarios'))
+                        <li><a href="{{URL::to('usuarios')}}">Usuarios</a></li>
+                        @endif
+
                     </ul>
-                    
                     <ul class="nav navbar-nav navbar-right">
 
                         @if (Auth::guest())

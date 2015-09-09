@@ -54,6 +54,11 @@ Route::put('/parqueadero/{id}/plaza/{id2}', ['as' => 'plazas', 'uses' => 'PlazaC
 Route::get('/parqueadero/{id}/plazas', 'PlazaController@index');
 
 
+//ROLES
+
+Route::resource('/roles', 'RolesController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
+
+
 //ERRORES
 
 Route::get('/error{id}', 'ErrorController@index');
