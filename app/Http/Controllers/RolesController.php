@@ -17,9 +17,11 @@ class RolesController extends Controller {
      */
     public function index() {
         //Return View('role.role', array('roles' => Role::all(), 'permisos' => Permission::all()));
+        
+       // dd(Role::find(7)->permisos()->get());
         $data = array(
             'roles' => Role::all(),
-            'permisos' => Permission::all()
+            'permisos' => Permission::all(),
         );
         return view('role.role')->with($data);
     }

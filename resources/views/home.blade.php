@@ -9,13 +9,9 @@ PARQUEANDO
         <button type="button" class="btn btn-default navbar-btn">Entrar</button>
     </li>    
 </ul>
-
-
-
 @endif
 @endsection
 @section('content')
-
 
 <div class="center-block" style="text-align: center" >
     <h1 class="cover-heading">PARQUEANDO</h1>
@@ -28,6 +24,5 @@ PARQUEANDO
     {!! link_to('parqueaderos',"MIS PARQUEADEROS", array("class" => "btn btn-info")) !!}
     @endif
 </div>
-
 
 @endsection

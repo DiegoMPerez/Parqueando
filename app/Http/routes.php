@@ -71,7 +71,12 @@ Route::resource('/roles', 'RolesController', ['only' => ['index', 'create', 'sto
 Route::get('/error{id}', 'ErrorController@index');
 
 
+//ROLES
 
+Route::get('/permisos/asignados', 'PermisosController@getPermisos');
+Route::get('/permisos', 'PermisosController@index');
 
+Route::put('/permisos/asignar', 'PermisosController@putAsignar');
+Route::put('/permisos/designar', 'PermisosController@putDesignar');
 
 

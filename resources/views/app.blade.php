@@ -6,9 +6,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title>@section('title')PARQUEANDO @show</title>
-        @section('linktop')@show
         <link href="{{ asset('/css/app.css') }}" rel="stylesheet"/>
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        @section('linktop')@show
     </head>
     <body>
         <!--Prevenir el botón atras después de cerrar la sesión-->
@@ -42,6 +44,9 @@
                         @if(Entrust::hasRole('admin'))
                         <li><a href="{{URL::to('usuarios')}}">Usuarios</a></li>
                         @endif
+                        @if(Entrust::hasRole('admin'))
+                        <li><a href="{{URL::to('roles')}}">Roles</a></li>
+                        @endif
 
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
@@ -66,8 +71,7 @@
             @yield('content')
         </div>
         <!-- Scripts -->
-        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+          
         @yield('linkbot')
         <div class="footer">
             <p style="margin-right: 25px; margin-top: 5px; font-family: monospace; text-align: right"> v. 0.7.5 </p>
