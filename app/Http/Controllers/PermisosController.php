@@ -125,11 +125,7 @@ class PermisosController extends Controller {
          
          return $rol;
                   
-         
-//         foreach ($permisos as $permiso){
-//             $permiso = Permission::find($permiso);
-//             $rol->attachPermission($permiso);
-//         }
+         //hola
     }
     
     public function putDesignar(){
