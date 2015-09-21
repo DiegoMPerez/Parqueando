@@ -116,20 +116,34 @@ class PermisosController extends Controller {
         return $p;
     }
 
-    public function putAsignar(){
-        
-         $id_rol = \Request::input('rol_id');
-         $permisos = \Request::input('permisos');
-         
-         $rol = Role::find(100);
-         
-         return $rol;
-                  
-         //hola
+    public function putAsignar() {
+
+        $id_rol = \Request::input('rol_id');
+        $permisos = \Request::input('permisos');
+
+        $rol = Role::find($id_rol);
+        $permisos_a = $rol->permisos()->get();
+
+
+        for ($i = 0; $i < count($permisos); $i++) {
+            for ($j = 0; $j < count($permisos['permisos_a']); $j++) {
+                if ($permisos[$i] == $permisos_a[$j]->id) {
+                    $permisos[$i] = null;
+                }
+            }
+        }
+
+        foreach ($permisos as $permiso) {
+            if ($permiso !== null) {
+                $rol->attachPermission($permiso);
+            }
+        }
+
+        return $permisos;
     }
-    
-    public function putDesignar(){
+
+    public function putDesignar() {
         
     }
-    
+
 }
