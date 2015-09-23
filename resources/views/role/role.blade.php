@@ -96,11 +96,8 @@ jQuery(document).ready(function ($) {
   
 
     $('.get-permisos').on('click', function () {
-        $(this).removeData('bs.modal');
-        $('#multiselect').empty();
-        $('#multiselect_to').empty();
-        $('multiselect_rightSelected').empty();
-        $('multiselect_leftSelected').empty();
+        
+        
         
         rol_id = $(this).attr('rol_id');
         rol_name = $(this).attr('rol_name');
