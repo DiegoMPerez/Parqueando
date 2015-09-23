@@ -126,7 +126,7 @@ class PermisosController extends Controller {
 
 
         for ($i = 0; $i < count($permisos); $i++) {
-            for ($j = 0; $j < count($permisos['permisos_a']); $j++) {
+            for ($j = 0; $j < count($permisos_a); $j++) {
                 if ($permisos[$i] == $permisos_a[$j]->id) {
                     $permisos[$i] = null;
                 }
@@ -134,7 +134,7 @@ class PermisosController extends Controller {
         }
 
         foreach ($permisos as $permiso) {
-            if ($permiso !== null) {
+            if ($permiso != null) {
                 $rol->attachPermission($permiso);
             }
         }
@@ -143,6 +143,32 @@ class PermisosController extends Controller {
     }
 
     public function putDesignar() {
+
+        $id_rol = \Request::input('rol_id');
+        $permisos = \Request::input('permisos');
+
+        $rol = Role::find($id_rol);
+        $permisos_a = $rol->permisos()->get();
+
+
+        for ($i = 0; $i < count($permisos); $i++) {
+            for ($j = 0; $j < count($permisos_a); $j++) {
+                if ($permisos[$i] == $permisos_a[$j]->id) {
+                    $permisos_a[$j]->id = 0;
+                }
+            }
+        }
+
+
+        foreach ($permisos_a as $permiso) {
+            if ($permiso->id !== 0) {
+                $rol->detachPermission($permiso->id);
+            }
+        }
+        return $permisos_a;
+    }
+
+    public function permisoExiste($permiso) {
         
     }
 
