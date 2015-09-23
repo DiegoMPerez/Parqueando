@@ -2,6 +2,10 @@
 @section('title')
 parqueaderos
 @stop
+@section('linktop')
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+@stop
 @section('content')
 <div class="panel-default">
     <div class="table-responsive">
@@ -20,6 +24,7 @@ parqueaderos
                     <td>editar</td>
 
                     <td>eliminar</td>
+                    <td><input type="checkbox" data-toggle="toggle" data-on="Activo" data-off="Sin Servicio" data-onstyle="success" data-offstyle="danger"></td>
 
                 </tr>
                 @endforeach
