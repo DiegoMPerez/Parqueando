@@ -26,7 +26,7 @@ Roles
             <tbody>
                 @foreach($roles as $rol)
                 <tr><td>{{ $rol->name }}</td>
-                    <td><a data-toggle="modal" rol_id="{{ $rol->id }}" rol_name="{{ $rol->name }}" data-target="#permisos" class="btn btn-primary get-permisos">Permisos</a></td>
+                    <td><a href="#" data-toggle="modal" data-rol_id="{{ $rol->id }}" data-rol_name="{{ $rol->name }}" data-target="#basicModal" class="btn btn-primary get-permisos">Permisos</a></td>
                     @if(Entrust::can('editar_roles'))
                     <td>{!! Form::open(array('method' 
                         => 'GET', 'route' => array('roles.edit', $rol->id))) !!}
@@ -49,12 +49,14 @@ Roles
             @endif
         </table>
 
-        <div class="modal" id="permisos">
+
+
+
+        <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                        <h4 class="modal-title" id="titulo">Gestionar permisos</h4>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                     </div>
                     <div class="modal-body">
                         <div class="row">
@@ -82,7 +84,7 @@ Roles
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a href="#" data-dismiss="modal" class="btn">Cerrar</a>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
             </div>
@@ -90,27 +92,25 @@ Roles
     </div>
 </div>
 
+        
+
 <script type="text/javascript">
     
-jQuery(document).ready(function ($) {
-  
+$(document).ready(function() {
+    
+    //        {{-- EVENTO DESPUÉS DE CERRAR EL MODAL --}}
 
-    $('.get-permisos').on('click', function () {
-        $('#multiselect').empty();
-        $('#multiselect_to').empty();
-        $('multiselect_rightSelected').empty();
-        $('multiselect_leftSelected').empty();
+    $('#basicModal').on('hidden.bs.modal',function(e){
+        $('#multiselect').children('option').remove();
+        $('#multiselect_to').children('option').remove();
+        $(this).removeData();
+    });  
+    
+    $('#basicModal').on('show.bs.modal',function(event){
+        rol_id = $(this).data('bs.modal').options.rol_id;
+        rol_name = $(this).data('bs.modal').options.rol_name;
+        $('#myModalLabel').html("Gestionar los permisos de <strong>&quot;" + rol_name +"&quot;</strong>");
         
-        
-        rol_id = $(this).attr('rol_id');
-        rol_name = $(this).attr('rol_name');
-        
-        $('#titulo').html("Gestionar los permisos de <strong>&quot;" + rol_name +"&quot;</strong>");
-        
-        console.log(rol_id);
-        event.preventDefault();
-        
-           
         $.ajax({
             url: '{{ url('permisos/asignados') }}',
             data: {rol_id: rol_id},
@@ -131,16 +131,18 @@ jQuery(document).ready(function ($) {
         });
         
         
+    });
+        
+        
         $('#multiselect').multiselect({
+            
             afterMoveToRight: function (event,options) {
-                
+               
                var opciones = [];
                
                for(var i = 0 ; i < options[0].options.length ; i++){
                    opciones[i]=(options[0].options[i].value);
                }
-               
-               console.log(opciones);
                
                $.ajax({
                         url : '{{ URL::to("/permisos/asignar") }}',
@@ -159,9 +161,7 @@ jQuery(document).ready(function ($) {
                for(var i = 0 ; i < options[0].options.length ; i++){
                    opciones[i]=(options[0].options[i].value);
                }
-               
-               console.log(opciones);
-//               
+                        
                $.ajax({
                         url : '{{ URL::to("/permisos/designar") }}',
                         type : 'PUT',
@@ -170,13 +170,8 @@ jQuery(document).ready(function ($) {
                     }).done(function(data){
                         console.log(data);
                     });
-                
             }
         });
-        
-    });
-     
-});
-
+    });  
 </script>
 @stop
