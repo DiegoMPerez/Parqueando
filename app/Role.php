@@ -8,7 +8,7 @@ class Role extends EntrustRole {
 
     protected $table = 'roles';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    protected $fillable = ["name", "display_name", "description"];
 
     public function permisos() {
         return $this->belongsToMany('App\Permission', 'permission_role');

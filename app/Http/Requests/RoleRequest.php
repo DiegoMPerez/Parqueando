@@ -12,7 +12,7 @@ class RoleRequest extends Request {
      * @return bool
      */
     public function authorize() {
-        return false;
+        return true;
     }
 
     /**
@@ -22,9 +22,22 @@ class RoleRequest extends Request {
      */
     public function rules() {
         return [
-            'nombre' => "required|min:1|max:50|unique:roles",
-            'display_name' => "required|min:1|max:50",
-            'description' => "required|max:200"
+            'name' => "required|max:50|unique:roles",
+            'visual' => "required|max:50",
+            'descripcion' => "required|max:200"
+        ];
+    }
+    
+    public function messages() {
+        return [
+            'name.required' => 'El nombre del Rol es requerido',
+            'name.max' => 'Máximo 50 caracteres en el nombre del Rol',
+            'name.unique' => 'Este rol ya existe',
+            'visual.required' => 'El nombre visual es requerido',
+            'visual.max' => 'Máximo 50 caracteres para el nombre visual del Rol',
+            'descripcion.required' => 'La descripción del Rol es requerida',
+            'descripcion.max' => 'Máximo 200 caracteres en la descripción del Rol',
+
         ];
     }
 

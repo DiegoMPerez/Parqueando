@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Role;
 use App\Permission;
+use App\Http\Requests\RoleRequest;
+
 
 class RolesController extends Controller {
 
@@ -40,8 +42,18 @@ class RolesController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store(RoleRequest $roleRequest) {
+        
+        $nombreRol = \Request::input('name');
+        $nombreRolVisual = \Request::input('visual');
+        $descripcion = \Request::input('descripcion');
+        
+        Role::create([
+            'name' => $nombreRol,
+            'display_name' => $nombreRolVisual,
+            'description' => $descripcion
+        ]);
+        
         return redirect('roles');
     }
 
