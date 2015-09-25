@@ -29,10 +29,9 @@ Roles
                     @endif
                     @if(Entrust::can('eliminar_roles'))
                     <td>
-                        {!! Form::open(array('method' 
-                        => 'DELETE', 'route' => array('roles.destroy', $rol->id))) !!}
-                        {!! Form::submit('Eliminar', array('class'
-                        => 'btn btn-danger')) !!}
+                        
+                        {!! Form::open(array('id' => $rol->id,'method' => 'DELETE', 'route' => array('roles.destroy', $rol->id))) !!}
+                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-rolname' => $rol->name, 'data-id' => $rol-> id)) !!}
                         {!! Form::close() !!}
                     </td>
                     @endif
@@ -87,6 +86,25 @@ Roles
                         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                <p id="usuario"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-cancel">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn-ok">Aceptar</button>
             </div>
         </div>
     </div>
@@ -175,3 +193,21 @@ $(document).ready(function() {
     });  
 </script>
 @stop
+
+@section('linkbot')
+<script>
+    $(document).on('click', '.open', function () {
+        var $rolname = $(this).data('rolname');
+        var $id = $(this).data('id');
+        $('#usuario').html("¿Está seguro de eliminar el rol <strong>" + $rolname + "</strong>?");
+
+        $('#btn-ok').click(function () {
+            $('#'+$id).submit();
+        });
+    });
+
+
+
+</script>
+
+@endsection

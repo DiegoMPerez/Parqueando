@@ -11,6 +11,7 @@ use App\Permission;
 use App\Http\Requests\RoleRequest;
 use App\Http\Requests\RoleRequest_Update;
 use Validator;
+use Illuminate\Support\Facades\Redirect;
 
 class RolesController extends Controller {
 
@@ -124,7 +125,8 @@ class RolesController extends Controller {
      * @return Response
      */
     public function destroy($id) {
-        //
+        $rol = Role::destroy($id);
+        return Redirect::route('roles.index');
     }
 
 }

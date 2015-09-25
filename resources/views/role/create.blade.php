@@ -29,14 +29,14 @@ crear roles
                     <div class="form-group">
                         {!! Form::label('nombrev', 'Nombre Visual:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-4">
-                            {!! Form::text('visual', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                            {!! Form::text('display_name', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
                         </div>
                     </div>
                     <!-- Descripción -->
                     <div class="form-group">
                         {!! Form::label('descripcion', 'Descripción:', ['class' => 'col-md-4 control-label']) !!}
                         <div class="col-md-4">
-                            {!! Form::textarea('descripcion', '', ['class' => 'form-control', 'maxlength' => '200']) !!}
+                            {!! Form::textarea('description', '', ['class' => 'form-control', 'maxlength' => '200']) !!}
                         </div>
                     </div>
                     <div class="form-group">
