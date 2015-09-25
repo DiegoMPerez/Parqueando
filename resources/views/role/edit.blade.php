@@ -1,30 +1,98 @@
-@extends('layouts.layout_base')
- 
-@section('title')
-    crear usuarios
-@stop
+@extends('app')
 
-@section('head')
-    @parent
-    	<style>
-            .role{
-                margin-top: 60px;
-            }
-        </style>	
+@section('title')
+Editar Rol
 @stop
 
 @section('content')
-<div class="container">
-    <div class="role">
-        {{ Form::Model($role, array('method' => 'PUT', 'route' => array('roles.update', $role->id),             'class' => 'form-horizontal col-md-6')) }}
-        
-        <div class="form-group">
-            {{Form::label('name', 'Nombre');}}
-            {{Form::text('name', null, array('class' => 'form-control'));}}
+
+
+<div class="container-fluid" style="margin-bottom: 30px; position: relative;">
+    <div class="row" style="  " >
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Editar Rol</div>
+                <div class="panel-body">
+
+
+                    <div id="form-errors" ></div>
+
+                    {!! Form::Model($rol, array('method' => 'PUT', 'route' => array('roles.update', $rol->id), 'class' => 'form-horizontal')) !!}
+                    <!-- Nombre -->
+                    <div class="form-group">
+                        {!! Form::label('nombre', 'Nombre del Rol:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('name', null, ['class' => 'form-control', 'maxlength' => '100']) !!}
+                        </div>
+                    </div>
+                    <!-- Nombre Visual -->
+                    <div class="form-group">
+                        {!! Form::label('nombrev', 'Nombre Visual:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::text('display_name', null, ['class' => 'form-control', 'maxlength' => '100']) !!}
+                        </div>
+                    </div>
+                    <!-- Descripción -->
+                    <div class="form-group">
+                        {!! Form::label('descripcion', 'Descripción:', ['class' => 'col-md-4 control-label']) !!}
+                        <div class="col-md-4">
+                            {!! Form::textarea('description', null, ['class' => 'form-control', 'maxlength' => '200']) !!}
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <button type="submit" class="btn btn-primary col-md-3" id="enviar">Editar</button>
+                            {!! link_to('roles',"Cancelar", array("class" => "btn btn-danger col-md-3 col-md-offset-1")) !!}
+                        </div>
+                    </div>
+                    {!! Form::close() !!}
+                </div>
+            </div>
         </div>
-            {{ Form::submit('Editar', array('class' => 'btn btn-success')) }}
-            {{ Form::close() }}
-        {{ Form::close() }}
     </div>
 </div>
+
+<script>
+
+    $("#enviar").on('click', function () {
+        event.preventDefault();
+        console.log($(this).parent().context.form.action);
+        var url = $(this).parent().context.form.action;
+        var form = $('#form');
+        var data = form.serialize();
+        $.ajax({
+            url: url,
+            type: 'PUT',
+            data: $(this).closest('form').serialize(),
+            success: function (data) {
+                // Success...
+                //console.log(data);
+                location.href = "{{URL('roles')}}";
+            }, error: function (jqXhr) {
+                if (jqXhr.status === 401) //redirect if not authenticated user.
+                    $(location).prop('pathname', 'auth/login');
+                if (jqXhr.status === 422) {
+                    //process validation errors here.
+                    var errors = jqXhr.responseJSON; //this will get the errors response data.
+                    //show them somewhere in the markup                 //e.g
+                    errorsHtml = '<div class="alert alert-danger"><ul>';
+                    $.each(errors, function (key, value) {
+                        errorsHtml += '<li>' + value[0] + '</li>'; //showing only the first error.
+                    });
+                    errorsHtml += '</ul></di>';
+                    $('#form-errors').html(errorsHtml); //appending to a <div id="form-errors"></div> inside form
+                    $('html, body').animate({scrollTop: 0}, 'fast');
+                }
+                if (jqXhr.status === 403) {
+                    location.href = "{{URL('error403')}}";
+                }
+                 else {
+
+                }
+            }
+        });
+
+    });
+</script>
+
 @stop

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class RoleRequest extends Request {
+class RoleRequest_Update extends Request {
 
     /**
      * Determine if the user is authorized to make this request.
@@ -22,7 +22,7 @@ class RoleRequest extends Request {
      */
     public function rules() {
         return [
-            'name' => "required|max:50|unique:roles",
+            'name' => "required|max:50",
             'display_name' => "required|max:50",
             'description' => "required|max:200"
         ];
@@ -32,7 +32,6 @@ class RoleRequest extends Request {
         return [
             'name.required' => 'El nombre del Rol es requerido',
             'name.max' => 'Máximo 50 caracteres en el nombre del Rol',
-            'name.unique' => 'Este rol ya existe',
             'display_name.required' => 'El nombre visual es requerido',
             'display_name.max' => 'Máximo 50 caracteres para el nombre visual del Rol',
             'description.required' => 'La descripción del Rol es requerida',
