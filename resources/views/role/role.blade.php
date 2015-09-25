@@ -11,16 +11,9 @@ Roles
 @section('content')
 <div class="container">
     <div class="user">
-        @if(Entrust::can('crear_roles'))
-        {!! Form::open(array('method' 
-        => 'get', 'route' => array('roles.create'))) !!}
-        {!! Form::submit('Crear', array('class'
-        => 'btn btn-success')) !!}
-        {!! Form::close() !!}
-        @endif
         <table class="table table-bordered table-hover">
             <thead>
-                <tr><th>Nombre</th><th>Permisos</th></tr>
+                <tr><th>Nombre del Rol</th><th>Permisos</th></tr>
             </thead>
             @if(isset($roles))
             <tbody>
@@ -48,8 +41,15 @@ Roles
             </tbody>
             @endif
         </table>
-
-
+        <ul class="list-group">
+            <li class="list-group-item">
+                @if(Entrust::can('crear_roles'))
+                    {!! Form::open(array('method' => 'get', 'route' => array('roles.create'))) !!}
+                    {!! Form::submit('Crear nuevo rol', array('class' => 'btn btn-success')) !!}
+                    {!! Form::close() !!}
+                @endif
+            </li>
+        </ul>
 
 
         <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

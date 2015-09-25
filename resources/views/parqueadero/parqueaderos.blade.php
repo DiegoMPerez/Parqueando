@@ -18,14 +18,17 @@ parqueaderos
                 <!--//este es un comentario-->
                 @foreach($parqueaderos as $parqueadero)
                 <tr><td>{!! $parqueadero->nombre !!}</td>
-
                     <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/plazas',"PLAZAS", array("class" => "btn btn-primary")) !!} </td>
                     <td>paRÁmetros</td>
                     <td>editar</td>
 
                     <td>eliminar</td>
-                    <td><input type="checkbox" data-toggle="toggle" data-on="Activo" data-off="Sin Servicio" data-onstyle="success" data-offstyle="danger"></td>
-
+                    
+                    @if($parqueadero->estado === '1')
+                        <td><input type="checkbox" data-toggle="toggle" checked data-on="Activo" data-off="Sin Servicio" data-onstyle="success" data-offstyle="danger"></td>
+                    @else
+                        <td><input type="checkbox" data-toggle="toggle"  data-on="Activo" data-off="Sin Servicio" data-onstyle="success" data-offstyle="danger"></td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>

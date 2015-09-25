@@ -4,8 +4,8 @@ plazas de estacionamiento
 @stop
 
 @section('linktop')
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+
+
 <link rel="stylesheet" type="text/css" href="{{ asset('simplegrid.css') }}"/>
 
 @endsection

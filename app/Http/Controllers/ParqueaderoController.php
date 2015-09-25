@@ -35,7 +35,7 @@ class ParqueaderoController extends Controller {
         $idUser = \Request::user()->id;
 
         $parqueaderos = User::find($idUser)->parqueaderos()->get();
-
+        
         $data = array(
             'parqueaderos' => $parqueaderos
         );
@@ -149,6 +149,11 @@ class ParqueaderoController extends Controller {
     public function success() {
         $ruta = 'parqueaderos';
         return view('errors/202')->with('ruta', $ruta);
+    }
+    
+    public function activarParqueadero(){
+        
+        return "ok";
     }
 
 }

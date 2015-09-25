@@ -40,6 +40,9 @@ Route::controllers([
 Route::get('/parqueaderos/success', 'ParqueaderoController@success');
 Route::resource('/parqueaderos', 'ParqueaderoController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
 
+Route::put('/parqueaderos/activar', 'ParqueaderoController@activarParqueadero');
+
+
 //USUARIOS
 
 Route::group(['middleware' => 'roles', 'roles' => ['admin']], function() {

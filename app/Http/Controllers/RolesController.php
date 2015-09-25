@@ -32,7 +32,7 @@ class RolesController extends Controller {
      * @return Response
      */
     public function create() {
-        //
+        return view('role.create');
     }
 
     /**
@@ -42,6 +42,7 @@ class RolesController extends Controller {
      */
     public function store() {
         //
+        return redirect('roles');
     }
 
     /**
