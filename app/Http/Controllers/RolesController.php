@@ -47,8 +47,8 @@ class RolesController extends Controller {
     public function store(RoleRequest $roleRequest) {
 
         $nombreRol = \Request::input('name');
-        $nombreRolVisual = \Request::input('visual');
-        $descripcion = \Request::input('descripcion');
+        $nombreRolVisual = \Request::input('display_name');
+        $descripcion = \Request::input('description');
 
         Role::create([
             'name' => $nombreRol,
