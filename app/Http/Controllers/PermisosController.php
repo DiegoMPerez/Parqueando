@@ -7,6 +7,7 @@ use App\Http\Requests\PermisosRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Permission;
+use App\Role;
 
 class PermisosController extends Controller {
 
