@@ -82,4 +82,10 @@ Route::put('/permisos/designar', 'PermisosController@putDesignar');
 
 //PERMISOS
 
+Route::get('/permisos', 'PermisosController@index');
+
+Route::put('/permisos/eliminar', 'PermisosController@destroy');
+
+Route::get('/permisos/editar/{id}', 'PermisosController@edit');
+
 Route::resource('/permisos', 'PermisosController');

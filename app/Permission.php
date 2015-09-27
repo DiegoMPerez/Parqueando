@@ -8,7 +8,7 @@ class Permission extends EntrustPermission {
 
     protected $table = 'permissions';
     protected $primaryKey = 'id';
-    public $timestamps = false;
+    protected $fillable = ['name', 'display_name', 'description'];
     
     public function roles()
     {

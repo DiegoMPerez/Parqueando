@@ -9,7 +9,6 @@ Permisos
 @endsection
 @section('content')
 <div class="panel-info" style="margin-bottom: 40px">
-
     <div class="panel-heading">Permisos</div>
     <div class="table-responsive">
         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
@@ -52,46 +51,17 @@ Permisos
             @endif
         </table>
     </div>  
-</div>
-
-
-<!--<div class="panel-info" style="margin-bottom: 40px">
-
-    <div class="panel-heading">Permisos</div>
-
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr><th>Nombre del permiso</th><th>Nombre Visual</th><th>Descripción</th><th>Fecha de Creación</th><th>Fecha de Actualización</th></tr>
-            </thead>
-            @if(isset($permisos))
-            <tbody>
-                //este es un comentario
-                @foreach($permisos as $permiso)
-                <tr><td>{!! $permiso->name !!}</td>
-                    <td>{!! $permiso->display_name  !!}</td>
-                    <td>{!! $permiso->description !!}</td>
-                    <td>{!! $permiso->created_at !!}</td>
-                    <td>{!! $permiso->updated_at !!}</td>
-                    @if(Entrust::can('editar_permisos'))
-                    <td>{!! Form::open(array('method' => 'GET', 'route' => array('permisos.edit', $permiso->id))) !!}
-                        {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
-                        {!! Form::close() !!}</td>
-                    <td>
-                        {!! Form::open(array('id' => $permiso->id,'method' => 'DELETE', 'route' => array('permisos.destroy', $permiso->id))) !!}
-                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-permisoname' => $permiso->name, 'data-id' => $permiso->id)) !!}
-                        {!! Form::close() !!}
-                    </td>
-                    @endif
-                </tr>
-                @endforeach
-            </tbody>
+    <ul class="list-group">
+        <li class="list-group-item">
+            @if(Entrust::can('crear_permisos'))
+            {!! Form::open(array('method' => 'get', 'route' => array('permisos.create'))) !!}
+            {!! Form::submit('Crear nuevo permiso', array('class' => 'btn btn-success')) !!}
+            {!! Form::close() !!}
             @endif
-        </table>
-    </div>
+        </li>
+    </ul>
 </div>
 
--->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -100,15 +70,37 @@ Permisos
                 <h4 class="modal-title" id="myModalLabel">Acciones:</h4>
             </div>
             <div class="modal-body" style="text-align: center">
-                <button type="button" class="btn btn-info" data-dismiss="modal" id="btn-cancel">Editar</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal" id="btn-editar">Editar</button>
                 &nbsp;
-                <button type="button" class="btn btn-danger" id="btn-ok">Eliminar</button>
+                <button type="button" class="btn btn-danger" id="btn-eliminar">Eliminar</button>
                 &nbsp;
                 <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-cancel">Cancelar</button>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalEliminarLabel">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                <p id="usuario"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-cancel">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn-ok">Aceptar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <style>
     #example_filter{
@@ -154,26 +146,46 @@ Permisos
                 $(this).addClass('selected');
             }
 
+
+//MODAL
+            var $permisoname = table.row('.selected').data()[1];
+            var $asd = table.row('.selected').data()[0];
+
+            $('#myModalLabel').html("Acciones para <strong>" + $permisoname + "</strong> :");
+
             $("#myModal").modal('show');
             console.log(table.row('.selected').data());
             //table.row('.selected').remove().draw( false );
+
+//ACCIONES MODAL
+
+            $('#btn-editar').click(function () {
+
+                window.location.href = "{{ URL::to('/permisos/editar') }}/" + $asd;
+            });
+
+            $('#btn-eliminar').click(function () {
+                $("#myModal").modal('hide');
+                $('#usuario').html("¿Está seguro de eliminar el permiso <strong>" + $permisoname + "</strong>?");
+                $("#modalEliminar").modal('show');
+
+
+                $('#btn-ok').click(function () {
+                    $.ajax({
+                        url: '{{ URL::to("/permisos/eliminar") }}',
+                        type: 'PUT',
+                        dataType: 'json',
+                        data: {permiso_id: $asd, "_token": "{{ csrf_token() }}"},
+                        success: function (data, textStatus, jqXHR) {
+                            $("#modalEliminar").modal('hide');
+                            location.href = "{{URL('permisos')}}";
+                        }
+                    });
+                });
+
+            });
         });
-
-
-
     });
-    $(document).on('click', '.open', function () {
-        var $permisoname = $(this).data('permisoname');
-        var $id = $(this).data('id');
-        $('#permiso').html("¿Está seguro de eliminar el permiso <strong>" + $permisoname + "</strong>?");
-
-
-        $('#btn-ok').click(function () {
-            $('#' + $id).submit();
-        });
-    });
-
-
 
 </script>
 

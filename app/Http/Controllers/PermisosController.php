@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
+use App\Http\Requests\PermisosRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Role;
 use App\Permission;
 
 class PermisosController extends Controller {
@@ -31,7 +31,7 @@ class PermisosController extends Controller {
      * @return Response
      */
     public function create() {
-        //
+        return view('permisos.create');
     }
 
     /**
@@ -39,8 +39,19 @@ class PermisosController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store(PermisosRequest $request) {
+        
+        $nombrePermiso = \Request::input('name');
+        $nombrePermisoVisual = \Request::input('display_name');
+        $descripcion = \Request::input('description');
+
+        Permission::create([
+            'name' => $nombrePermiso,
+            'display_name' => $nombrePermisoVisual,
+            'description' => $descripcion
+        ]);
+
+        return redirect('permisos');
     }
 
     /**
@@ -51,6 +62,7 @@ class PermisosController extends Controller {
      */
     public function show($id) {
         //
+       
     }
 
     /**
@@ -60,7 +72,7 @@ class PermisosController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        //
+        return $id;
     }
 
     /**
@@ -79,8 +91,11 @@ class PermisosController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy() {
+        
+        $idPermiso = \Request::input('permiso_id');
+        Permission::destroy($idPermiso);
+        return json_encode("asd") ;
     }
 
     public function getPermisos() {
@@ -112,7 +127,6 @@ class PermisosController extends Controller {
         if (empty($temp)) {
             $p['permisos'] = $permisos;
         }
-
         return $p;
     }
 
