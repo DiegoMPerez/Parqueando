@@ -47,7 +47,9 @@
                         @if(Entrust::hasRole('admin'))
                         <li><a href="{{URL::to('roles')}}">Roles</a></li>
                         @endif
-
+                        @if(Entrust::hasRole('admin'))
+                        <li><a href="{{URL::to('permisos')}}">Permisos</a></li>
+                        @endif
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
 

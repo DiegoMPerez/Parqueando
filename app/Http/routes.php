@@ -64,17 +64,14 @@ Route::put('/parqueadero/{id}/plaza/{id2}', ['as' => 'plazas', 'uses' => 'PlazaC
 Route::get('/parqueadero/{id}/plazas', 'PlazaController@index');
 
 
-//ROLES
-
-Route::resource('/roles', 'RolesController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
-
-
 //ERRORES
 
 Route::get('/error{id}', 'ErrorController@index');
 
 
 //ROLES
+
+Route::resource('/roles', 'RolesController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
 
 Route::get('/permisos/asignados', 'PermisosController@getPermisos');
 Route::get('/permisos', 'PermisosController@index');
@@ -83,3 +80,6 @@ Route::put('/permisos/asignar', 'PermisosController@putAsignar');
 Route::put('/permisos/designar', 'PermisosController@putDesignar');
 
 
+//PERMISOS
+
+Route::resource('/permisos', 'PermisosController');

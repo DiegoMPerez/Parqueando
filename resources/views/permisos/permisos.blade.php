@@ -1,0 +1,180 @@
+@extends('app')
+@section('title')
+Permisos
+@stop
+@section('linktop')
+<link href="https://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css" type="text/css" rel="stylesheet" />
+<script src="https://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+
+@endsection
+@section('content')
+<div class="panel-info" style="margin-bottom: 40px">
+
+    <div class="panel-heading">Permisos</div>
+    <div class="table-responsive">
+        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th hidden="true">ASD</th>
+                    <th>Nombre del Permiso</th>
+                    <th>Nombre Visual</th>
+                    <th>Descripción</th>
+                    <th>Fecha de Creación</th>
+                    <th>Fecha de Actualización</th>
+                </tr>
+            </thead>
+
+            <tfoot>
+                <tr>
+                    <th hidden="true">ASD</th>
+                    <th>Nombre del Permiso</th>
+                    <th>Nombre Visual</th>
+                    <th>Descripción</th>
+                    <th>Fecha de Creación</th>
+                    <th>Fecha de Actualización</th>
+                </tr>
+            </tfoot>
+
+            @if(isset($permisos))
+            <tbody>
+                <!--//este es un comentario-->
+                @foreach($permisos as $permiso)
+                <tr>
+                    <td hidden="true">{!! $permiso->id !!}</td>
+                    <td>{!! $permiso->name !!}</td>
+                    <td>{!! $permiso->display_name  !!}</td>
+                    <td>{!! $permiso->description !!}</td>
+                    <td>{!! $permiso->created_at !!}</td>
+                    <td>{!! $permiso->updated_at !!} </td>
+                </tr>
+                @endforeach
+            </tbody>
+            @endif
+        </table>
+    </div>  
+</div>
+
+
+<!--<div class="panel-info" style="margin-bottom: 40px">
+
+    <div class="panel-heading">Permisos</div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr><th>Nombre del permiso</th><th>Nombre Visual</th><th>Descripción</th><th>Fecha de Creación</th><th>Fecha de Actualización</th></tr>
+            </thead>
+            @if(isset($permisos))
+            <tbody>
+                //este es un comentario
+                @foreach($permisos as $permiso)
+                <tr><td>{!! $permiso->name !!}</td>
+                    <td>{!! $permiso->display_name  !!}</td>
+                    <td>{!! $permiso->description !!}</td>
+                    <td>{!! $permiso->created_at !!}</td>
+                    <td>{!! $permiso->updated_at !!}</td>
+                    @if(Entrust::can('editar_permisos'))
+                    <td>{!! Form::open(array('method' => 'GET', 'route' => array('permisos.edit', $permiso->id))) !!}
+                        {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
+                        {!! Form::close() !!}</td>
+                    <td>
+                        {!! Form::open(array('id' => $permiso->id,'method' => 'DELETE', 'route' => array('permisos.destroy', $permiso->id))) !!}
+                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-permisoname' => $permiso->name, 'data-id' => $permiso->id)) !!}
+                        {!! Form::close() !!}
+                    </td>
+                    @endif
+                </tr>
+                @endforeach
+            </tbody>
+            @endif
+        </table>
+    </div>
+</div>
+
+-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Acciones:</h4>
+            </div>
+            <div class="modal-body" style="text-align: center">
+                <button type="button" class="btn btn-info" data-dismiss="modal" id="btn-cancel">Editar</button>
+                &nbsp;
+                <button type="button" class="btn btn-danger" id="btn-ok">Eliminar</button>
+                &nbsp;
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    #example_filter{
+        left: 0px;
+        padding: 10px;
+    }
+    #example_length{
+        left: 0px;
+        width: 300px;
+        padding: 10px;
+    }
+</style>
+@endsection
+@section('linkbot')
+<script>
+    $(document).ready(function () {
+
+
+
+        $('#example').DataTable({
+            "language": {
+                "lengthMenu": "Ver _MENU_ registros por página",
+                "zeroRecords": "Nada enconcrado",
+                "info": "Página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros",
+                "infoFiltered": "(filtered from _MAX_ total records)",
+                "search": "Buscar"
+            },
+            "paging": false,
+            "ordering": true,
+            "info": false
+        });
+
+        var table = $('#example').DataTable();
+
+
+        $('#example tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+
+            $("#myModal").modal('show');
+            console.log(table.row('.selected').data());
+            //table.row('.selected').remove().draw( false );
+        });
+
+
+
+    });
+    $(document).on('click', '.open', function () {
+        var $permisoname = $(this).data('permisoname');
+        var $id = $(this).data('id');
+        $('#permiso').html("¿Está seguro de eliminar el permiso <strong>" + $permisoname + "</strong>?");
+
+
+        $('#btn-ok').click(function () {
+            $('#' + $id).submit();
+        });
+    });
+
+
+
+</script>
+
+@endsection

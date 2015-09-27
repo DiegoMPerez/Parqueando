@@ -21,8 +21,8 @@ class PermisosController extends Controller {
      */
     public function index() {
         //
-        $permisos['permisos'] = Permission::all();
-        return $permisos;
+        $permisos = Permission::all();
+        return view('permisos.permisos')->with('permisos', $permisos);
     }
 
     /**
@@ -167,9 +167,4 @@ class PermisosController extends Controller {
         }
         return $permisos_a;
     }
-
-    public function permisoExiste($permiso) {
-        
-    }
-
 }
