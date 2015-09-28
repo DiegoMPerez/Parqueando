@@ -160,7 +160,6 @@ Permisos
 //ACCIONES MODAL
 
             $('#btn-editar').click(function () {
-
                 window.location.href = "{{ URL::to('/permisos/editar') }}/" + $asd;
             });
 

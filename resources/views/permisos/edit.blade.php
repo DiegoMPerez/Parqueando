@@ -13,10 +13,7 @@ editar permiso
             <div class="panel panel-default">
                 <div class="panel-heading">Editar un Permiso</div>
                 <div class="panel-body">
-
-
                     <div id="form-errors" ></div>
-
                     {!! Form::Model($permiso, array('method' => 'PUT', 'route' => array('permisos.update', $permiso->id), 'class' => 'form-horizontal')) !!}
                     <!-- Nombre -->
                     <div class="form-group">
@@ -54,7 +51,6 @@ editar permiso
 
 
 <script>
-
     $("#enviar").on('click', function () {
         event.preventDefault();
         console.log($(this).parent().context.form.action);
@@ -92,7 +88,6 @@ editar permiso
                 }
             }
         });
-
     });
 </script>
 

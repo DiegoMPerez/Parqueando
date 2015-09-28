@@ -19,7 +19,7 @@ parqueaderos
                 @foreach($parqueaderos as $parqueadero)
                 <tr><td>{!! $parqueadero->nombre !!}</td>
                     <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/plazas',"PLAZAS", array("class" => "btn btn-primary")) !!} </td>
-                    <td>paRÁmetros</td>
+                    <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/parametros',"Parámetros", array("class" => "btn btn-primary")) !!} </td>
                     <td>editar</td>
 
                     <td>eliminar</td>
