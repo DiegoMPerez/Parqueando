@@ -4,6 +4,11 @@
 Parámetros
 @stop
 
+@section('linktop')
+<link href="{{ asset('/clockpicker/dist/bootstrap-clockpicker.css') }}" rel="stylesheet"/>
+<script src="{{ asset('/clockpicker/dist/bootstrap-clockpicker.js')}}"></script>
+@stop
+
 @section('content')
 
 
@@ -36,12 +41,22 @@ Parámetros
                             <!-- Hora Inicio -->
                             <div class="form-group">
                                 {!! Form::label('nombre', 'Hora Inicio:', ['class' => 'col-md-4 control-label']) !!}
-                                <div class="col-md-2">
-                                    {!! Form::text('name', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                                <div class="col-md-3">
+                                    <div class="input-group clockpicker">
+                                        {!! Form::text('name', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
                                 </div>
                                 {!! Form::label('nombre', 'Hora Fin:', ['class' => 'col-md-2 control-label']) !!}
-                                <div class="col-md-2">
-                                    {!! Form::text('name', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                                <div class="col-md-3">
+                                    <div class="input-group clockpicker">
+                                        {!! Form::text('name', '', ['class' => 'form-control', 'maxlength' => '100']) !!}
+                                        <span class="input-group-addon">
+                                            <span class="glyphicon glyphicon-time"></span>
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -99,11 +114,15 @@ Parámetros
     </div>
 </div>
 
+
 <script>
 
-//    $("#enviar").on('click', function () {
-//       
-//    });
+$('.clockpicker').clockpicker({
+    placement: 'bot',
+    align: 'left',
+    donetext: 'ACEPTAR'
+});
+
 </script>
 
 @stop
