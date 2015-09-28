@@ -100,6 +100,7 @@ Parámetros
                                     <button type="button" class="btn btn-success" aria-label="Left Align">
                                         <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                     </button>
+                                    <div style="float: right; padding-left: 20px">{!! Html::image("imagenes/numeros/1.png","1", array("class" => "img-rounded", "style" => "height: 35px")) !!}</div>
                                 </div>
                             </div>
                             {!! Form::close() !!}
@@ -113,8 +114,6 @@ Parámetros
         </div>
     </div>
 </div>
-
-
 <script>
 
 $('.clockpicker').clockpicker({
