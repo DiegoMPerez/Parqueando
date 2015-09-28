@@ -83,7 +83,7 @@ class RolesController extends Controller {
         try {
             $rol = Role::find($id);
             return view('role.edit')->with('rol', $rol);
-        } catch (Exception $exc) {
+        } catch (\PDOException $exc) {
             abort(500);
         }
     }
@@ -108,11 +108,9 @@ class RolesController extends Controller {
 
         if ($rolReal->name !== $roleName) {
             $validator = Validator::make($roleRequest->all(), [
-                        'name' => 'unique:roles',
+                        'name' => 'unique:roles'], ['name.unique' => 'El rol ya existe'
             ]);
-
             if ($validator->fails()) {
-                $validator->messages()->add('name.unique', 'El rol ya existe');
                 return Response::json($validator->messages(), 422);
             }
         }

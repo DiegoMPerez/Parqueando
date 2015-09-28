@@ -4,10 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use App\Http\Requests\PermisosRequest;
+use App\Http\Requests\PermisosRequest_Update;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Permission;
 use App\Role;
+use Validator;
+use Response;
 
 class PermisosController extends Controller {
 
@@ -41,7 +44,7 @@ class PermisosController extends Controller {
      * @return Response
      */
     public function store(PermisosRequest $request) {
-        
+
         $nombrePermiso = \Request::input('name');
         $nombrePermisoVisual = \Request::input('display_name');
         $descripcion = \Request::input('description');
@@ -63,7 +66,6 @@ class PermisosController extends Controller {
      */
     public function show($id) {
         //
-       
     }
 
     /**
@@ -73,7 +75,12 @@ class PermisosController extends Controller {
      * @return Response
      */
     public function edit($id) {
-        return $id;
+        try {
+            $permiso = Permission::find($id);
+            return view('permisos.edit')->with('permiso', $permiso);
+        } catch (\PDOException $exc) {
+            abort(500);
+        }
     }
 
     /**
@@ -82,8 +89,31 @@ class PermisosController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
+    public function update($id, PermisosRequest_Update $permisoRequest) {
+        $permisoReal = Permission::find($id);
+
+        $permisoName = \Request::input('name');
+        $permisoVisual = \Request::input('display_name');
+        $permisoDescripcion = \Request::input('description');
+        $permisoReal->display_name = $permisoVisual;
+        $permisoReal->description = $permisoDescripcion;
+
+
+
+        if ($permisoReal->name !== $permisoName) {
+            $validator = Validator::make($permisoRequest->all(), [
+                        'name' => 'unique:permissions'], [ 'name.unique' => 'El permiso ya existe'
+            ]);
+
+            if ($validator->fails()) {
+                return Response::json($validator->messages(), 422);
+            }
+        }
+
+        $permisoReal->name = $permisoName;
+        $permisoReal->save();
+
+        return view('permisos.permisos');
     }
 
     /**
@@ -93,10 +123,10 @@ class PermisosController extends Controller {
      * @return Response
      */
     public function destroy() {
-        
+
         $idPermiso = \Request::input('permiso_id');
         Permission::destroy($idPermiso);
-        return json_encode("asd") ;
+        return json_encode("asd");
     }
 
     public function getPermisos() {
@@ -182,4 +212,5 @@ class PermisosController extends Controller {
         }
         return $permisos_a;
     }
+
 }

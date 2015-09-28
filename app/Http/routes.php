@@ -71,7 +71,7 @@ Route::get('/error{id}', 'ErrorController@index');
 
 //ROLES
 
-Route::resource('/roles', 'RolesController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
+
 
 Route::get('/permisos/asignados', 'PermisosController@getPermisos');
 Route::get('/permisos', 'PermisosController@index');
@@ -79,6 +79,7 @@ Route::get('/permisos', 'PermisosController@index');
 Route::put('/permisos/asignar', 'PermisosController@putAsignar');
 Route::put('/permisos/designar', 'PermisosController@putDesignar');
 
+Route::resource('/roles', 'RolesController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
 
 //PERMISOS
 
