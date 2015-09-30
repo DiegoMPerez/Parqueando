@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Parqueadero;
+use App\Tarifa_Horario;
+use App\Horario;
+use App\Precio;
 
 class ParametrosController extends Controller {
 
@@ -18,8 +22,17 @@ class ParametrosController extends Controller {
      * @return Response
      */
     public function index($id) {
+
+        $horarios = Parqueadero::find(55)->horarios()->get();
+        $tarifas = Parqueadero::find(55)->tarifas()->get();
         
-        return view('parqueadero.parametros.parametros');
+        $data = array([
+            'horarios' => $horarios,
+            'tarifas' => $tarifas
+        ]);
+
+        dd($data);
+        // return view('parqueadero.parametros.parametros');
     }
 
     /**
