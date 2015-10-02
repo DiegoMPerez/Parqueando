@@ -25,14 +25,20 @@ class ParametrosController extends Controller {
 
         $horarios = Parqueadero::find(55)->horarios()->get();
         $tarifas = Parqueadero::find(55)->tarifas()->get();
-        
-        $data = array([
-            'horarios' => $horarios,
-            'tarifas' => $tarifas
-        ]);
+        $count = $tarifas->count();
 
-        dd($data);
-        // return view('parqueadero.parametros.parametros');
+        $horarioTarifas = [];
+
+        $i=0;
+        foreach ($horarios as $horario) {
+            $horarioTarifas[]=$horarios[$i]['attributes'] + $tarifas[$i]['attributes'];
+            $i++;
+        }
+        
+
+       
+
+        return view('parqueadero.parametros.parametros')->with("th", $horarioTarifas);
     }
 
     /**
