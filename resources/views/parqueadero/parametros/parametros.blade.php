@@ -102,7 +102,7 @@ Parámetros
                                             <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                         </button>
                                         {{--IMAGEN--}}
-                                        <div style="float: right; padding-left: 20px">{!! Html::image("imagenes/numeros/1.png","1", array("class" => "img-rounded", "style" => "height: 35px")) !!}</div>
+                                        <div style="float: right; padding-left: 20px">{!! Html::image("imagenes/numeros/1.png","1", array("class" => "img-rounded","id"=>"imagen", "style" => "height: 35px")) !!}</div>
                                     </div>
                                 </div>
                                 {!! Form::close() !!}
@@ -147,6 +147,7 @@ $(document).ready(function () {
     }
 
     function cargarDatos() {
+        
         @foreach($horarios as $horario)
             var $html = $('#template').clone();
             var $form = $html.find('form');
@@ -166,6 +167,7 @@ $(document).ready(function () {
             $form.find('[name=xsemana]').attr('value',  "{!! $horario['semanal'] !!}" );
             $form.find('[name=xmes]').attr('value',  "{!! $horario['mensual'] !!}" );
             
+            $form.find('[id=imagen]').attr('src', "{!! asset('imagenes/numeros/') !!}/{{$horario['numero']}}.png" );
 
             $('#content-ht').append($($html.html()));
         @endforeach

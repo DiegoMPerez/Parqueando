@@ -31,10 +31,12 @@ class ParametrosController extends Controller {
         $horarioTarifas = collect();
 
         $i=0;
+        $j=1;
         foreach ($horarios as $horario) {
-            $horario=  collect($horarios[$i]['attributes'] + $tarifas[$i]['attributes']);
+            $horario=  collect($horarios[$i]['attributes'] + $tarifas[$i]['attributes'] + ["numero"=>$j]);
             $horarioTarifas[] = $horario;
             $i++;
+            $j++;
         }
         
         $data = array(
