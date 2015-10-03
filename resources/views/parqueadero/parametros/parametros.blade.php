@@ -147,7 +147,7 @@ $(document).ready(function () {
     }
 
     function cargarDatos() {
-        @for($i = 0; $i < $numero; $i++)
+        @foreach($horarios as $horario)
             var $html = $('#template').clone();
             var $form = $html.find('form');
 
@@ -155,20 +155,20 @@ $(document).ready(function () {
             $form.attr('action', '/asd');
             //Horarios
             
-            @foreach($horarios as $horario)
-            $form.find('[name=hinicio]').attr('value', '{!! $horario->hora_inicio !!}');
-            $form.find('[name=hfin]').attr('value', '{!! $horario->hora_fin !!}');
-            @endforeach
+            
+            $form.find('[name=hinicio]').attr('value', "{!! $horario['hora_inicio'] !!}");
+            $form.find('[name=hfin]').attr('value', "{!! $horario['hora_fin'] !!}" );
+            
               
             //Tarifas
-            @foreach($tarifas[$i] as $tarifa)
-            $form.find('[name=xhora]').attr('value', '{!! $tarifa->por_hora !!}');
-            $form.find('[name=xsemana]').attr('value', '{!! $tarifa->semanal !!}');
-            $form.find('[name=xmes]').attr('value', '{!! $tarifa->mensual !!}');
-            @endforeach
+            
+            $form.find('[name=xhora]').attr('value',  "{!! $horario['por_hora'] !!}" );
+            $form.find('[name=xsemana]').attr('value',  "{!! $horario['semanal'] !!}" );
+            $form.find('[name=xmes]').attr('value',  "{!! $horario['mensual'] !!}" );
+            
 
             $('#content-ht').append($($html.html()));
-        @endfor
+        @endforeach
     }
 
     cargarDatos();

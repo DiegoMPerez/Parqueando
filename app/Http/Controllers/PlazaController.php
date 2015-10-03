@@ -54,6 +54,7 @@ class PlazaController extends Controller {
                         'parqueadero' => $parqueadero,
                         'plazas' => $plazas
                         );
+                        dd($plazas);
                         return view('plaza.plazas')->with($data);
                     } else {
                         abort(404);

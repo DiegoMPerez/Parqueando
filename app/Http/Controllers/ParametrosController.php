@@ -9,6 +9,7 @@ use App\Parqueadero;
 use App\Tarifa_Horario;
 use App\Horario;
 use App\Precio;
+use Illuminate\Support\Collection;
 
 class ParametrosController extends Controller {
 
@@ -27,18 +28,23 @@ class ParametrosController extends Controller {
         $tarifas = Parqueadero::find(55)->tarifas()->get();
         $count = $tarifas->count();
 
-        $horarioTarifas = [];
+        $horarioTarifas = collect();
 
         $i=0;
         foreach ($horarios as $horario) {
-            $horarioTarifas[]=$horarios[$i]['attributes'] + $tarifas[$i]['attributes'];
+            $horario=  collect($horarios[$i]['attributes'] + $tarifas[$i]['attributes']);
+            $horarioTarifas[] = $horario;
             $i++;
         }
         
+        $data = array(
+            'horarios' => $horarioTarifas,
+            'numero' => $count
+        );
 
-       
+       //dd($horarioTarifas);
 
-        return view('parqueadero.parametros.parametros')->with("th", $horarioTarifas);
+        return view('parqueadero.parametros.parametros')->with($data);
     }
 
     /**
