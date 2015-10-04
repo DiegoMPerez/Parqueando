@@ -99,72 +99,10 @@ Nuevo Parqueadero
                             {!! Form::text('direccion', '', ['class' => 'form-control', 'id' => 'direccion']) !!}
                         </div>
                     </div>
-
-
-                    <!--                    <div class="panel panel-default">
-                                            Horario de atención
-                                            <div class="form-group">
-                                                {!! Form::label('horario', 'Horario de atención', ['class' => 'col-md-4 control-label']) !!}
-                                                <div class="col-md-6 col-md-offset-4">
-                                                    <label>
-                                                        {!! Form::checkbox('estado', 'estado',true) !!}
-                                                        &nbsp; 24 horas
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                {!! Form::label('personalizado', 'Horario Personalizado', ['class' => 'col-md-4 control-label']) !!}
-                                                <div class="col-md-6">
-                                                    <label>
-                                                        Hora de apertura &nbsp; <input type="time" name="hinicio">
-                                                        &nbsp; Hora de cierre &nbsp; <input type="time" name="hfin">
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            Tarifas
-                                            <div class="form-group">
-                                                {!! Form::label('tarifa', 'Tarifas', ['class' => 'col-md-4 control-label']) !!}
-                                            </div>
-                                            Precio hora
-                                            <div class="form-group">
-                                                {!! Form::label('precioh', 'Cada hora:', ['class' => 'col-md-4 control-label']) !!}
-                                                <div class="col-md-2">
-                                                    {!! Form::number('tarifahora', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
-                                                </div>
-                                            </div> 
-                                            Precio semanal
-                                            <div class="form-group">
-                                                {!! Form::label('tarifasemana', 'Semanal:', ['class' => 'col-md-4 control-label']) !!}
-                                                <div class="col-md-2">
-                                                    {!! Form::number('tarifasemana', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
-                                                </div>
-                                            </div> 
-                                            Precio anual
-                                            <div class="form-group">
-                                                {!! Form::label('tarifaanual', 'Anual:', ['class' => 'col-md-4 control-label']) !!}
-                                                <div class="col-md-2">
-                                                    {!! Form::number('tarifaanual', '', ['class' => 'form-control', 'min' => '0', 'max' => '999']) !!}
-                                                </div>
-                                            </div> 
-                                        </div>
-                    -->                    
-
-                    <!--Estado-->
-                    <!--                    <div class="form-group">
-                                            <div class="col-md-6 col-md-offset-4">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" name="estado"> ¿El parqueadero esta activo?
-                                                    </label>
-                                                </div>
-                                            </div>
-                                        </div>-->
                     <!--botón enviar-->
                     <div class="form-group">
                         <div class="col-md-6 col-md-offset-4">
-                            <button type="submit" class="btn btn-primary" id="enviar">Crear</button>
+                            <button type="button" class="btn btn-primary" id="enviar">Crear</button>
                             {!! link_to('parqueaderos',"Cancelar", array("class" => "btn btn-danger")) !!}
                         </div>
                     </div>

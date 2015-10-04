@@ -27,13 +27,13 @@ class ParametrosController extends Controller {
         $horarios = Parqueadero::find(55)->horarios()->get();
         $tarifas = Parqueadero::find(55)->tarifas()->get();
         $count = $tarifas->count();
-
+        
         $horarioTarifas = collect();
 
         $i=0;
         $j=1;
         foreach ($horarios as $horario) {
-            $horario=  collect($horarios[$i]['attributes'] + $tarifas[$i]['attributes'] + ["numero"=>$j]);
+            $horario=  collect($horarios[$i]['original'] + $tarifas[$i]['attributes'] + ["numero"=>$j]);
             $horarioTarifas[] = $horario;
             $i++;
             $j++;
@@ -64,7 +64,7 @@ class ParametrosController extends Controller {
      * @return Response
      */
     public function store() {
-        //
+        return "ok";
     }
 
     /**

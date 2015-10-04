@@ -98,11 +98,11 @@ Parámetros
                                             <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
                                         </button>
                                         {{--ENVIAR - GUARDAR--}}
-                                        <button type="button" class="btn btn-success" aria-label="Left Align">
+                                        <button name="guardar" type="submit" class="btn btn-success" aria-label="Left Align">
                                             <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
                                         </button>
                                         {{--IMAGEN--}}
-                                        <div style="float: right; padding-left: 20px">{!! Html::image("imagenes/numeros/1.png","1", array("class" => "img-rounded","id"=>"imagen", "style" => "height: 35px")) !!}</div>
+                                        <div style="float: right; padding-left: 20px">{!! Html::image("imagenes/numeros/n.png","1", array("class" => "img-rounded","id"=>"imagen", "style" => "height: 35px")) !!}</div>
                                     </div>
                                 </div>
                                 {!! Form::close() !!}
@@ -121,7 +121,11 @@ Parámetros
 
 
 <script>
-$(document).ready(function () {
+$(document).ready(function (event) {
+  
+  
+    
+  
     $('.clockpicker').clockpicker({
         placement: 'bot',
         align: 'left',
@@ -132,8 +136,10 @@ $(document).ready(function () {
         var $html = $('#template').clone();
         var $form = $html.find('form');
         $('#content-ht').append($($html.html()));
+        
+        
     });
-    
+   
 
 
     function clokPickerUpdate() {
@@ -153,9 +159,9 @@ $(document).ready(function () {
             var $form = $html.find('form');
 
             // Action
-            $form.attr('action', '/asd');
-            //Horarios
+            $form.attr('action', "{{URL('/parqueadero')}}"+"/{{$horario['pivot_id_parqueadero']}}"+"/parametro/guardar/{{$horario['id_horario']}}/{{$horario['id_tarifa']}}");
             
+            //Horarios
             
             $form.find('[name=hinicio]').attr('value', "{!! $horario['hora_inicio'] !!}");
             $form.find('[name=hfin]').attr('value', "{!! $horario['hora_fin'] !!}" );
@@ -176,7 +182,14 @@ $(document).ready(function () {
     cargarDatos();
     clokPickerUpdate();
     
+    $(".form-horizontal").submit(function (event){
+        event.preventDefault();
+        console.log($(this));
+       console.log("asdasd"); 
+    });
+    
 });
+
 </script>
 
 
