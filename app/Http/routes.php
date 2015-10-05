@@ -49,7 +49,11 @@ Route::get('/parqueadero/{id}/plazas', 'PlazaController@index');
 
 //PARÁMETROS
 Route::get('/parqueadero/{id}/parametros', 'ParametrosController@index');
-Route::put('/parqueadero/{id}/parametro/guardar/{id2}', 'ParametrosController@store');
+Route::get('/parqueadero/parametro', 'ParametrosController@parametro');
+//guardar forms generados 
+Route::put('/parqueadero/{id}/parametro/guardar/{id2}', 'ParametrosController@guardarHT');
+//Guardar
+Route::put('/parqueadero/parametro/guardar', 'ParametrosController@store');
 
 
 //USUARIOS

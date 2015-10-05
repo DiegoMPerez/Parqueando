@@ -9,6 +9,8 @@ class Horario extends Model {
     protected $table = 'horarios';
     protected $primaryKey = 'id_horario';
 
+    public $timestamps = false;
+    
     public function tarifa_horarios() {
         return $this->hasMany('App\Tarifa_Horario');
     }

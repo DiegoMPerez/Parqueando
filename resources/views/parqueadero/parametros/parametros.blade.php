@@ -132,13 +132,38 @@ $(document).ready(function (event) {
         donetext: 'ACEPTAR'
     });
 
-    $('#add').on('click', function () {
-        var $html = $('#template').clone();
-        var $form = $html.find('form');
-        $('#content-ht').append($($html.html()));
+    $('#add').on('click', function (event) {
         
-        
-    });
+//        {{-- Guardar Horario Tarifa --}}
+    
+        event.preventDefault();
+        $.ajax({
+               url: '{{ URL::to("/parqueadero/parametro/guardar") }}',
+               type: 'PUT',
+               dataType: 'json',
+               data: {parqueadero: "{{$parqueadero}}", "_token": "{{ csrf_token() }}"},
+               success: function (json) {
+                   var $p_id=json['p_id'];
+                   var $ht_id=json['ht_id'];
+                   console.log($p_id);
+                   $.ajax({
+                        url: '{{ URL::to("/parqueadero/parametro") }}',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {parqueadero: $p_id,ht:$ht_id, "_token": "{{ csrf_token() }}"},
+                        success: function (data, textStatus, jqXHR) {
+                            
+                        }
+                    });
+               }
+           });
+
+           var $html = $('#template').clone();
+           var $form = $html.find('form');
+           $('#content-ht').append($($html.html()));
+
+
+       });
    
 
 

@@ -27,24 +27,25 @@ class ParametrosController extends Controller {
         $horarios = Parqueadero::find(55)->horarios()->get();
         $tarifas = Parqueadero::find(55)->tarifas()->get();
         $count = $tarifas->count();
-        
+
         $horarioTarifas = collect();
 
-        $i=0;
-        $j=1;
+        $i = 0;
+        $j = 1;
         foreach ($horarios as $horario) {
-            $horario=  collect($horarios[$i]['original'] + $tarifas[$i]['attributes'] + ["numero"=>$j]);
+            $horario = collect($horarios[$i]['original'] + $tarifas[$i]['attributes'] + ["numero" => $j]);
             $horarioTarifas[] = $horario;
             $i++;
             $j++;
         }
-        
+
         $data = array(
             'horarios' => $horarioTarifas,
-            'numero' => $count
+            'numero' => $count,
+            'parqueadero' => $id
         );
 
-       //dd($horarioTarifas);
+        //dd($horarioTarifas);
 
         return view('parqueadero.parametros.parametros')->with($data);
     }
@@ -64,7 +65,22 @@ class ParametrosController extends Controller {
      * @return Response
      */
     public function store() {
-        return "ok";
+        
+        $horario = new Horario();
+        $horario->hora_inicio = 0;
+        $horario->hora_fin = 4;
+        $horario->save();
+        
+        $precio = new Precio();
+        $precio->por_hora = 0;
+        $precio->semanal = 0;
+        $precio->mensual = 0;
+        $precio->save();
+        
+//Devolver los id de parqueadero y horario-tarifa
+        $ht=['p_id' => 3, 'ht_id' => 5];
+        
+        return json_encode($ht);
     }
 
     /**
@@ -105,6 +121,15 @@ class ParametrosController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function guardarHT($parqueadero, $ht) {
+        
+    }
+    
+    public function parametro() {
+        
+        //Buscar  el parámetro y devolver 
     }
 
 }
