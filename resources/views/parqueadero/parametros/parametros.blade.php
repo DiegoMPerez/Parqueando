@@ -91,15 +91,15 @@ Parámetros
                                     <div class="col-md-6 col-md-offset-4">
                                         {{-- CANCELAR --}}
                                         <button type="button" class="btn btn-danger" aria-label="Left Align">
-                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"> Eliminar</span>
+                                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>&nbsp; Eliminar
                                         </button>
                                         {{--ELIMINAR CONTENIDO--}}
-                                        <button type="reset" class="btn btn-info" aria-label="Left Align" name="reset">
-                                            <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"> Limpiar</span>
+                                        <button type="reset" class="btn btn-info" aria-label="Left Align" name="reset" style="background-color: #BDBD00; border:  #BDBD00;">
+                                            <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>&nbsp; Limpiar
                                         </button>
                                         {{--ENVIAR --}}
                                         <button name="guardar" type="submit" class="btn btn-success" aria-label="Left Align">
-                                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"> Guardar</span>
+                                            <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>&nbsp; Guardar
                                         </button>
                                         {{--IMAGEN--}}
                                         <div style="float: right; padding-left: 20px">{!! Html::image("imagenes/numeros/n.png","1", array("class" => "img-rounded","id"=>"imagen", "style" => "height: 35px")) !!}</div>
