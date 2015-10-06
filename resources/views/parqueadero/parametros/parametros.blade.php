@@ -145,7 +145,7 @@ $(document).ready(function (event) {
                success: function (json) {
                    var $p_id=json['p_id'];
                    var $ht_id=json['ht_id'];
-                   console.log($p_id);
+                   console.log($p_id, $ht_id);
                    $.ajax({
                         url: '{{ URL::to("/parqueadero/parametro") }}',
                         type: 'GET',
@@ -184,7 +184,7 @@ $(document).ready(function (event) {
             var $form = $html.find('form');
 
             // Action
-            $form.attr('action', "{{URL('/parqueadero')}}"+"/{{$horario['pivot_id_parqueadero']}}"+"/parametro/guardar/{{$horario['id_horario']}}/{{$horario['id_tarifa']}}");
+            $form.attr('action', "{{URL('/parqueadero')}}"+"/{{$horario['pivot_id_parqueadero']}}"+"/parametro/{{$horario['id_horario']}}/{{$horario['id_tarifa']}}");
             
             //Horarios
             
@@ -209,8 +209,29 @@ $(document).ready(function (event) {
     
     $(".form-horizontal").submit(function (event){
         event.preventDefault();
+        
         console.log($(this));
-       console.log("asdasd"); 
+        
+//        $.ajax({
+//               url: '{{ URL::to("/parqueadero/parametro/guardar") }}',
+//               type: 'PUT',
+//               dataType: 'json',
+//               data: {parqueadero: "{{$parqueadero}}", "_token": "{{ csrf_token() }}"},
+//               success: function (json) {
+//                   var $p_id=json['p_id'];
+//                   var $ht_id=json['ht_id'];
+//                   console.log($p_id, $ht_id);
+//                   $.ajax({
+//                        url: '{{ URL::to("/parqueadero/parametro") }}',
+//                        type: 'GET',
+//                        dataType: 'json',
+//                        data: {parqueadero: $p_id,ht:$ht_id, "_token": "{{ csrf_token() }}"},
+//                        success: function (data, textStatus, jqXHR) {
+//                            
+//                        }
+//                    });
+//               }
+//        });
     });
     
 });
