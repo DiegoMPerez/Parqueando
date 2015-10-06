@@ -209,29 +209,17 @@ $(document).ready(function (event) {
     
     $(".form-horizontal").submit(function (event){
         event.preventDefault();
+        var $form =$(this).serialize();
+        var $url = $(this).attr('action');
         
-        console.log($(this));
-        
-//        $.ajax({
-//               url: '{{ URL::to("/parqueadero/parametro/guardar") }}',
-//               type: 'PUT',
-//               dataType: 'json',
-//               data: {parqueadero: "{{$parqueadero}}", "_token": "{{ csrf_token() }}"},
-//               success: function (json) {
-//                   var $p_id=json['p_id'];
-//                   var $ht_id=json['ht_id'];
-//                   console.log($p_id, $ht_id);
-//                   $.ajax({
-//                        url: '{{ URL::to("/parqueadero/parametro") }}',
-//                        type: 'GET',
-//                        dataType: 'json',
-//                        data: {parqueadero: $p_id,ht:$ht_id, "_token": "{{ csrf_token() }}"},
-//                        success: function (data, textStatus, jqXHR) {
-//                            
-//                        }
-//                    });
-//               }
-//        });
+        $.ajax({
+               url: $url,
+               type: 'PUT',
+               dataType: 'json',
+               data: $form,
+               success: function (json) {
+               }
+        });
     });
     
 });

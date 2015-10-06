@@ -48,12 +48,16 @@ Route::put('/parqueadero/{id}/plaza/{id2}', ['as' => 'plazas', 'uses' => 'PlazaC
 Route::get('/parqueadero/{id}/plazas', 'PlazaController@index');
 
 //PARÁMETROS
+//Todos, Parámetros Horarios - Tarifas
 Route::get('/parqueadero/{id}/parametros', 'ParametrosController@index');
+//Un parámetro
 Route::get('/parqueadero/parametro', 'ParametrosController@parametro');
-//guardar forms generados 
+//Guardar forms generados 
 Route::put('/parqueadero/{id}/parametro/guardar/{id2}', 'ParametrosController@guardarHT');
-//Guardar
+//Guardar parámetro Horatio - Tarifa
 Route::put('/parqueadero/parametro/guardar', 'ParametrosController@store');
+//Update parámetro
+Route::put('/parqueadero/{id}/parametro/{id2}/{id3}', 'ParametrosController@update');
 
 
 //USUARIOS

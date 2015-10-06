@@ -10,6 +10,7 @@ use App\Tarifa_Horario;
 use App\Horario;
 use App\Precio;
 use Illuminate\Support\Collection;
+use App\Http\Requests\ParametrosRequest;
 
 class ParametrosController extends Controller {
 
@@ -109,8 +110,30 @@ class ParametrosController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
-        //
+    public function update($id,$id2, $id3, ParametrosRequest $request) {
+            
+        $parqueadero = Parqueadero::find($id);
+        
+        $horario = Horario::find($id2);
+        
+        $tarifa = Precio::find($id3);
+        
+        $hinicio = \Request::input('hinicio');
+        $hfin = \Request::input('hfin');
+        $xhora = \Request::input('xhora');
+        $xsemana = \Request::input('xsemana');
+        $xmes = \Request::input('xmes');
+        
+        $horario->hora_inicio = $hinicio;
+        $horario->hora_fin = $hfin;
+        $horario->save();
+        
+        $tarifa->por_hora = $xhora;
+        $tarifa->semanal = $xsemana;
+        $tarifa->mensual = $xmes;
+        $tarifa->save();
+        
+        return "guardado";
     }
 
     /**
