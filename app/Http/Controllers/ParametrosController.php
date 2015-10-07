@@ -28,7 +28,6 @@ class ParametrosController extends Controller {
         $horarios = Parqueadero::find(55)->horarios()->get();
         $tarifas = Parqueadero::find(55)->tarifas()->get();
         $count = $tarifas->count();
-
         $horarioTarifas = collect();
 
         $i = 0;
@@ -46,7 +45,7 @@ class ParametrosController extends Controller {
             'parqueadero' => $id
         );
 
-        //dd($horarioTarifas);
+        //dd($data);
 
         return view('parqueadero.parametros.parametros')->with($data);
     }
