@@ -13,7 +13,7 @@ Parámetros
 
 
 <div class="container-fluid" style="margin-bottom: 30px; position: relative;">
-    <div class="row" style="  " >
+    <div class="row" style="" >
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Parámetros del Parqueadero</div>
@@ -86,36 +86,38 @@ Parámetros
                                     </div>
                                     <!-- Mensual -->
                                     <div class="form-group">
-                                        <div class="input-group">
-                                            {!! Form::label('lxmes', 'Mensual:', ['class' => 'col-md-4 control-label']) !!}
-                                            <div class="col-md-3">
-                                                <div class="input-group">
-                                                    {!! Form::number('xmes', '', ['class' => 'form-control', 'maxlength' => '7', 'step' => '0.01']) !!}
-                                                    <span class="input-group-addon">$</span>
-                                                </div>
+
+                                        {!! Form::label('lxmes', 'Mensual:', ['class' => 'col-md-4 control-label']) !!}
+                                        <div class="col-md-3">
+                                            <div class="input-group">
+                                                {!! Form::number('xmes', '', ['class' => 'form-control', 'maxlength' => '7', 'step' => '0.01']) !!}
+                                                <span class="input-group-addon">$</span>
                                             </div>
                                         </div>
+                                    </div>
 
 
-                                        <div class="form-group" style="text-align: right">
-                                            <div class="col-md-6 col-md-offset-4">
-                                                {{-- CANCELAR --}}
-                                                <button type="button" class="btn btn-danger" aria-label="Left Align">
-                                                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-                                                </button>
-                                                {{--ELIMINAR CONTENIDO--}}
-                                                <button type="reset" class="btn btn-info" aria-label="Left Align" name="reset" style="background-color: #BDBD00; border:  #BDBD00;">
-                                                    <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
-                                                </button>
-                                                {{--ENVIAR --}}
-                                                <button name="guardar" type="submit" class="btn btn-success" aria-label="Left Align">
-                                                    <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
-                                                </button>
-                                                {{--IMAGEN--}}
-                                                <div style="float: right; padding-left: 20px">{!! Html::image("imagenes/numeros/n.png","1", array("class" => "img-rounded","id"=>"imagen", "style" => "height: 35px")) !!}</div>
-                                            </div>
+                                    <div class="form-group" style="text-align: right">
+                                        <br/>
+                                        <div class="col-md-6 col-md-offset-4">
+                                            {{-- CANCELAR --}}
+                                            <button type="button" class="btn btn-danger" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                            </button>
+                                            {{--ELIMINAR CONTENIDO--}}
+                                            <button type="reset" class="btn btn-info" aria-label="Left Align" name="reset" style="background-color: #BDBD00; border:  #BDBD00;">
+                                                <span class="glyphicon glyphicon-floppy-remove" aria-hidden="true"></span>
+                                            </button>
+                                            {{--ENVIAR --}}
+                                            <button name="guardar" type="submit" class="btn btn-success" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>
+                                            </button>
+                                            {{--IMAGEN--}}
+                                            <div style="float: right; padding-left: 20px">{!! Html::image("imagenes/numeros/n.png","1", array("class" => "img-rounded","id"=>"imagen", "style" => "height: 35px")) !!}</div>
                                         </div>
-                                        {!! Form::close() !!}
+
+                                    </div>
+                                    {!! Form::close() !!}
 
                                 </li>
                             </ul>
@@ -124,7 +126,8 @@ Parámetros
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
+    
 </div>
 
 
@@ -190,28 +193,28 @@ $(document).ready(function (event) {
     function cargarDatos() {
 
         @foreach($horarios as $horario)
-            var $html = $('#template').clone();
-            var $form = $html.find('form');
+                var $html = $('#template').clone();
+        var $form = $html.find('form');
 
-            // Action
-            $form.attr('action', "{{URL('/parqueadero')}}" + "/{{$horario['pivot_id_parqueadero']}}" + "/parametro/{{$horario['id_horario']}}/{{$horario['id_tarifa']}}");
+        // Action
+        $form.attr('action', "{{URL('/parqueadero')}}" + "/{{$horario['pivot_id_parqueadero']}}" + "/parametro/{{$horario['id_horario']}}/{{$horario['id_tarifa']}}");
 
-            //Horarios
+        //Horarios
 
-            $form.find('[name=hinicio]').attr('value', "{!! $horario['hora_inicio'] !!}");
-            $form.find('[name=hfin]').attr('value', "{!! $horario['hora_fin'] !!}");
+        $form.find('[name=hinicio]').attr('value', "{!! $horario['hora_inicio'] !!}");
+        $form.find('[name=hfin]').attr('value', "{!! $horario['hora_fin'] !!}");
 
 
-            //Tarifas
+        //Tarifas
 
-            $form.find('[name=xhora]').attr('value', "{!! $horario['por_hora'] !!}");
-            $form.find('[name=xsemana]').attr('value', "{!! $horario['semanal'] !!}");
-            $form.find('[name=xmes]').attr('value', "{!! $horario['mensual'] !!}");
+        $form.find('[name=xhora]').attr('value', "{!! $horario['por_hora'] !!}");
+        $form.find('[name=xsemana]').attr('value', "{!! $horario['semanal'] !!}");
+        $form.find('[name=xmes]').attr('value', "{!! $horario['mensual'] !!}");
 
-            $form.find('[id=imagen]').attr('src', "{!! asset('imagenes/numeros/') !!}/{{$horario['numero']}}.png");
+        $form.find('[id=imagen]').attr('src', "{!! asset('imagenes/numeros/') !!}/{{$horario['numero']}}.png");
 
-            $('#content-ht').append($($html.html()));
-        @endforeach
+        $('#content-ht').append($($html.html()));
+                @endforeach
     }
 
     cargarDatos();
@@ -228,6 +231,12 @@ $(document).ready(function (event) {
             dataType: 'json',
             data: $form,
             success: function (json) {
+                // set the message to display: none to fade it in later.
+                var message = $('<div class="alert-success error-message" style="text-align: center; background: #99cb84; color: #ffffff ; padding-top: 10px; padding-bottom: 10px; font-size: large;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> &nbsp;</div>');
+                // a close button
+                message.append(json); // adding the error response to the message
+                // add the message element to the body, fadein, wait 3secs, fadeout
+                message.appendTo($('body')).fadeIn(100).delay(1000).fadeOut(500);
             }
         });
     });
@@ -244,12 +253,17 @@ $(document).ready(function (event) {
 
 </script>
 
-
-<script id="ul">
-
-
-
-
-</script>
+<style>
+    .error-message {
+        position: fixed;
+        top: 45%;
+        left: 50%;
+        margin-left: -150px;
+        width: 300px;
+        z-index: 9999;
+        background: rgb(67, 162, 61);
+        font-family: Arial;
+    }
+</style>
 
 @stop

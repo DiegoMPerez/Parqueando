@@ -132,7 +132,7 @@ class ParametrosController extends Controller {
         $tarifa->mensual = $xmes;
         $tarifa->save();
         
-        return "guardado";
+        return json_encode('GUARDADO');
     }
 
     /**
