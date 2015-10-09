@@ -127,7 +127,7 @@ Parámetros
             </div>
         </div>
     </div> 
-    
+
 </div>
 
 
@@ -136,7 +136,7 @@ Parámetros
 <script>
 $(document).ready(function (event) {
 
-
+    var $contadorImagenes = 1;
 
 
     $('.clockpicker').clockpicker({
@@ -165,17 +165,33 @@ $(document).ready(function (event) {
                     dataType: 'json',
                     data: {parqueadero: $p_id, ht: $ht_id, "_token": "{{ csrf_token() }}"},
                     success: function (data, textStatus, jqXHR) {
+                        console.log(data[0]);
+                        var $html = $('#template').clone();
+                        var $form = $html.find('form');
 
+                        // Action
+                        $form.attr('action', "{{URL('/parqueadero')}}/" +data[0].id_parqueadero+ "/parametro/"+data[0].id_horario+"/"+data[0].id_tarifa);
+
+                        //Horarios
+
+                        $form.find('[name=hinicio]').attr('value', data[0].hora_inicio);
+                        $form.find('[name=hfin]').attr('value', data[0].hora_fin);
+
+
+                        //Tarifas
+
+                        $form.find('[name=xhora]').attr('value', data[0].por_hora);
+                        $form.find('[name=xsemana]').attr('value', data[0].semanal);
+                        $form.find('[name=xmes]').attr('value', data[0].mensual);
+
+                        $form.find('[id=imagen]').attr('src', "{!! asset('imagenes/numeros/') !!}/"+$contadorImagenes+".png");
+
+                        $('#content-ht').append($($html.html()));
+                        $contadorImagenes++;
                     }
                 });
             }
         });
-
-        var $html = $('#template').clone();
-        var $form = $html.find('form');
-        $('#content-ht').append($($html.html()));
-
-
     });
 
 
@@ -193,7 +209,7 @@ $(document).ready(function (event) {
     function cargarDatos() {
 
         @foreach($horarios as $horario)
-                var $html = $('#template').clone();
+        var $html = $('#template').clone();
         var $form = $html.find('form');
 
         // Action
@@ -214,7 +230,8 @@ $(document).ready(function (event) {
         $form.find('[id=imagen]').attr('src', "{!! asset('imagenes/numeros/') !!}/{{$horario['numero']}}.png");
 
         $('#content-ht').append($($html.html()));
-                @endforeach
+        $contadorImagenes ++;
+        @endforeach
     }
 
     cargarDatos();

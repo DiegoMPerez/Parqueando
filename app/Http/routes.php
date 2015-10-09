@@ -52,8 +52,6 @@ Route::get('/parqueadero/{id}/plazas', 'PlazaController@index');
 Route::get('/parqueadero/{id}/parametros', 'ParametrosController@index');
 //Un parámetro
 Route::get('/parqueadero/parametro', 'ParametrosController@parametro');
-//Guardar forms generados 
-Route::put('/parqueadero/{id}/parametro/guardar/{id2}', 'ParametrosController@guardarHT');
 //Guardar parámetro Horatio - Tarifa
 Route::put('/parqueadero/parametro/guardar', 'ParametrosController@store');
 //Update parámetro
