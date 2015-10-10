@@ -28,9 +28,9 @@ Parámetros
                     <div id="content-ht">
 
                         <ul id="template" class="list-group" hidden="true">
-                            <ul id="template" class="list-group">
+                            <ul class="list-group">
                                 <li class="list-group-item">
-                                    {!! Form::open(['route' => 'roles.store', 'role' => 'form', 'class' => 'form-horizontal', 'id' => 'form' ]) !!}
+                                    {!! Form::open(['route' => 'roles.store', 'role' => 'form', 'class' => 'form-horizontal']) !!}
                                     <!-- HORARIO   -->
                                     <div class="form-group ">
                                         {!! Form::label('lhorario', 'Horario', ['class' => 'col-md-2 col-md-offset-0 control-label']) !!}
@@ -147,15 +147,13 @@ $(document).ready(function (event) {
 
     $('#add').on('click', function (event) {
 
-//        {{-- Guardar Horario Tarifa --}}
-
         event.preventDefault();
         $.ajax({
             url: '{{ URL::to("/parqueadero/parametro/guardar") }}',
             type: 'PUT',
             dataType: 'json',
             data: {parqueadero: "{{$parqueadero}}", "_token": "{{ csrf_token() }}"},
-            success: function (json) {
+            success: function (json, event) {
                 var $p_id = json['p_id'];
                 var $ht_id = json['ht_id'];
                 console.log($p_id, $ht_id);
@@ -170,7 +168,7 @@ $(document).ready(function (event) {
                         var $form = $html.find('form');
 
                         // Action
-                        $form.attr('action', "{{URL('/parqueadero')}}/" +data[0].id_parqueadero+ "/parametro/"+data[0].id_horario+"/"+data[0].id_tarifa);
+                        $form.attr('action', "{{URL('/parqueadero')}}/" + data[0].id_parqueadero + "/parametro/" + data[0].id_horario + "/" + data[0].id_tarifa);
 
                         //Horarios
 
@@ -184,15 +182,17 @@ $(document).ready(function (event) {
                         $form.find('[name=xsemana]').attr('value', data[0].semanal);
                         $form.find('[name=xmes]').attr('value', data[0].mensual);
 
-                        $form.find('[id=imagen]').attr('src', "{!! asset('imagenes/numeros/') !!}/"+$contadorImagenes+".png");
+                        $form.find('[id=imagen]').attr('src', "{!! asset('imagenes/numeros/') !!}/" + $contadorImagenes + ".png");
 
                         $('#content-ht').append($($html.html()));
                         $contadorImagenes++;
+                        clokPickerUpdate();
                     }
                 });
             }
         });
     });
+
 
 
 
@@ -209,7 +209,7 @@ $(document).ready(function (event) {
     function cargarDatos() {
 
         @foreach($horarios as $horario)
-        var $html = $('#template').clone();
+                var $html = $('#template').clone();
         var $form = $html.find('form');
 
         // Action
@@ -231,17 +231,16 @@ $(document).ready(function (event) {
 
         $('#content-ht').append($($html.html()));
         $contadorImagenes ++;
-        @endforeach
+                @endforeach
     }
 
     cargarDatos();
     clokPickerUpdate();
 
-    $(".form-horizontal").submit(function (event) {
+    $('#content-ht').on("submit", "form.form-horizontal", function (event) {
         event.preventDefault();
         var $form = $(this).serialize();
         var $url = $(this).attr('action');
-
         $.ajax({
             url: $url,
             type: 'PUT',

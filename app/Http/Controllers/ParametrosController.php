@@ -25,9 +25,10 @@ class ParametrosController extends Controller {
      * @return Response
      */
     public function index($id) {
-
-        $horarios = Parqueadero::find(55)->horarios()->get();
-        $tarifas = Parqueadero::find(55)->tarifas()->get();
+        $parqueadero = DB::table('parqueaderos')->where('nombre', '=', $id)->get();
+        $id_parqueadero = $parqueadero[0]->id_parqueadero;
+        $horarios = Parqueadero::find($id_parqueadero)->horarios()->get();
+        $tarifas = Parqueadero::find($id_parqueadero)->tarifas()->get();
         $count = $tarifas->count();
         $horarioTarifas = collect();
 
