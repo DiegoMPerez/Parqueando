@@ -154,8 +154,16 @@ class ParametrosController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($id, $id2, $id3) {
+        $parqueadero = Parqueadero::find($id);
+        if (!empty($parqueadero)) {
+            $h_t = DB::table('tarifa_horario')->where('id_horario', '=', $id2)->where('id_tarifa', '=', $id3)->get();
+            Tarifa_Horario::destroy($h_t[0]->id);
+            Horario::destroy($id2);
+            Precio::destroy($id3);
+            return json_encode("eliminado");
+        }
+        return json_encode("fallo");
     }
 
     public function parametro() {

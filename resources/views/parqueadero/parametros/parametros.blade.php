@@ -101,7 +101,7 @@ Parámetros
                                         <br/>
                                         <div class="col-md-6 col-md-offset-4">
                                             {{-- CANCELAR --}}
-                                            <button type="button" class="btn btn-danger" aria-label="Left Align">
+                                            <button type="button" class="btn btn-danger" aria-label="Left Align" name="eliminar">
                                                 <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                                             </button>
                                             {{--ELIMINAR CONTENIDO--}}
@@ -127,7 +127,24 @@ Parámetros
             </div>
         </div>
     </div> 
+</div>
 
+<div class="modal fade" id="modalEliminar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modalEliminarLabel">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                <p id="titulo"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="btn-cancel">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="btn-ok">Aceptar</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 
@@ -256,7 +273,7 @@ $(document).ready(function (event) {
             }
         });
     });
-
+    
     $(".btn-info").on('click', function (event) {
         $(this).closest('form').find('[name=hinicio]').attr('value', "00:00");
         $(this).closest('form').find('[name=hfin]').attr('value', "00:01");
@@ -264,6 +281,36 @@ $(document).ready(function (event) {
         $(this).closest('form').find('[name=xsemana]').attr('value', "0.00");
         $(this).closest('form').find('[name=xmes]').attr('value', "0.00");
     });
+
+    //ELiminar
+    $('#content-ht').on("click", "button.btn.btn-danger", function (event) {
+        $("#titulo").html("¿Está seguro de eliminar este <strong> Horario - Tarifa</strong>?");
+        $("#modalEliminar").modal('show');
+        console.log($(this).closest('form').attr('action'));
+        var $url = $(this).closest('form').attr('action') + "/eliminar";
+
+        var $ulListGroup = $(this).parent().parent().parent().parent().parent();
+
+        $('#btn-ok').click(function () {
+            $.ajax({
+                url: $url,
+                type: 'PUT',
+                dataType: 'json',
+                data: {"_token": "{{ csrf_token() }}"},
+                success: function (data, textStatus, jqXHR) {
+                    $("#modalEliminar").modal('hide');
+                    $ulListGroup.remove();
+                    // set the message to display: none to fade it in later.
+                    var message = $('<div class="alert-success error-message" style="text-align: center; background: #99cb84; color: #ffffff ; padding-top: 10px; padding-bottom: 10px; font-size: large;"><span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span> &nbsp;</div>');
+                    // a close button
+                    message.append('ELIMINADO'); // adding the error response to the message
+                    // add the message element to the body, fadein, wait 3secs, fadeout
+                    message.appendTo($('body')).fadeIn(100).delay(1000).fadeOut(500);
+                }
+            });
+        });
+    });
+
 
 });
 

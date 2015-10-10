@@ -56,6 +56,8 @@ Route::get('/parqueadero/parametro', 'ParametrosController@parametro');
 Route::put('/parqueadero/parametro/guardar', 'ParametrosController@store');
 //Update parámetro
 Route::put('/parqueadero/{id}/parametro/{id2}/{id3}', 'ParametrosController@update');
+//Eliminar
+Route::put('/parqueadero/{id}/parametro/{id2}/{id3}/eliminar', 'ParametrosController@destroy');
 
 
 //USUARIOS
@@ -98,3 +100,4 @@ Route::put('/permisos/eliminar', 'PermisosController@destroy');
 Route::get('/permisos/editar/{id}', 'PermisosController@edit');
 
 Route::resource('/permisos', 'PermisosController');
+
