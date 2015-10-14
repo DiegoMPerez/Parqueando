@@ -10,6 +10,7 @@
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        
         @section('linktop')@show
     </head>
     <body>
@@ -36,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
                         @if(isset($parqueadero))
-                        <li><a href="{{ url('parqueaderos') }}">Parqueaderos</a></li>
+                        <li class="active"><a href="{{ url('parqueaderos') }}">Parqueaderos</a></li>
                         @endif
                         @if(Entrust::hasRole('admin'))
                         <li><a href="{{ url('tipovehiculos') }}">Tipo de Vehículos</a></li>

@@ -17,6 +17,9 @@ use App\Horario;
  */
 
 
+Route::get('/index', function () {
+    return View::make('index');
+});
 
 Route::get('/', 'HomeController@index');
 //Route::get('/', [
