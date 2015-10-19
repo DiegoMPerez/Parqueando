@@ -27,6 +27,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <img alt="Brand" src="{{ asset('/img/p.ico') }}" style="height: 40px; padding-top: 5px; float: left; padding-right: 5px"/>
                     <a class="navbar-brand text-sucess" href="#">PARQUEANDO</a>
                 </div>
                 <div class="navbar-collapse collapse" id="navbar-collapsible">
