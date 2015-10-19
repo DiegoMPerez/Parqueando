@@ -1,6 +1,7 @@
-J<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/img/p.ico') }}" />
         <meta charset="utf-8">
         <title>PARQUEANDO</title>
         <meta name="description" content="This one page example has a fixed navbar and full page height sections. Each section is vertically centered on larger screens, and then stack responsively on smaller screens. Scrollspy is used to activate the current menu item. This layout also has a contact form example. Uses animate.css, FontAwesome, Google Fonts (Lato and Bitter) and Bootstrap." />
