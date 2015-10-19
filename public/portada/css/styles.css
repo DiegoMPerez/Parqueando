@@ -53,14 +53,14 @@ a:hover {
 }
 
 .navbar-trans {
-    background-color:#2b2b2b;
+    background-color:#F8F8F8;
     color:#cdcdcd;
     border-width:0;
 }
 
 .navbar-trans .navbar-brand, .navbar-trans >.container-fluid .navbar-brand {
     padding: 14px;
-    color:#5BC0DE;
+    
 }
 
 .navbar-trans li>a:focus,.navbar-trans li.active {
@@ -69,13 +69,13 @@ a:hover {
 }
 
 .navbar-trans li>a:hover {
-	background-color:#9AD5E3;
+	background-color:#04779B;
 	color:#FFF;
-	opacity:0.5;
+	opacity:0.7;
 }
 
 .navbar-trans a{
-    color:#FFFFFF;
+    color:#777777;
     letter-spacing:1px;
 }
 
