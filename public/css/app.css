@@ -899,7 +899,7 @@ body {
   font-size: 14px;
   line-height: 1.42857143;
   color: #333333;
-  background-color: #ffffff;
+  background: center no-repeat fixed url('../img/parqueando.jpg');
 }
 input,
 button,

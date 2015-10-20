@@ -15,6 +15,7 @@
         <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" rel="stylesheet" />
 
         <link href="{{ asset('/portada/css/styles.css') }}" rel="stylesheet"/>
+        <link href="//fonts.googleapis.com/css?family=Roboto:400,300" rel="stylesheet" type="text/css">
 
     </head>
     <body >
@@ -27,8 +28,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <img alt="Brand" src="{{ asset('/img/p.ico') }}" style="height: 40px; padding-top: 5px; float: left; padding-right: 5px"/>
-                    <a class="navbar-brand text-sucess" href="#">PARQUEANDO</a>
+                    <a href="{{ asset('/index') }}"><img alt="Brand" src="{{ asset('/img/p.ico') }}" style="height: 40px; padding-top: 5px; float: left; padding-right: 5px"/></a>
+                    <a class="navbar-brand text-sucess" href="{{ asset('/home') }}">PARQUEANDO</a>
                 </div>
                 <div class="navbar-collapse collapse" id="navbar-collapsible">
                     <ul class="nav navbar-nav navbar-left">
@@ -40,7 +41,13 @@
                         <li>&nbsp;</li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ url('/auth/login') }}" style="font-size: 13px"><i class="glyphicon glyphicon-user"> </i> Iniciar sesión</a></li>
+                        <li><a href="{{ url('/auth/login') }}" style="font-size: 13px"><i class="glyphicon glyphicon-user"> </i> 
+                                @if(isset($usuario))
+                                {{ $usuario->name }}
+                                @else
+                                Iniciar sesión
+                                @endif
+                            </a></li>
                     </ul>
                 </div>
             </div>
@@ -52,7 +59,11 @@
                 <h2 class="text-center lato animate slideInDown">Ofrece tu servicio de estacionamiento aquí </h2>
                 <p class="text-center">
                     <br>
-                    <a href="{{ url('/auth/register') }}" class="btn btn-info btn-lg btn-huge lato">Registrarme</a>
+                     @if(isset($usuario))
+                     <a href="{{ url('/') }}" class="btn btn-info btn-lg btn-huge lato">INICIAR</a>
+                     @else
+                     <a href="{{ url('/auth/register') }}" class="btn btn-info btn-lg btn-huge lato">Registrarme</a>
+                     @endif
                 </p>
             </div>
             <a href="#section2">

@@ -13,10 +13,9 @@ PARQUEANDO
 @endsection
 @section('content')
 
-<div class="center-block" style="text-align: center" >
-    <h1 class="cover-heading">PARQUEANDO</h1>
+<div style="text-align: center; padding-top: 100px; color: #fff; font-family: sans-serif; width: 100%" >
+    <h1 class="cover-heading" style="font-size: 50px; ">PARQUEANDO</h1>
     <p class="lead">Encuentra un parqueadero!!!</p>
-    <p class="lead">{!! Html::image("img/parking.jpg","foto", array("class" => "img-rounded")) !!}</p>
     {!! link_to('error403',"INSTALAR APP", array("class" => "btn btn-primary")) !!}
     @if(!$parqueadero)
     {!! link_to('parqueaderos/create',"OFRECER EL SERVICIO DE PARQUEADERO", array("class" => "btn btn-info")) !!}
@@ -25,4 +24,9 @@ PARQUEANDO
     @endif
 </div>
 
+<style>
+    body{
+        background: center no-repeat fixed url("{{ asset('img/parqueando.jpg') }}");
+    }
+</style>
 @endsection

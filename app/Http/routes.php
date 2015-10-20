@@ -18,6 +18,9 @@ use App\Horario;
 
 
 Route::get('/index', function () {
+    if(Auth::check()){
+        return View::make('index')->with('usuario', Auth::user());    
+    }
     return View::make('index');
 });
 

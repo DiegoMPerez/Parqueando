@@ -32,7 +32,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                        <img alt="Brand" src="{{ asset('/img/p.ico') }}" style="height: 40px; padding-top: 5px; float: left; padding-right: 5px"/>
+                    <a href="{{ asset('/index') }}"><img alt="Brand" src="{{ asset('/img/p.ico') }}" style="height: 40px; padding-top: 5px; float: left; padding-right: 5px"/></a>
                         <a class="navbar-brand" href="{{ url('/') }}">PARQUEANDO</a>
                 </div>
 
