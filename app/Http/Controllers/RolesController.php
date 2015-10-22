@@ -30,6 +30,7 @@ class RolesController extends Controller {
         $data = array(
             'roles' => Role::all(),
             'permisos' => Permission::all(),
+            'ruta' => 'roles'
         );
         return view('role.role')->with($data);
     }

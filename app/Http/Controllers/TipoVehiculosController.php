@@ -55,7 +55,8 @@ class TipoVehiculosController extends Controller {
 
         $data = array(
             'tvehiculos' => $tvehiculos,
-            'parqueadero' => $parqueadero
+            'parqueadero' => $parqueadero,
+            'ruta' => 'tipov'
         );
 
         return View('vehiculos.tipo_vehiculos')->with($data);

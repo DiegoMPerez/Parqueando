@@ -37,7 +37,8 @@ class ParqueaderoController extends Controller {
         $parqueaderos = User::find($idUser)->parqueaderos()->get();
         
         $data = array(
-            'parqueaderos' => $parqueaderos
+            'parqueaderos' => $parqueaderos,
+            'ruta' => "parqueaderos"
         );
 
         return view("parqueadero.parqueaderos")->with($data);

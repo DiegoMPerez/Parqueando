@@ -24,9 +24,15 @@ class PermisosController extends Controller {
      * @return Response
      */
     public function index() {
-        //
+        
         $permisos = Permission::all();
-        return view('permisos.permisos')->with('permisos', $permisos);
+        
+        $data = array(
+            'permisos' => $permisos,
+            'ruta' => 'permisos'
+        );
+        
+        return view('permisos.permisos')->with($data);
     }
 
     /**

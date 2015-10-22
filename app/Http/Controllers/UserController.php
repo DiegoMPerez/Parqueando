@@ -45,7 +45,8 @@ class UserController extends Controller {
         }
         $data = array(
             'users' => $users,
-            'parqueadero' => $parqueadero
+            'parqueadero' => $parqueadero,
+            'ruta' => 'usuarios'
         );
 
         return View('usuarios.users')->with($data);
