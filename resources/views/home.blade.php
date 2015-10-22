@@ -26,7 +26,7 @@ PARQUEANDO
 
 <style>
     body{
-        background: center no-repeat fixed url("{{ asset('img/parqueando.jpg') }}");
+      
     }
 </style>
 @endsection
