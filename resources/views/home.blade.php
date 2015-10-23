@@ -26,7 +26,12 @@ PARQUEANDO
 
 <style>
     body{
-        background: center no-repeat fixed url("{{ asset('img/parqueando.jpg') }}");
+        background: no-repeat center fixed url("{{ asset('img/parqueando.jpg') }}");
+        -webkit-background-size: cover;
+-moz-background-size: cover;
+-o-background-size: cover;
+background-size: cover;
+        
     }
 </style>
 @endsection

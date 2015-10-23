@@ -3,39 +3,40 @@
 usuarios
 @stop
 @section('content')
-<div class="panel-info">
+<div class="panel panel-info">
+    <div class="panel-heading">Lista de Usuarios </div>
+    <div class="panel-body" >
 
-    <div class="panel-heading">USUARIOS</div>
-
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr><th>Nombre de Usuario</th><th>Rol</th><th>Email</th><th>Nombres</th><th>Apellidos</th></tr>
-            </thead>
-            @if(isset($users))
-            <tbody>
-                <!--//este es un comentario-->
-                @foreach($users as $user)
-                <tr><td>{!! $user->name !!}</td>
-                    <td>{!! $user->rol->name !!}</td>
-                    <td>{!! $user->email !!}</td>
-                    <td>{!! $user->nombres !!}</td>
-                    <td>{!! $user->apellidos  !!}</td>
-                    @if(Entrust::can('editar_usuarios'))
-                    <td>{!! Form::open(array('method' => 'GET', 'route' => array('usuarios.edit', $user->id))) !!}
-                        {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
-                        {!! Form::close() !!}</td>
-                    <td>
-                        {!! Form::open(array('id' => $user->id,'method' => 'DELETE', 'route' => array('usuarios.destroy', $user->id))) !!}
-                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos, 'data-id' => $user-> id)) !!}
-                        {!! Form::close() !!}
-                    </td>
-                    @endif
-                </tr>
-                @endforeach
-            </tbody>
-            @endif
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr><th>Nombre de Usuario</th><th>Rol</th><th>Email</th><th>Nombres</th><th>Apellidos</th><th>Editar</th><th>Eliminar</th></tr>
+                </thead>
+                @if(isset($users))
+                <tbody>
+                    <!--//este es un comentario-->
+                    @foreach($users as $user)
+                    <tr><td>{!! $user->name !!}</td>
+                        <td>{!! $user->rol->name !!}</td>
+                        <td>{!! $user->email !!}</td>
+                        <td>{!! $user->nombres !!}</td>
+                        <td>{!! $user->apellidos  !!}</td>
+                        @if(Entrust::can('editar_usuarios'))
+                        <td>{!! Form::open(array('method' => 'GET', 'route' => array('usuarios.edit', $user->id))) !!}
+                            <button class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                            {!! Form::close() !!}</td>
+                        <td>
+                            {!! Form::open(array('id' => $user->id,'method' => 'DELETE', 'route' => array('usuarios.destroy', $user->id))) !!}
+                            {!! Form::button('', array('class' => 'open btn btn-danger glyphicon glyphicon-remove','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-username' => $user-> nombres, 'data-apellidos' => $user-> apellidos, 'data-id' => $user-> id)) !!}
+                            {!! Form::close() !!}
+                        </td>
+                        @endif
+                    </tr>
+                    @endforeach
+                </tbody>
+                @endif
+            </table>
+        </div>
     </div>
 </div>
 
@@ -67,7 +68,7 @@ usuarios
 
 
         $('#btn-ok').click(function () {
-            $('#'+$id).submit();
+            $('#' + $id).submit();
         });
     });
 

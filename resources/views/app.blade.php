@@ -13,6 +13,18 @@
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
         @section('linktop')@show
+        <script>
+
+            $(document).ready(function () {
+
+                    $(".nav li").removeClass("active");
+                    @if(isset($ruta))
+                        $("#{{$ruta}}").addClass("active");
+                    @endif
+
+            });
+
+        </script>
     </head>
     <body>
         <!--Prevenir el botón atras después de cerrar la sesión-->
@@ -23,6 +35,7 @@
         header("Pragma: no-cache");
         header('Content-Type: text/html');
         ?>
+        
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -82,18 +95,7 @@
             <p style="margin-right: 25px; margin-top: 5px; font-family: monospace; text-align: right"> v. 0.7.5 </p>
         </div>
 
-        <script>
-
-            $(document).ready(function () {
-
-                    $(".nav li").removeClass("active");
-                    @if(isset($ruta))
-                        $("#{{$ruta}}").addClass("active");
-                    @endif
-
-            });
-
-        </script>
+        
     </body>
 
 </html>

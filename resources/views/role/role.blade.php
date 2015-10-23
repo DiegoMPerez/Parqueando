@@ -9,46 +9,48 @@ Roles
 
 @stop
 @section('content')
-<div class="container">
-    <div class="user">
-        <table class="table table-bordered table-hover">
-            <thead>
-                <tr><th>Nombre del Rol</th><th>Permisos</th></tr>
-            </thead>
-            @if(isset($roles))
-            <tbody>
-                @foreach($roles as $rol)
-                <tr><td>{{ $rol->name }}</td>
-                    <td><a href="#" data-toggle="modal" data-rol_id="{{ $rol->id }}" data-rol_name="{{ $rol->name }}" data-target="#basicModal" class="btn btn-primary get-permisos">Permisos</a></td>
-                    @if(Entrust::can('editar_roles'))
-                    <td>{!! Form::open(array('method' 
-                        => 'GET', 'route' => array('roles.edit', $rol->id))) !!}
-                        {!! Form::submit('Editar', array('class'
-                        => 'btn btn-info')) !!}
-                        {!! Form::close() !!}</td>
-                    @endif
-                    @if(Entrust::can('eliminar_roles'))
-                    <td>
-                        
-                        {!! Form::open(array('id' => $rol->id,'method' => 'DELETE', 'route' => array('roles.destroy', $rol->id))) !!}
-                        {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-rolname' => $rol->name, 'data-id' => $rol-> id)) !!}
-                        {!! Form::close() !!}
-                    </td>
-                    @endif
-                </tr>
-                @endforeach
-            </tbody>
-            @endif
-        </table>
+<div class="panel panel-info">
+    <div class="panel-heading">Lista de Roles </div>
+    <div class="panel-body" >
         <ul class="list-group">
             <li class="list-group-item">
                 @if(Entrust::can('crear_roles'))
-                    {!! Form::open(array('method' => 'get', 'route' => array('roles.create'))) !!}
-                    {!! Form::submit('Crear nuevo rol', array('class' => 'btn btn-success')) !!}
-                    {!! Form::close() !!}
+                {!! Form::open(array('method' => 'get', 'route' => array('roles.create'))) !!}
+                {!! Form::submit('Crear un nuevo Rol', array('class' => 'btn btn-info')) !!}
+                {!! Form::close() !!}
                 @endif
             </li>
         </ul>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr><th>Nombre del Rol</th><th>Permisos</th><th>Editar</th><th>Eliminar</th></tr>
+                </thead>
+                @if(isset($roles))
+                <tbody>
+                    @foreach($roles as $rol)
+                    <tr><td>{{ $rol->name }}</td>
+                        <td><a href="#" data-toggle="modal" data-rol_id="{{ $rol->id }}" data-rol_name="{{ $rol->name }}" data-target="#basicModal" class="btn btn-primary get-permisos">Permisos</a></td>
+                        @if(Entrust::can('editar_roles'))
+                        <td>{!! Form::open(array('method' 
+                            => 'GET', 'route' => array('roles.edit', $rol->id))) !!}
+                            <button class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                            {!! Form::close() !!}</td>
+                        @endif
+                        @if(Entrust::can('eliminar_roles'))
+                        <td>
+
+                            {!! Form::open(array('id' => $rol->id,'method' => 'DELETE', 'route' => array('roles.destroy', $rol->id))) !!}
+                            {!! Form::button('', array('class' => 'open btn btn-danger glyphicon glyphicon-remove','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-rolname' => $rol->name, 'data-id' => $rol-> id)) !!}
+                            {!! Form::close() !!}
+                        </td>
+                        @endif
+                    </tr>
+                    @endforeach
+                </tbody>
+                @endif
+            </table>
+        
 
 
         <div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">

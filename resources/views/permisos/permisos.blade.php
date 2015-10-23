@@ -10,6 +10,16 @@ Permisos
 @section('content')
 <div class="panel-info" style="margin-bottom: 40px">
     <div class="panel-heading">Permisos</div>
+    <div class="panel-body" >
+    <ul class="list-group">
+        <li class="list-group-item">
+            @if(Entrust::can('crear_permisos'))
+            {!! Form::open(array('method' => 'get', 'route' => array('permisos.create'))) !!}
+            {!! Form::submit('Crear un nuevo Permiso', array('class' => 'btn btn-info')) !!}
+            {!! Form::close() !!}
+            @endif
+        </li>
+    </ul>
     <div class="table-responsive">
         <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -51,15 +61,7 @@ Permisos
             @endif
         </table>
     </div>  
-    <ul class="list-group">
-        <li class="list-group-item">
-            @if(Entrust::can('crear_permisos'))
-            {!! Form::open(array('method' => 'get', 'route' => array('permisos.create'))) !!}
-            {!! Form::submit('Crear nuevo permiso', array('class' => 'btn btn-success')) !!}
-            {!! Form::close() !!}
-            @endif
-        </li>
-    </ul>
+</div>
 </div>
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -187,5 +189,12 @@ Permisos
     });
 
 </script>
+
+<style>
+    #example_filter{
+        float: left;
+        margin-top: -10px;
+    }
+</style>
 
 @endsection

@@ -7,42 +7,67 @@ parqueaderos
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
 @stop
 @section('content')
-<div class="panel-default">
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr><th>Nombre del Parqueadero</th><th>plazas</th><th>parámetros</th><th>editar</th><th>eliminar</th></tr>
-            </thead>
-            @if(isset($parqueaderos))
-            <tbody>
-                <!--//este es un comentario-->
-                @foreach($parqueaderos as $parqueadero)
-                <tr><td>{!! $parqueadero->nombre !!}</td>
-                    <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/plazas',"PLAZAS", array("class" => "btn btn-primary")) !!} </td>
-                    <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/parametros',"Parámetros", array("class" => "btn btn-primary")) !!} </td>
-                    <td>editar</td>
 
-                    <td>eliminar</td>
-                    
-                    @if($parqueadero->estado === '1')
+<style>
+    #editar{
+        background-color: #FED94E; 
+        border-color: #FED94E;
+    }
+    
+    #editar:hover{
+        background-color: #FFF24E;
+        border-color: #FFF24E;
+    }
+    
+    #nombres th{
+        text-align: center;
+    }
+    
+</style>
+
+<div class="panel panel-info">
+    <div class="panel-heading">Lista de parqueaderos </div>
+    <div class="panel-body" >
+<!--       {!-- <p>El campo <strong>nombre</strong> representa el tipo de vehículos, el valor de <strong>altura</strong> esta representado en <em>metros</em> y el valor de <strong>peso</strong>  en <em>toneladas</em>. </p> --!} -->
+        <ul class="list-group">
+            <li class="list-group-item">
+                {!! Form::open(array('method' => 'GET', 'route' => array('parqueaderos.create'))) !!}
+                {!! Form::submit('Crear un nuevo Parqueadero', array('class' => 'btn btn-info')) !!}
+                {!! Form::close() !!}
+            </li>
+        </ul>
+        <div class="table-responsive">
+            <table class="table table-striped" style="text-align: center">
+                <thead>
+                    <tr id="nombres"><th>Nombre del Parqueadero</th><th>Plazas</th><th>Parámetros</th><th>Estado del parqueadero</th><th>Editar</th><th>Eliminar</th></tr>
+                </thead>
+                @if(isset($parqueaderos))
+                <tbody>
+                    <!--//este es un comentario-->
+                    @foreach($parqueaderos as $parqueadero)
+                    <tr><td>{!! $parqueadero->nombre !!}</td>
+                        <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/plazas',"PLAZAS", array("class" => "btn btn-primary")) !!} </td>
+                        <td> {!! link_to('parqueadero/'.$parqueadero->nombre.'/parametros',"Parámetros", array("class" => "btn btn-primary")) !!} </td>
+
+                        @if($parqueadero->estado === '1')
                         <td><input type="checkbox" data-toggle="toggle" checked data-on="Activo" data-off="Sin Servicio" data-onstyle="success" data-offstyle="danger"></td>
-                    @else
+                        @else
                         <td><input type="checkbox" data-toggle="toggle"  data-on="Activo" data-off="Sin Servicio" data-onstyle="success" data-offstyle="danger"></td>
-                    @endif
-                </tr>
-                @endforeach
-            </tbody>
-            @endif
-        </table>
+                        @endif
+                        
+                        <td><button class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button></td>
+
+                        <td><button class="btn btn-danger"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td>
+
+                    </tr>
+                    @endforeach
+                </tbody>
+                @endif
+            </table>
+        </div>
     </div>
-    <ul class="list-group">
-        <li class="list-group-item">
-            {!! Form::open(array('method' => 'GET', 'route' => array('parqueaderos.create'))) !!}
-            {!! Form::submit('Crear un nuevo Parqueadero', array('class' => 'btn btn-info')) !!}
-            {!! Form::close() !!}
-        </li>
-    </ul>
 </div>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -75,5 +100,7 @@ parqueaderos
         $('#form-eliminar').submit();
     });
 </script>
+
+
 
 @endsection

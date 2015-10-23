@@ -19,7 +19,7 @@ Tipo Vehiculos
         <div class="table-responsive">
             <table class="table table-striped">
                 <thead>
-                    <tr><th>Imagen</th><th>Nombre</th><th>Altura</th><th>Largo</th><th>Peso</th><th>Descripción</th></tr>
+                    <tr><th>Imagen</th><th>Nombre</th><th>Altura</th><th>Largo</th><th>Peso</th><th>Descripción</th><th>Editar</th><th>Eliminar</th></tr>
                 </thead>
                 @if(isset($tvehiculos))
                 <tbody>
@@ -34,13 +34,13 @@ Tipo Vehiculos
                         <td> <br/> {!! $tipo->descripcion !!}</td>
                         <td> 
                             {!! Form::open(array('method' => 'GET', 'route' => array('tipovehiculos.edit', $tipo->id_tipo))) !!}
-                            {!! Form::submit('Editar', array('class' => 'btn btn-info')) !!}
+                            <button class="btn btn-warning"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                             {!! Form::close() !!}</td>
 
-                        <td>
+                        
                         <td>
                             {!! Form::open(array('id' => $tipo->id_tipo, 'method' => 'DELETE', 'route' => array('tipovehiculos.destroy', $tipo->id_tipo))) !!}
-                            {!! Form::button('Eliminar', array('class' => 'open btn btn-danger','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-nombre' => $tipo-> nombre, 'data-id' => $tipo-> id_tipo)) !!}
+                            {!! Form::button('', array('class' => 'open btn btn-danger glyphicon glyphicon-remove','id' => 'btn-eliminar','data-toggle' => 'modal', 'data-target' => '#myModal', 'data-nombre' => $tipo-> nombre, 'data-id' => $tipo-> id_tipo)) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>
