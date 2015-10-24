@@ -86,8 +86,9 @@
                                     <div class="panel-heading" style="background-color: #A0D468; height: 100px">
                                         <h3>Administración del parqueadero</h3></div>
                                     <div class="panel-body">
+                                        <hr>
                                         <p>Te ofrecemos un completo sistema web que te ayudará en la administración de uno o varios parqueaderos, tendrás control sobre cada plaza de estacionamiento.</p>
-
+                                        <hr>
                                     </div>
                                 </div>
                             </div>
@@ -101,9 +102,9 @@
                                     <div class="panel-heading" style="background-color: #FBB351; height: 100px">
                                         <h3>Web Responsive</h3></div>
                                     <div class="panel-body">
-                                        <br>
-                                        <p> El sistema tiene un diseño web adaptativo, así que podrás  utilizar las herramientas desde cualquier dispositivo que cuente con un navegador web y acceso a internet</p>
-                                        <br>
+                                        <hr>
+                                        <p> El sistema tiene un diseño web adaptativo, así que podrás  utilizar las herramientas desde cualquier dispositivo que cuente con un navegador web y acceso a internet.</p>
+                                        <hr>
                                     </div>
                                 </div>
                             </div>
@@ -114,9 +115,11 @@
                             <div class="col-sm-12 text-center">
                                 <div class="panel panel-default slideInUp animate">
                                     <div class="panel-heading" style="background-color: #ED5565; height: 100px">
-                                        <h3>Aplicación móvil</h3></div>
+                                        <h3>Para tu cliente</h3></div>
                                     <div class="panel-body">
-                                        <p>asdas</p>
+                                        <hr>
+                                        <p>Para el conductor de vehiculos, ponemos a disposición una plicación móvil-híbrida que ofrece la posibilidad de buscar tus parqueaderos en tiempo real.</p>
+                                        <hr>
                                     </div>
                                 </div>
                             </div>
@@ -143,38 +146,52 @@
                             <h3 class="text-center"></h3>
                         </div>
                     </div>
-                    <div class="col-sm-2 col-sm-offset-1">
+                    <div class="col-sm-2 col-sm-offset-0">
                         <div class="text-center">
-                            <img style="width:100px;" class="img-responsive img-thumbnail" src="//placehold.it/100/444">
-                            <h5 style="color: #FFFFFF; background-color: #ED9E46; border-style: solid; padding: 10px;">Control de plazas</h5>
+                            <img style="width:100px;" class="img-responsive img-thumbnail" src="{{ asset('img/phonegap.png') }}">
+                            <h5 style="color: #FFFFFF; background-color: #FBB351; border-style: solid; padding: 10px;">PhoneGap</h5>
                             <h3 class="text-center"></h3>
                         </div>
                     </div>
-                    <div class="col-sm-2 col-sm-offset-1">
+                    <div class="col-sm-2 col-sm-offset-0">
                         <div class="text-center">
-                            <img style="width:100px;" class="img-responsive img-thumbnail" src="//placehold.it/100/444">
-                            <h5 style="color: #FFFFFF; background-color: #ED9E46; border-style: solid; padding: 10px;">Control de plazas</h5>
+                            <img style="width:100px;" class="img-responsive img-thumbnail" src="{{asset('img/jquery-logo.png')}}">
+                            <h5 style="color: #FFFFFF; background-color: #1169AE; border-style: solid; padding: 10px;">jQuery</h5>
+                            <h3 class="text-center"></h3>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-0">
+                        <div class="text-center">
+                            <img style="width:100px;" class="img-responsive img-thumbnail" src="{{'img/laravel.jpg'}}">
+                            <h5 style="color: #FFFFFF; background-color: #F3654E; border-style: solid; padding: 10px;">Laravel</h5>
                             <h3 class="text-center"></h3>
                         </div>
                     </div>
                     <div class="col-sm-2 col-sm-offset-2">
                         <div class="text-center">
-                            <img style="width:100px;" class="img-responsive img-thumbnail" src="//placehold.it/100/444">
-                            <h5 style="color: #FFFFFF; background-color: #ED9E46; border-style: solid; padding: 10px;">Control de plazas</h5>
+                            <img style="width:100px;" class="img-responsive img-thumbnail" src="{{asset('img/bootstrap.png')}}">
+                            <h5 style="color: #FFFFFF; background-color: #553A7C; border-style: solid; padding: 10px;">Bootstrap</h5>
                             <h3 class="text-center"></h3>
                         </div>
                     </div>
-                    <div class="col-sm-2 col-sm-offset-1">
+                    <div class="col-sm-2 col-sm-offset-0">
                         <div class="text-center">
-                            <img style="width:100px;" class="img-responsive img-thumbnail" src="//placehold.it/100/444">
-                            <h5 style="color: #FFFFFF; background-color: #ED9E46; border-style: solid; padding: 10px;">Control de plazas</h5>
+                            <img style="width:100px;" class="img-responsive img-thumbnail" src="{{asset('img/html5.png')}}">
+                            <h5 style="color: #FFFFFF; background-color: #F16529; border-style: solid; padding: 10px;">HTML5</h5>
                             <h3 class="text-center"></h3>
                         </div>
                     </div>
-                    <div class="col-sm-2 col-sm-offset-1">
+                    <div class="col-sm-2 col-sm-offset-0">
                         <div class="text-center">
-                            <img style="width:100px;" class="img-responsive img-thumbnail" src="//placehold.it/100/444">
-                            <h5 style="color: #FFFFFF; background-color: #ED9E46; border-style: solid; padding: 10px;">Control de plazas</h5>
+                            <img style="width:100px;" class="img-responsive img-thumbnail" src="{{asset('img/js.png')}}">
+                            <h5 style="color: #FFFFFF; background-color: #D6BA32; border-style: solid; padding: 10px;">JavaScript</h5>
+                            <h3 class="text-center"></h3>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-sm-offset-0">
+                        <div class="text-center">
+                            <img style="width:100px;" class="img-responsive img-thumbnail" src="{{asset('img/ajax-logo.png')}}">
+                            <h5 style="color: #FFFFFF; background-color: #0274BA; border-style: solid; padding: 10px;">AJAX</h5>
                             <h3 class="text-center"></h3>
                         </div>
                     </div>
