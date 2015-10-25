@@ -103,5 +103,10 @@ plazas de estacionamiento
     });
 
 </script>
+<style>
+    .content{
+        padding-top: 1px;
+    }
+</style>
 @endsection
 
