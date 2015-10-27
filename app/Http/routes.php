@@ -107,3 +107,6 @@ Route::get('/permisos/editar/{id}', 'PermisosController@edit');
 
 Route::resource('/permisos', 'PermisosController');
 
+//PARQUEANDO
+
+Route::get('/parqueando', 'ParqueandoController@index');
