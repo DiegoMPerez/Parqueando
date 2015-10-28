@@ -8,11 +8,39 @@ WEB PARQUEANDO
     <div class="panel-heading">Busca un parqueadero</div>
     <div class="panel-body" >
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group">
+                    {!! Form::label('buscar', 'Buscar Lugar:', ['class' => 'col-md-2 col-xs-12 control-label']) !!}
+                    <div class="col-md-10 col-xs-12">
+                        {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
+                    </div>
+                </div>
+                <div class="form-group text-center">
+                    {!! Form::label('buscar', 'Información', ['class' => 'col-md-12 control-label']) !!}
+                    <div class="col-md-12 panel-info" id="infor">
+                        <label>lkajsd</label>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {!! link_to('parqueaderos',"IR", array("class" => "btn-success col-sm-4 col-xs-4 col-md-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 text-center")) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="panel-body"></div>
+                </div>
+
+
+            </div>
+
+
+            <div class="col-md-8 col-sm-8 col-xs-12">
                 <div id="map-canvas"></div>        
             </div>
+
         </div>
-        <input type="button" id="routebtn" value="route" />
+        <!--<input type="button" id="routebtn" value="route" />-->
     </div>
 </div>
 
@@ -24,6 +52,7 @@ WEB PARQUEANDO
         margin: 0px;
         padding: 0px
     }
+
 
 </style>
 <script>
@@ -41,7 +70,8 @@ WEB PARQUEANDO
             };
             map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             directionsDisplay.setMap(map);
-            google.maps.event.addDomListener(document.getElementById('routebtn'), 'click', calcRoute);
+            //google.maps.event.addDomListener(document.getElementById('routebtn'), 'click', calcRoute);
+            calcRoute();
         }
 
         function calcRoute() {
@@ -90,10 +120,10 @@ WEB PARQUEANDO
         }
 
         google.maps.event.addDomListener(window, 'load', initialize);
-        
+
     }
     mapLocation();
-    calcRoute();
-    
+
+
 </script>
 @endsection
