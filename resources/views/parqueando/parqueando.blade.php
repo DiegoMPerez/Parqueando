@@ -79,7 +79,7 @@ WEB PARQUEANDO
 
             var directionsService = new google.maps.DirectionsService();
             var geocoder = new google.maps.Geocoder();
-            var image = "{{asset('img/marcador_car.png')}}";
+            var image = "{{asset('img/marcador_parquenado.png')}}";
             
             var directionsDisplay = new google.maps.DirectionsRenderer();
             
@@ -102,7 +102,7 @@ WEB PARQUEANDO
             var inicio = new google.maps.LatLng(_lat, _lng);
             var fin = new google.maps.LatLng(0.3190745, -78.107557);
             
-            calcRoute(inicio, fin);
+            //calcRoute(inicio, fin);
             
             function maker_changed(marker) {
                 var lat = marker.getPosition().lat();
