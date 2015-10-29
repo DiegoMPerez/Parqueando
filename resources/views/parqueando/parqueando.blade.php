@@ -9,35 +9,41 @@ WEB PARQUEANDO
     <div class="panel-body" >
         <div class="row">
             <div class="col-md-4 col-sm-4 col-xs-12">
-                <form class="form-login">
-                    <div class="form-group">
-                        {!! Form::label('buscar', 'Buscar Lugar:', ['class' => 'col-md-2 col-xs-12 control-label']) !!}
-                        <div class="col-md-10 col-xs-12">
-                            {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
-                        </div>
+
+                <div class="form-group">
+                    {!! Form::label('buscar', 'Buscar Lugar:', ['class' => 'col-md-2 col-xs-12 control-label']) !!}
+                    <div class="col-md-10 col-xs-12">
+                        {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
                     </div>
+                </div>
+                <div class="panel-body">
+
                     <div class="form-group text-center">
-                        {!! Form::label('buscar', 'Información', ['class' => 'col-md-12 control-label']) !!}
+                        <label class="col-md-12 col-sm-12"><strong>Información</strong></label>
                         <div class="col-md-12 panel-info" id="infor">
                             <label>lkajsd</label>
+                        </div>
 
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            {!! link_to('parqueaderos',"IR", array("class" => "btn-success col-sm-4 col-xs-4 col-md-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 text-center")) !!}
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-12 col-sm-12 col-xs-12">
-                            <button id="go" class="btn-success col-sm-4 col-xs-4 col-md-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 text-center">go</button>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="panel-body"></div>
                     </div>
 
-                </form>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {!! link_to('#',"Ruta", array('id'=>'ruta',"class" => "btn-success col-sm-4 col-xs-4 col-md-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 text-center")) !!}
+                    </div>
+                </div>
+                <br/>
+                <div class="form-group">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        {!! link_to('#',"Navegar", array('id'=>'navegar',"class" => "btn-info col-sm-4 col-xs-4 col-md-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 text-center")) !!}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="panel-body"></div>
+                </div>
+
+
             </div>
 
 
@@ -169,12 +175,12 @@ WEB PARQUEANDO
 
             var inicio = new google.maps.LatLng(_lat, _lng);
             var fin = new google.maps.LatLng(0.32285139103669863, -78.10747106931149);
-            
+
             var beachMarker = new google.maps.Marker({
-                    position: fin,
-                    map: map,
-                    icon: "{{asset('img/marcador_p.png')}}"
-                });
+                position: fin,
+                map: map,
+                icon: "{{asset('img/marcador_p.png')}}"
+            });
 
             calcRoute(inicio, fin);
 
@@ -183,7 +189,7 @@ WEB PARQUEANDO
 
                 //var end = new google.maps.LatLng(38.334818, -181.884886);
                 //var end = new google.maps.LatLng(0.32328013765715263, -78.10352295764159);
-                
+
 
 
                 var bounds = new google.maps.LatLngBounds();
@@ -208,6 +214,20 @@ WEB PARQUEANDO
                     }
                 });
             }
+
+            //botón navegar
+
+            $('#navegar').on('click', function () {
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                var latlng = new google.maps.LatLng(lat, lng);
+                map.setCenter(latlng);
+                map.setZoom(17);
+            });
+            
+            $('#ruta').on('click', function (){
+                calcRoute(inicio, fin);
+            });
 
         }
 //AJAX
