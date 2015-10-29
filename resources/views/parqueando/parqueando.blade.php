@@ -40,6 +40,17 @@ WEB PARQUEANDO
                     </div>
                 </div>
                 <div class="form-group">
+                    <br>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <input id="area" type="checkbox" aria-label="...">
+                            </span>
+                            <label type="text" class="form-control" aria-label="..." >Activar el área de búsqueda</label>
+                        </div><!-- /input-group -->
+                    </div>
+                </div>
+                <div class="form-group">
                     <div class="panel-body"></div>
                 </div>
 
@@ -129,6 +140,7 @@ WEB PARQUEANDO
                 draggable: true,
                 icon: image
             });
+
 
             var inicio = new google.maps.LatLng(_lat, _lng);
 
@@ -228,6 +240,20 @@ WEB PARQUEANDO
                 });
             }
 
+            function dibujarArea() {
+                //Dibujar circulo
+                var circle = new google.maps.Circle({
+                    center: inicio,
+                    radius: 1000,
+                    fillColor: "#fd69b3",
+                    fillOpacity: 0.3,
+                    strokeOpacity: 0.0,
+                    strokeWeight: 0,
+                    map: map
+                });
+
+            }
+
             //botón navegar
 
             $('#navegar').on('click', function () {
@@ -240,6 +266,12 @@ WEB PARQUEANDO
 
             $('#ruta').on('click', function () {
                 calcRoute(inicio, fin);
+            });
+            
+            //Activar área
+            
+            $('#area').change(function (){
+                dibujarArea();
             });
 
         }
