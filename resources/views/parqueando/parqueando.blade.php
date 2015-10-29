@@ -146,6 +146,7 @@ WEB PARQUEANDO
                 var lat = marker.getPosition().lat();
                 var lng = marker.getPosition().lng();
                 inicio = new google.maps.LatLng(lat, lng);
+                $('#area_b').change();
             }
             google.maps.event.addListener(marker, 'mouseup', function () {
                 var lat = marker.getPosition().lat();
@@ -273,11 +274,9 @@ WEB PARQUEANDO
             //Activar área
 
             $('#area_b').change(function () {
+                eliminarArea();
                 if ($(this).prop('checked')) {
                     dibujarArea();
-                    console.log("dib");
-                } else {
-                    eliminarArea();
                 }
             });
 
