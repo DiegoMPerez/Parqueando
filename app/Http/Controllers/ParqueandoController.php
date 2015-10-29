@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use DB;
 
 class ParqueandoController extends Controller {
 
@@ -18,6 +19,70 @@ class ParqueandoController extends Controller {
      * @return Response
      */
     public function index() {
+
+        $distancia = 0.1;
+
+        //Algoritmo Vincenty para el cálculo de distancia en un área de un elipsoide
+
+        $parqueaderos = DB::select("SELECT  X(ubicacion_geografica), Y(ubicacion_geografica), distance FROM (
+    SELECT ubicacion_geografica,r,
+           units * DEGREES(
+              ATAN2(
+                SQRT(
+                   POW(COS(RADIANS(latpoint))*SIN(RADIANS(longpoint-Y(ubicacion_geografica))),2) +
+                     POW(COS(RADIANS(X(ubicacion_geografica)))*SIN(RADIANS(latpoint)) -
+                     (SIN(RADIANS(X(ubicacion_geografica)))*COS(RADIANS(latpoint)) *
+                      COS(RADIANS(longpoint-Y(ubicacion_geografica)))) ,2)),
+                   SIN(RADIANS(X(ubicacion_geografica)))*SIN(RADIANS(latpoint)) +
+                     COS(RADIANS(X(ubicacion_geografica)))*
+                     COS(RADIANS(latpoint))*
+                     COS(RADIANS(longpoint-Y(ubicacion_geografica)
+                   )
+                  ))) AS distance
+      FROM parqueaderos
+      JOIN (
+             SELECT 0.31941791742451  AS latpoint,  -78.106955485181 AS longpoint,
+             " . $distancia . " AS r, 69.0 AS units
+           ) AS p ON (1=1)
+     WHERE MBRCONTAINS(GEOMFROMTEXT(
+             CONCAT('LINESTRING(',
+                       latpoint-(r/units),' ',
+                       longpoint-(r /(units* COS(RADIANS(latpoint)))),
+                       ',',
+                       latpoint+(r/units) ,' ',
+                       longpoint+(r /(units * COS(RADIANS(latpoint)))),
+                    ')')),  ubicacion_geografica)
+       ) AS d
+ WHERE distance <= r
+ ORDER BY distance");
+        
+        
+       // Área plana, algoritmo de Euclides
+        
+//        "SELECT X(ubicacion_geografica), Y(ubicacion_geografica), distance 
+//  FROM ( 
+//         SELECT ubicacion_geografica,r, 
+//                units * DEGREES( ACOS( COS(RADIANS(latpoint)) * 
+//                                       COS(RADIANS(X(ubicacion_geografica))) * 
+//                                       COS(RADIANS(longpoint) - RADIANS(Y(ubicacion_geografica))) + 
+//                                       SIN(RADIANS(latpoint)) * 
+//                                       SIN(RADIANS(X(ubicacion_geografica))))) AS distance 
+//           FROM parqueaderos
+//           JOIN ( 
+//                  SELECT 0.3190746 AS latpoint, -78.1075563 AS longpoint, 
+//                         10.0 AS r, 69.0 AS units 
+//                ) AS p ON (1=1) 
+//          WHERE MbrContains(GeomFromText( 
+//                        CONCAT('LINESTRING(', latpoint-(r/units),' ',
+//                                              longpoint-(r /(units* COS(RADIANS(latpoint)))), 
+//                                              ',', 
+//                                              latpoint+(r/units) ,' ', 
+//                                              longpoint+(r /(units * COS(RADIANS(latpoint)))), ')')),
+//                        ubicacion_geografica) 
+//       ) AS d 
+// WHERE distance <= r 
+// ORDER BY distance"
+
         return view('parqueando.parqueando');
     }
 
