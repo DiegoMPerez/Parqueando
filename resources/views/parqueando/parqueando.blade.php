@@ -2,6 +2,10 @@
 @section('title')
 WEB PARQUEANDO
 @endsection
+@section('linktop')
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js"></script>
+@stop
 @section('content')
 <script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry,places,drawing&ext=.js"></script>
 <div class="panel-info" style="margin-bottom: 40px">
@@ -39,16 +43,9 @@ WEB PARQUEANDO
                         {!! link_to('#',"Navegar", array('id'=>'navegar',"class" => "btn-info col-sm-4 col-xs-4 col-md-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 text-center")) !!}
                     </div>
                 </div>
+                <br>
                 <div class="form-group">
-                    <br>
-                    <div class="col-md-12 col-sm-12 col-xs-12">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <input id="area" type="checkbox" aria-label="...">
-                            </span>
-                            <label type="text" class="form-control" aria-label="..." >Activar el área de búsqueda</label>
-                        </div><!-- /input-group -->
-                    </div>
+                    <label class="col-md-8 col-xs-12 control-label">Mostrar el área de búsqueda  <input id="area_b" type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="warning"></label>
                 </div>
                 <div class="form-group">
                     <div class="panel-body"></div>
@@ -240,18 +237,23 @@ WEB PARQUEANDO
                 });
             }
 
-            function dibujarArea() {
-                //Dibujar circulo
-                var circle = new google.maps.Circle({
-                    center: inicio,
-                    radius: 1000,
-                    fillColor: "#fd69b3",
-                    fillOpacity: 0.3,
-                    strokeOpacity: 0.0,
-                    strokeWeight: 0,
-                    map: map
-                });
 
+            var circle = new google.maps.Circle({
+                center: inicio,
+                radius: 1000,
+                fillColor: "#F0AD4E",
+                fillOpacity: 0.3,
+                strokeOpacity: 0.0,
+                strokeWeight: 0
+            });
+
+            function dibujarArea() {
+                circle.setCenter(inicio);
+                circle.setMap(map);
+            }
+
+            function eliminarArea() {
+                circle.setMap(null);
             }
 
             //botón navegar
@@ -267,11 +269,16 @@ WEB PARQUEANDO
             $('#ruta').on('click', function () {
                 calcRoute(inicio, fin);
             });
-            
+
             //Activar área
-            
-            $('#area').change(function (){
-                dibujarArea();
+
+            $('#area_b').change(function () {
+                if ($(this).prop('checked')) {
+                    dibujarArea();
+                    console.log("dib");
+                } else {
+                    eliminarArea();
+                }
             });
 
         }
