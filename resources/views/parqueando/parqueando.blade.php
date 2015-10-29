@@ -94,19 +94,22 @@ WEB PARQUEANDO
             }
 
 
-
+            var inicio = new google.maps.LatLng(_lat, _lng);
+            var fin = new google.maps.LatLng(0.32285139103669863, -78.10747106931149);
 
 
 //
             var directionsService = new google.maps.DirectionsService();
             var geocoder = new google.maps.Geocoder();
-            var image = "{{asset('img/carro.png')}}";
+            var image = {
+                url: "{{asset('img/carro.png')}}",
+            };
 
             var directionsDisplay = new google.maps.DirectionsRenderer();
 
             var mapOptions = {
                 center: {lat: _lat, lng: _lng},
-                zoom: 15,
+                zoom: 15
             };
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             directionsDisplay.setMap(map);
@@ -123,7 +126,7 @@ WEB PARQUEANDO
                     lng: _lng
                 },
                 map: map,
-                draggable: false,
+                draggable: true,
                 icon: image
             });
 
@@ -133,8 +136,17 @@ WEB PARQUEANDO
             function maker_changed(marker) {
                 var lat = marker.getPosition().lat();
                 var lng = marker.getPosition().lng();
-
+                inicio = new google.maps.LatLng(lat, lng);
             }
+            google.maps.event.addListener(marker, 'mouseup', function () {
+                var lat = marker.getPosition().lat();
+                var lng = marker.getPosition().lng();
+                var latlng = new google.maps.LatLng(lat, lng);
+                marker.setMap(null);
+                calcRoute(latlng, fin);
+                marker.setMap(map);
+            });
+
 
             $('#buscar').keydown(function (event) {
                 if (event.keyCode === 13) {
@@ -153,7 +165,7 @@ WEB PARQUEANDO
                         if (status === google.maps.GeocoderStatus.OK) {
                             map.setCenter(results[0].geometry.location);
                             marker.setPosition(results[0].geometry.location);
-                            map.setZoom(16);
+                            //map.setZoom(16);
                         } else {
                             console.log(status);
                             if (status === google.maps.GeocoderStatus.OVER_QUERY_LIMIT) {
@@ -173,8 +185,7 @@ WEB PARQUEANDO
                 maker_changed(marker);
             });
 
-            var inicio = new google.maps.LatLng(_lat, _lng);
-            var fin = new google.maps.LatLng(0.32285139103669863, -78.10747106931149);
+
 
             var beachMarker = new google.maps.Marker({
                 position: fin,
@@ -185,6 +196,7 @@ WEB PARQUEANDO
             calcRoute(inicio, fin);
 
             function calcRoute(inicio, fin) {
+                directionsDisplay.setDirections({routes: []});
                 //marker.setMap(null);
 
                 //var end = new google.maps.LatLng(38.334818, -181.884886);
@@ -199,12 +211,13 @@ WEB PARQUEANDO
                 var request = {
                     origin: inicio,
                     destination: fin,
-                    travelMode: google.maps.TravelMode.DRIVING
+                    travelMode: google.maps.TravelMode.DRIVING,
                 };
                 directionsService.route(request, function (response, status) {
                     if (status == google.maps.DirectionsStatus.OK) {
                         directionsDisplay = new google.maps.DirectionsRenderer(
                                 {
+                                    preserveViewport: true,
                                     suppressMarkers: true
                                 });
                         directionsDisplay.setDirections(response);
@@ -222,10 +235,10 @@ WEB PARQUEANDO
                 var lng = marker.getPosition().lng();
                 var latlng = new google.maps.LatLng(lat, lng);
                 map.setCenter(latlng);
-                map.setZoom(17);
+                map.setZoom(18);
             });
-            
-            $('#ruta').on('click', function (){
+
+            $('#ruta').on('click', function () {
                 calcRoute(inicio, fin);
             });
 

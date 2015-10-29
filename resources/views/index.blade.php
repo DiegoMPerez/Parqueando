@@ -4,7 +4,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/img/p.ico') }}" />
         <meta charset="utf-8">
         <title>PARQUEANDO</title>
-        <meta name="description" content="This one page example has a fixed navbar and full page height sections. Each section is vertically centered on larger screens, and then stack responsively on smaller screens. Scrollspy is used to activate the current menu item. This layout also has a contact form example. Uses animate.css, FontAwesome, Google Fonts (Lato and Bitter) and Bootstrap." />
+        <meta name="description" content="Sistema web para la administración de parqueaderos, incluye una aplicación android para la búsqueda de parqueaderos" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="generator" content="Codeply">
 
@@ -64,6 +64,7 @@
                     @else
                     <a href="{{ url('/auth/register') }}" class="btn btn-info btn-lg btn-huge lato">Registrarme</a>
                     @endif
+                <h3 class="text-center text-danger" > -- Sitio en construcción -- </h3>
                 </p>
             </div>
             <a href="#section2">
@@ -261,7 +262,7 @@
                                                 </address>-->
                         <address>
                             <strong>Email</strong><br>
-                            <a href="mailto:#">dmperez@utn.edu.ec</a>
+                            <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#100;&#109;&#112;&#101;&#114;&#101;&#122;&#64;&#117;&#116;&#110;&#46;&#101;&#100;&#117;&#46;&#101;&#99;">Diego M. Pérez</a>
                         </address>
                     </div>
                 </div>
