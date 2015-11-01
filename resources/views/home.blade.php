@@ -16,12 +16,19 @@ PARQUEANDO
     <div class="panel-body" style="text-align: center; color: #fff">
         <h1 class="text-center" style="color: #777777">Bienvenido a <strong style="color: #337AB7" id="parqueando">PARQUEANDO</strong></h1>
         <p class="lead" style="color: #777777" ><a id="buscar">¡Encuentra un parqueadero!</a></p>
-        {!! link_to('error403',"INSTALAR APP", array("class" => "btn btn-primary")) !!}
-        @if(!$parqueadero)
-        {!! link_to('parqueaderos/create',"OFRECER EL SERVICIO DE PARQUEADERO", array("class" => "btn btn-info")) !!}
-        @else
-        {!! link_to('parqueaderos',"MIS PARQUEADEROS", array("class" => "btn btn-info")) !!}
-        @endif
+        <div class="r   ow">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                {!! link_to('error403',"INSTALAR APP", array("class" => "btn btn-primary")) !!}
+                @if(!$parqueadero)
+                {!! link_to('parqueaderos/create',"OFRECER EL SERVICIO DE PARQUEADERO", array("class" => "btn btn-info")) !!}
+                @else
+                {!! link_to('parqueaderos',"MIS PARQUEADEROS", array("class" => "btn btn-info")) !!}
+                @endif
+            </div>
+
+        </div>
+
+
     </div>
 
 </div>
@@ -68,7 +75,7 @@ PARQUEANDO
     #buscar:hover{
         color: #337AB7;
     }
-    
+
     @media only screen and (min-width: 700px) {
 
         .text-center{

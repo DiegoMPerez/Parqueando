@@ -79,15 +79,11 @@ Route::group(['middleware' => 'roles', 'roles' => ['admin']], function() {
     Route::resource('/tipovehiculos', 'TipoVehiculosController', ['only' => ['index', 'create', 'store', 'edit', 'destroy', 'update']]);
 });
 
-
 //ERRORES
 
 Route::get('/error{id}', 'ErrorController@index');
 
-
 //ROLES
-
-
 
 Route::get('/permisos/asignados', 'PermisosController@getPermisos');
 Route::get('/permisos', 'PermisosController@index');
@@ -110,3 +106,6 @@ Route::resource('/permisos', 'PermisosController');
 //PARQUEANDO
 
 Route::get('/parqueando', 'ParqueandoController@index');
+
+Route::get('/parqueando/parqueaderos', 'ParqueandoController@parqueaderos');
+

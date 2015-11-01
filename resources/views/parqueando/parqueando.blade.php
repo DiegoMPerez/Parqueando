@@ -45,7 +45,7 @@ WEB PARQUEANDO
                 </div>
                 <br>
                 <div class="form-group">
-                    <label class="col-md-8 col-xs-12 control-label">Mostrar el área de búsqueda  <input id="area_b" type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="warning"></label>
+                    <label class="col-md-8 col-xs-12 control-label">Área de búsqueda 2<em>km</em> &nbsp; <input id="area_b" type="checkbox" data-toggle="toggle" data-size="mini" data-onstyle="warning"></label>
                 </div>
                 <div class="form-group">
                     <div class="panel-body"></div>
@@ -60,8 +60,28 @@ WEB PARQUEANDO
             </div>
 
         </div>
-        <!--<input type="button" id="routebtn" value="route" />-->
+
+
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header text-warning">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="titulo">Activa el GPS</h4>
+                    </div>
+                    <div class="modal-body" id="mensaje">
+                        <p>Este servicio requiere la activación del GPS, por favor activa y recarga la página.</p>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 </div>
 
 <style>
@@ -76,58 +96,53 @@ WEB PARQUEANDO
 
 </style>
 <script>
+
     $(document).ready(function () {
 
-        if ("geolocation" in navigator) {
-            console.log("Geolocalización Activada");
-            geolocalizacion();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, handle_error);
         } else {
-            console.log("Geolocalización Desactivada");
+            error('not supported');
         }
-
-        // GEOLOCALIZACIÓN
-        function geolocalizacion() {
-            if (navigator.geolocation.getCurrentPosition(showPosition)) {
+        function handle_error(err) {
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('#myModal').modal('show');
+            } else {
+                $('#titulo').text("Permite compartir la ubicación");
+                $('#mensaje').text("Este servicio necesita tu ubicación, por favor recarga la página y permite compartir la ubicación.");
+                $('#myModal').modal('show');
             }
         }
-        var _lat = 0;
-        var _lng = 0;
+
+
         function showPosition(position) {
-            if (position === null) {
-                _lat = 0.3212001155157536;
-                _lng = -78.10052093275755;
-            } else {
+            if (position) {
                 _lat = position.coords.latitude;
                 _lng = position.coords.longitude;
+            } else {
+
+                return false;
+                //_lat = 0.3212001155157536;
+                //_lng = -78.10052093275755;
             }
 
 
             var inicio = new google.maps.LatLng(_lat, _lng);
             var fin = new google.maps.LatLng(0.32285139103669863, -78.10747106931149);
-
-
 //
             var directionsService = new google.maps.DirectionsService();
             var geocoder = new google.maps.Geocoder();
             var image = {
                 url: "{{asset('img/carro.png')}}",
             };
-
             var directionsDisplay = new google.maps.DirectionsRenderer();
-
             var mapOptions = {
                 center: {lat: _lat, lng: _lng},
                 zoom: 15
             };
             var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
             directionsDisplay.setMap(map);
-
-
-
-
-
             var searchBox = new google.maps.places.SearchBox(document.getElementById('buscar'));
-
             var marker = new google.maps.Marker({
                 position: {
                     lat: _lat,
@@ -137,11 +152,7 @@ WEB PARQUEANDO
                 draggable: true,
                 icon: image
             });
-
-
             var inicio = new google.maps.LatLng(_lat, _lng);
-
-
             function maker_changed(marker) {
                 var lat = marker.getPosition().lat();
                 var lng = marker.getPosition().lng();
@@ -156,8 +167,6 @@ WEB PARQUEANDO
                 calcRoute(latlng, fin);
                 marker.setMap(map);
             });
-
-
             $('#buscar').keydown(function (event) {
                 if (event.keyCode === 13) {
                     $('#buscar').mouseenter();
@@ -166,11 +175,9 @@ WEB PARQUEANDO
                     'slow');
                 }
             });
-
             google.maps.event.addListener(searchBox, 'places_changed', function () {
                 try {
                     var address = document.getElementById('buscar').value;
-
                     geocoder.geocode({'address': address}, function (results, status) {
                         if (status === google.maps.GeocoderStatus.OK) {
                             map.setCenter(results[0].geometry.location);
@@ -190,21 +197,15 @@ WEB PARQUEANDO
                     console.log(e.message);
                 }
             });
-
             google.maps.event.addListener(marker, 'position_changed', function () {
                 maker_changed(marker);
             });
-
-
-
             var beachMarker = new google.maps.Marker({
                 position: fin,
                 map: map,
                 icon: "{{asset('img/marcador_p.png')}}"
             });
-
             calcRoute(inicio, fin);
-
             function calcRoute(inicio, fin) {
                 directionsDisplay.setDirections({routes: []});
                 //marker.setMap(null);
@@ -233,7 +234,10 @@ WEB PARQUEANDO
                         directionsDisplay.setDirections(response);
                         directionsDisplay.setMap(map);
                     } else {
-                        alert("Directions Request from " + inicio.toUrlValue(6) + " to " + fin.toUrlValue(6) + " failed: " + status);
+                        $('#titulo').text("Error al calcular la ruta");
+                        $('#mensaje').text("No se puede calcular la ruta desde su ubicación.");
+                        $('#myModal').modal('show');
+                        //alert("No existe respuesta para esta ruta " + inicio.toUrlValue(6) + " to " + fin.toUrlValue(6) + " failed: " + status);
                     }
                 });
             }
@@ -241,13 +245,13 @@ WEB PARQUEANDO
 
             var circle = new google.maps.Circle({
                 center: inicio,
-                radius: 1000,
+                //radio en metros
+                radius: 2000,
                 fillColor: "#F0AD4E",
                 fillOpacity: 0.3,
                 strokeOpacity: 0.0,
                 strokeWeight: 0
             });
-
             function dibujarArea() {
                 circle.setCenter(inicio);
                 circle.setMap(map);
@@ -266,11 +270,9 @@ WEB PARQUEANDO
                 map.setCenter(latlng);
                 map.setZoom(18);
             });
-
             $('#ruta').on('click', function () {
                 calcRoute(inicio, fin);
             });
-
             //Activar área
 
             $('#area_b').change(function () {
@@ -279,15 +281,19 @@ WEB PARQUEANDO
                     dibujarArea();
                 }
             });
-
         }
 //AJAX
-        $('#enviar').click(function (event) {
-
-
-
+        $.ajax({
+            type: 'GET',
+            url: '{{URL()}}',
+            data: {get_param: 'value'},
+            dataType: 'json',
+            success: function (data) {
+                $.each(data, function (index, element) {
+                    console.log(element);
+                });
+            }
         });
-
     });
 
 </script>
