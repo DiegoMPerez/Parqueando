@@ -16,22 +16,23 @@ WEB PARQUEANDO
 
                 <div class="form-group">
                     {!! Form::label('buscar', 'Buscar Lugar:', ['class' => 'col-md-2 col-xs-12 control-label']) !!}
-                    <div class="col-md-10 col-xs-12">
+                    <div class=" col-md-12 col-xs-12">
                         {!! Form::text('buscar', '', ['class' => 'form-control']) !!}
                     </div>
                 </div>
-                <div class="panel-body">
+                <div class="form-group ">
+                    <div class="panel panel-default col-md-8 col-sm-8 col-xs-12">
+                        <div class="panel-body">
+                            <div class="form-group text-center">
+                                <label class="col-md-12 col-sm-12"><strong>Información</strong></label>
+                                <div class="col-md-12 panel-info" id="infor">
+                                    <label>lkajsd</label>
+                                </div>
 
-                    <div class="form-group text-center">
-                        <label class="col-md-12 col-sm-12"><strong>Información</strong></label>
-                        <div class="col-md-12 panel-info" id="infor">
-                            <label>lkajsd</label>
+                            </div>
                         </div>
-
                     </div>
-
                 </div>
-
                 <div class="form-group">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         {!! link_to('#',"Ruta", array('id'=>'ruta',"class" => "btn-success col-sm-4 col-xs-4 col-md-4 col-md-offset-4 col-sm-offset-4 col-xs-offset-4 text-center")) !!}
