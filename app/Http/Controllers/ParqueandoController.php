@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -81,8 +82,16 @@ class ParqueandoController extends Controller {
         //
     }
 
-    public function parqueaderos($id) {
-        $kilometros = 2;
+    public function parqueaderos() {
+
+        $radio = \Request::input('radio');
+        $lat = \Request::input('lat');
+        $lng = \Request::input('lng');
+
+        //dd($radio, $lat, $lng);
+        
+        $kilometros = $radio;
+
         $distancia = $kilometros * 0.621371;
 
         //Algoritmo Vincenty para el cálculo de distancia en un área de un elipsoide
@@ -104,7 +113,7 @@ class ParqueandoController extends Controller {
                   ))) AS distance
       FROM parqueaderos
       JOIN (
-             SELECT 0.31941791742451  AS latpoint,  -78.106955485181 AS longpoint,
+             SELECT " . $lat . "  AS latpoint,  " . $lng . " AS longpoint,
              " . $distancia . " AS r, 69.0 AS units
            ) AS p ON (1=1)
      WHERE MBRCONTAINS(GEOMFROMTEXT(
@@ -163,5 +172,7 @@ class ParqueandoController extends Controller {
         );
 
         $encode = json_encode($data);
+        return $encode;
     }
+
 }
